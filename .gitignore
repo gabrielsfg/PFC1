@@ -10,20 +10,6 @@ __pycache__/
 *.pyo
 *.pyd
 
-# Dados/áudios e saídas
-data/input/
-data/output/
-*.wav
-*.mp3
-*.m4a
-*.flac
-*.ogg
-*.aac
-*.webm
-*.mp4
-*.log
-*.tmp
-
 # Arquivos sensíveis/ruído
 .env
 .DS_Store
