@@ -1,0 +1,34 @@
+# venv e IDEs
+.venv/
+.vscode/
+.idea/
+
+# Python cache
+__pycache__/
+**/__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Dados/áudios e saídas
+data/input/
+data/output/
+*.wav
+*.mp3
+*.m4a
+*.flac
+*.ogg
+*.aac
+*.webm
+*.mp4
+*.log
+*.tmp
+
+# Arquivos sensíveis/ruído
+.env
+.DS_Store
+Thumbs.db
+desktop.ini
+.ipynb_checkpoints/
+.cache/
+.huggingface/
