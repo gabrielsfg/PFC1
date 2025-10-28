@@ -18,3 +18,16 @@ desktop.ini
 .ipynb_checkpoints/
 .cache/
 .huggingface/
+
+# Pasta com input e output
+data/
+
+# ===== PyInstaller (build artifacts) =====
+dist/
+build/
+*.spec
+
+# Logs e dumps
+*.log
+*.tmp
+*.bak
