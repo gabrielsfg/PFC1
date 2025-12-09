@@ -1,33 +1,43 @@
-# venv e IDEs
-.venv/
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+*.egg-info/
+.eggs/
+dist/
+build/
+
+# Environment files
+.env
+*.env
+
+# IDE
 .vscode/
 .idea/
+*.swp
+*.swo
 
-# Python cache
-__pycache__/
-**/__pycache__/
-*.pyc
-*.pyo
-*.pyd
-
-# Arquivos sensíveis/ruído
-.env
+# OS
 .DS_Store
 Thumbs.db
 desktop.ini
-.ipynb_checkpoints/
-.cache/
-.huggingface/
 
-# Pasta com input e output
-data/
+# Data files (não versionar dados sensíveis)
+*/data/output/*
+!*/data/output/.gitkeep
+*/data/processed/*
+!*/data/processed/.gitkeep
+*/data/ami_dataset/*
+!*/data/ami_dataset/.gitkeep
 
-# ===== PyInstaller (build artifacts) =====
-dist/
-build/
-*.spec
-
-# Logs e dumps
+# Logs
 *.log
+
+# Temporary files
 *.tmp
-*.bak
+*~
