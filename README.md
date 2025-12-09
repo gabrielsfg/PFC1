@@ -1,8 +1,8 @@
-\# Projeto Final de Curso - Inteligência artificial Generativa e Engenharia de Software: Desafios e Oportunidades.
+# Projeto Final de Curso - Inteligência artificial Generativa e Engenharia de Software: Desafios e Oportunidades.
 
 Sistema de múltiplos agentes de IA para processamento e análise de transcrições.
 
-\## 📁 Estrutura do Projeto
+## 📁 Estrutura do Projeto
 
 ```
 
@@ -14,20 +14,20 @@ Tcc/
 
 ```
 
-\## 🚀 Agentes
+## 🚀 Agentes
 
-\### 1. Agente de Transcrição
+### 1. Agente de Transcrição
 
 Transcreve áudios para texto.
 
-\[Ver documentação](./agente-transcricao/README.md)
+[Ver documentação](./agente-transcricao/README.md)
 
-\### 2. Agente de Identificação
+### 2. Agente de Identificação
 
 Identifica personas e gera user stories usando LLM.
 
-\[Ver documentação](./agente-identificacao/README.md)
+[Ver documentação](./agente-identificacao/README.md)
 
-\## 👤 Autor
+## 👤 Autor
 
 Gabriel Ferreira Silva - Projeto Final Curso
