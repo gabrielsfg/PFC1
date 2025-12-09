@@ -208,19 +208,9 @@ Edite `config/prompts.py` para ajustar como o LLM identifica personas e cria use
 
 Modifique os prompts em `config/prompts.py` e ajuste a estrutura esperada em `persona_identifier.py`.
 
-## 🔐 Segurança
-
-- ✅ Nunca faça commit do arquivo `.env`
-- ✅ A chave da API nunca é logada
-- ✅ Use variáveis de ambiente para credenciais
-
-## 📄 Licença
-
-[Adicione sua licença aqui]
-
 ## 👤 Autor
 
-Gabriel - TCC Faculdade
+Gabriel Ferreira Silva - Projeto Final de Curso
 
 ---
 
