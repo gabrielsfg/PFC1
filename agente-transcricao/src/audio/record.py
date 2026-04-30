@@ -1,4 +1,5 @@
 from pathlib import Path
+import threading
 import sounddevice as sd
 import soundfile as sf
 import numpy as np
@@ -6,23 +7,35 @@ import numpy as np
 DEFAULT_SR = 16000
 DEFAULT_CHANNELS = 1
 
-def record_wav(
+
+def record_wav_continuous(
     out_path: Path,
-    seconds: float = 10.0,
+    stop_event: threading.Event,
     samplerate: int = DEFAULT_SR,
     channels: int = DEFAULT_CHANNELS,
-):
+) -> Path:
+    """
+    Grava áudio do microfone continuamente até que stop_event seja sinalizado.
+    Salva o resultado em out_path (.wav).
+    """
     out_path.parent.mkdir(parents=True, exist_ok=True)
-    print(f"Gravando {seconds}s @ {samplerate} Hz, {channels} canal(is)...")
-    audio = sd.rec(
-        int(seconds * samplerate),
+
+    chunks = []
+
+    def callback(indata, frames, time, status):
+        chunks.append(indata.copy())
+
+    with sd.InputStream(
         samplerate=samplerate,
         channels=channels,
         dtype="float32",
-        blocking=True,
-    )
-    sd.wait()
-    audio = np.clip(audio, -1.0, 1.0)
-    sf.write(str(out_path), audio, samplerate)
-    print(f"[Arquivo salvo em: {out_path.resolve()}")
+        callback=callback,
+    ):
+        stop_event.wait()  # bloqueia até o usuário clicar em Parar
+
+    if chunks:
+        audio = np.concatenate(chunks, axis=0)
+        audio = np.clip(audio, -1.0, 1.0)
+        sf.write(str(out_path), audio, samplerate)
+
     return out_path

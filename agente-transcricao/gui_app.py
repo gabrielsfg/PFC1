@@ -1,4 +1,7 @@
-# gui_app.py  — Passo 1: GUI simples para gravar e transcrever (rodar: python gui_app.py)
+"""
+gui_app.py — Agente de Transcrição
+Grave uma reunião com Iniciar/Parar e transcreva automaticamente com Whisper.
+"""
 from pathlib import Path
 import threading
 import json
@@ -6,7 +9,20 @@ import sys
 import tkinter as tk
 from tkinter import ttk, messagebox
 
-# Beep (Windows funciona melhor; fallback nos demais)
+from src.audio.utils import default_input_path, output_path_from_input
+from src.audio.record import record_wav_continuous
+from src.stt.transcribe import Transcriber
+
+# Modelo fixo: medium oferece boa qualidade sem exigir GPU
+MODEL_SIZE = "medium"
+DEVICE = "cpu"
+COMPUTE_TYPE = "int8"
+
+# Estado global da gravação
+_stop_event: threading.Event | None = None
+_audio_path: Path | None = None
+
+
 def beep(freq=800, dur_ms=150):
     try:
         import winsound
@@ -15,148 +31,126 @@ def beep(freq=800, dur_ms=150):
         sys.stdout.write("\a")
         sys.stdout.flush()
 
-# ===== Imports do seu projeto =====
-# Execute este arquivo na RAIZ do projeto (onde existe a pasta "src")
-from src.audio.utils import default_input_path, output_path_from_input
-from src.audio.record import record_wav
-from src.stt.transcribe import Transcriber
 
-# Configs padrão
-MODEL_CHOICES = ["tiny", "base", "small", "medium", "large-v3"]
-DEVICE_CHOICES = ["cpu", "cuda"]
-
-def transcrever(model_size, device, seconds, export_txt, export_json, status_label, btn_run):
+def _run_transcription(audio_path: Path, status_label: ttk.Label, btn_start: ttk.Button):
+    """Executa a transcrição em thread separada após a gravação."""
     try:
-        # Validações simples
-        try:
-            seconds = float(seconds)
-        except:
-            raise ValueError("Informe um número de segundos válido.")
-        if seconds < 1: seconds = 1.0
-        if seconds > 600: seconds = 600.0  # limite alto por segurança
-
-        # compute_type automático
-        compute_type = "float16" if device == "cuda" else "int8"
-
-        # 1) Gravação
-        status_label.config(text=f"Gravando {seconds:.0f}s...")
+        status_label.config(text="Transcrevendo... aguarde.")
         root.update_idletasks()
-        beep()
-        audio_path = default_input_path()
-        record_wav(audio_path, seconds=seconds)
-        beep(1000, 250)
 
-        # 2) Transcrição
-        status_label.config(text=f"Transcrevendo (model={model_size}, device={device})...")
-        root.update_idletasks()
         tr = Transcriber(
-            model_size=model_size,
-            device=device,
-            compute_type=compute_type,
-            language=None,   # auto-detecção
+            model_size=MODEL_SIZE,
+            device=DEVICE,
+            compute_type=COMPUTE_TYPE,
+            language=None,
         )
         result = tr.transcribe_file(audio_path)
 
-        # 3) Exportar
-        saved_paths = []
-        if export_txt:
-            out_txt = output_path_from_input(audio_path, "txt")
-            out_txt.parent.mkdir(parents=True, exist_ok=True)
-            out_txt.write_text(result["text"], encoding="utf-8")
-            saved_paths.append(str(out_txt))
+        # Salva TXT
+        out_txt = output_path_from_input(audio_path, "txt")
+        out_txt.parent.mkdir(parents=True, exist_ok=True)
+        out_txt.write_text(result["text"], encoding="utf-8")
 
-        if export_json:
-            out_json = output_path_from_input(audio_path, "json")
-            out_json.parent.mkdir(parents=True, exist_ok=True)
-            payload = {
-                "audio_path": str(audio_path),
-                "language": result["language"],
-                "language_probability": result["language_probability"],
-                "duration": result["duration"],
-                "segments": result["segments"],
-            }
-            out_json.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
-            saved_paths.append(str(out_json))
+        # Salva JSON
+        out_json = output_path_from_input(audio_path, "json")
+        payload = {
+            "audio_path": str(audio_path),
+            "language": result["language"],
+            "language_probability": result["language_probability"],
+            "duration": result["duration"],
+            "segments": result["segments"],
+        }
+        out_json.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
 
-        # Feedback
-        status_label.config(text="Concluído!")
-        msg = (
-            f"Idioma: {result['language']} ({result['language_probability']:.0%})\n"
+        status_label.config(text="Pronto.")
+        messagebox.showinfo(
+            "Transcrição concluída",
+            f"Idioma detectado: {result['language']} ({result['language_probability']:.0%})\n"
             f"Duração: {result['duration']:.2f}s\n\n"
-            f"Arquivos salvos:\n- " + "\n- ".join(saved_paths)
+            f"TXT:  {out_txt}\n"
+            f"JSON: {out_json}",
         )
-        messagebox.showinfo("OK", msg)
     except Exception as e:
-        status_label.config(text="Erro.")
+        status_label.config(text="Erro na transcrição.")
         messagebox.showerror("Erro", str(e))
     finally:
-        btn_run.config(state=tk.NORMAL)
+        btn_start.config(state=tk.NORMAL)
 
-def on_run(model_var, device_var, seconds_var, txt_var, json_var, status_label, btn_run):
-    btn_run.config(state=tk.DISABLED)
-    status_label.config(text="Preparando...")
-    # roda em thread pra não travar a janela
+
+def _run_recording(stop_event: threading.Event, audio_path: Path,
+                   status_label: ttk.Label, btn_start: ttk.Button, btn_stop: ttk.Button):
+    """Grava até stop_event ser sinalizado, depois dispara transcrição."""
+    try:
+        record_wav_continuous(audio_path, stop_event)
+        beep(1000, 250)
+        btn_stop.config(state=tk.DISABLED)
+        _run_transcription(audio_path, status_label, btn_start)
+    except Exception as e:
+        status_label.config(text="Erro na gravação.")
+        messagebox.showerror("Erro", str(e))
+        btn_start.config(state=tk.NORMAL)
+        btn_stop.config(state=tk.DISABLED)
+
+
+def on_start(status_label: ttk.Label, btn_start: ttk.Button, btn_stop: ttk.Button):
+    global _stop_event, _audio_path
+
+    _stop_event = threading.Event()
+    _audio_path = default_input_path()
+
+    btn_start.config(state=tk.DISABLED)
+    btn_stop.config(state=tk.NORMAL)
+    status_label.config(text="Gravando... clique em Parar quando terminar.")
+    beep()
+
     t = threading.Thread(
-        target=transcrever,
-        args=(
-            model_var.get(),
-            device_var.get(),
-            seconds_var.get(),
-            bool(txt_var.get()),
-            bool(json_var.get()),
-            status_label,
-            btn_run,
-        ),
+        target=_run_recording,
+        args=(_stop_event, _audio_path, status_label, btn_start, btn_stop),
         daemon=True,
     )
     t.start()
 
+
+def on_stop(status_label: ttk.Label, btn_stop: ttk.Button):
+    global _stop_event
+    if _stop_event:
+        btn_stop.config(state=tk.DISABLED)
+        status_label.config(text="Encerrando gravação...")
+        _stop_event.set()
+
+
 # === GUI ===
 root = tk.Tk()
-root.title("Agente de Transcrição (Whisper)")
+root.title("Agente de Transcrição")
+root.resizable(False, False)
 
-frm = ttk.Frame(root, padding=16)
+frm = ttk.Frame(root, padding=20)
 frm.grid(column=0, row=0, sticky="nsew")
 root.columnconfigure(0, weight=1)
 root.rowconfigure(0, weight=1)
 
-# Model
-ttk.Label(frm, text="Modelo:").grid(column=0, row=0, sticky="w")
-model_var = tk.StringVar(value="small")
-cmb_model = ttk.Combobox(frm, textvariable=model_var, values=MODEL_CHOICES, state="readonly", width=12)
-cmb_model.grid(column=1, row=0, sticky="we", padx=(8,0))
+ttk.Label(frm, text="Agente de Transcrição de Reuniões", font=("", 12, "bold")).grid(
+    column=0, row=0, columnspan=2, pady=(0, 16)
+)
 
-# Device
-ttk.Label(frm, text="Device:").grid(column=0, row=1, sticky="w", pady=(8,0))
-device_var = tk.StringVar(value="cpu")
-cmb_device = ttk.Combobox(frm, textvariable=device_var, values=DEVICE_CHOICES, state="readonly", width=12)
-cmb_device.grid(column=1, row=1, sticky="we", padx=(8,0), pady=(8,0))
+btn_start = ttk.Button(
+    frm, text="▶  Iniciar Gravação",
+    command=lambda: on_start(status_label, btn_start, btn_stop),
+    width=22,
+)
+btn_start.grid(column=0, row=1, padx=(0, 8), sticky="we")
 
-# Seconds
-ttk.Label(frm, text="Segundos:").grid(column=0, row=2, sticky="w", pady=(8,0))
-seconds_var = tk.StringVar(value="5")
-spn_seconds = ttk.Spinbox(frm, from_=1, to=600, textvariable=seconds_var, width=10)
-spn_seconds.grid(column=1, row=2, sticky="w", padx=(8,0), pady=(8,0))
+btn_stop = ttk.Button(
+    frm, text="■  Parar Gravação",
+    command=lambda: on_stop(status_label, btn_stop),
+    width=22,
+    state=tk.DISABLED,
+)
+btn_stop.grid(column=1, row=1, sticky="we")
 
-# Export options
-txt_var = tk.IntVar(value=1)
-json_var = tk.IntVar(value=1)
-chk_txt = ttk.Checkbutton(frm, text="Exportar TXT", variable=txt_var)
-chk_json = ttk.Checkbutton(frm, text="Exportar JSON", variable=json_var)
-chk_txt.grid(column=0, row=3, sticky="w", pady=(8,0))
-chk_json.grid(column=1, row=3, sticky="w", pady=(8,0))
+status_label = ttk.Label(frm, text="Pronto.", anchor="center", foreground="#555")
+status_label.grid(column=0, row=2, columnspan=2, pady=(14, 0), sticky="we")
 
-# Run button
-btn_run = ttk.Button(frm, text="Gravar e Transcrever", command=lambda: on_run(
-    model_var, device_var, seconds_var, txt_var, json_var, status_label, btn_run
-))
-btn_run.grid(column=0, row=4, columnspan=2, sticky="we", pady=(12,0))
-
-# Status
-status_label = ttk.Label(frm, text="Pronto.", anchor="w")
-status_label.grid(column=0, row=5, columnspan=2, sticky="we", pady=(8,0))
-
-# Layout tweaks
 for i in range(2):
     frm.columnconfigure(i, weight=1)
 
