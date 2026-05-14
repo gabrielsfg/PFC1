@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 
 
-# ── Input models (Agent 2 JSON schema — field names mirror the JSON keys as-is) ──
+# ── Input models (Agent 2 JSON) ───────────────────────────────────────────────
 
 class Metadata(BaseModel):
     arquivo_origem: str
@@ -48,7 +48,7 @@ class Agent2Output(BaseModel):
     historias_usuario: UserStoriesSection
 
 
-# ── Output models (SRS sections produced by Agent 3) ─────────────────────────
+# ── SRS sections ──────────────────────────────────────────────────────────────
 
 class Definition(BaseModel):
     term: str
@@ -69,6 +69,33 @@ class FunctionalRequirement(BaseModel):
     source_stories: list[str]
 
 
+# ── Use case sections ─────────────────────────────────────────────────────────
+
+class UseCaseFlow(BaseModel):
+    step: int
+    description: str
+
+
+class UseCase(BaseModel):
+    id: str
+    name: str
+    actor: str
+    preconditions: list[str]
+    postconditions: list[str]
+    main_flow: list[UseCaseFlow]
+    alternative_flows: list[str]
+    exception_flows: list[str]
+    source_stories: list[str]
+
+
+class UseCaseDiagram(BaseModel):
+    persona_nome: str
+    plantuml_source: str
+    image_path: str | None = None
+
+
+# ── Unified output document ───────────────────────────────────────────────────
+
 class SRSDocument(BaseModel):
     metadata: Metadata
     introduction: SRSIntroduction
@@ -77,3 +104,5 @@ class SRSDocument(BaseModel):
     interaction_type: str
     functional_requirements: list[FunctionalRequirement]
     user_stories: list[PersonaStories]
+    use_cases: list[UseCase]
+    use_case_diagrams: list[UseCaseDiagram]

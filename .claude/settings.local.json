@@ -2,7 +2,8 @@
   "permissions": {
     "allow": [
       "PowerShell(Get-ChildItem -Path \"c:\\\\Users\\\\gabri\\\\Tcc\" -Recurse -Depth 3 | Where-Object { $_.PSIsContainer } | Select-Object FullName | Sort-Object FullName)",
-      "Bash(python -c ' *)"
+      "Bash(python -c ' *)",
+      "Bash(python3 -c ' *)"
     ]
   }
 }

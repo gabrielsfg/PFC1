@@ -1,75 +1,132 @@
-# Software Requirements Specification (SRS)
+# Especificação de Requisitos de Software (SRS)
 
-**Standard**: IEEE 830
-**Document automatically generated from meeting transcription**
+**Padrão**: IEEE 830
+**Documento gerado automaticamente a partir de transcrição de reunião**
 
 ---
 
-## 1. Introduction
+## 1. Introdução
 
-### 1.1 Purpose
+### 1.1 Propósito
 {{ introduction.purpose }}
 
-### 1.2 System Scope
+### 1.2 Escopo do Sistema
 {{ introduction.system_scope }}
 
-### 1.3 Definitions, Acronyms and Abbreviations
+### 1.3 Definições, Acrônimos e Abreviações
 
-| Term | Definition |
-|------|------------|
+| Termo | Definição |
+|-------|-----------|
 {% for d in introduction.definitions -%}
 | {{ d.term }} | {{ d.definition }} |
 {% endfor %}
 
-### 1.4 References
+### 1.4 Referências
 
-- **Source meeting**: {{ metadata.arquivo_origem }}
-- **Processing date**: {{ metadata.data_processamento }}
-- **Model used**: {{ metadata.modelo_usado }}
+- **Reunião de origem**: {{ metadata.arquivo_origem }}
+- **Data de processamento**: {{ metadata.data_processamento }}
+- **Modelo utilizado**: {{ metadata.modelo_usado }}
 
 ---
 
-## 2. General Description
+## 2. Descrição Geral
 
-### 2.1 Problem Statement
+### 2.1 Identificação do Problema
 {{ introduction.problem_statement }}
 
-### 2.2 Product Perspective
+### 2.2 Perspectiva do Produto
 {{ introduction.product_perspective }}
 
-### 2.3 Stakeholders and Identified Personas
+### 2.3 Stakeholders e Personas Identificadas
 
 {% for persona in personas -%}
 #### {{ persona.nome }} — {{ persona.papel }}
 
-- **Characteristics**: {{ persona.caracteristicas | join(', ') }}
-- **Context**: {{ persona.contexto }}
+- **Características**: {{ persona.caracteristicas | join(', ') }}
+- **Contexto**: {{ persona.contexto }}
 
-> *Relevant excerpts*: {{ persona.trechos_relevantes | join(' / ') }}
+> *Trechos relevantes*: {{ persona.trechos_relevantes | join(' / ') }}
 
 {% endfor %}
 
 ---
 
-## 3. Functional Requirements
+## 3. Requisitos Funcionais
 
 {% for rf in functional_requirements -%}
 **{{ rf.id }}** — {{ rf.description }}
-*Source*: {{ rf.source_stories | join(', ') }}
+*Origem*: {{ rf.source_stories | join(', ') }}
 
 {% endfor %}
 
 ---
 
-## 4. User Stories
+## 4. Histórias de Usuário
 
 {% for group in user_stories -%}
 ### {{ group.persona_nome }}
 
-| ID | Story | Priority |
-|----|-------|----------|
+| ID | História | Prioridade |
+|----|----------|------------|
 {% for story in group.historias -%}
 | {{ story.id }} | {{ story.historia }} | {{ story.prioridade }} |
 {% endfor %}
+
+{% endfor %}
+
+---
+
+## 5. Casos de Uso
+
+### 5.1 Diagramas
+
+{% for diagram in use_case_diagrams -%}
+#### {{ diagram.persona_nome }}
+
+{% if diagram.image_path -%}
+![Diagrama de Casos de Uso — {{ diagram.persona_nome }}]({{ diagram.image_path }})
+{% else -%}
+*Diagrama não disponível (falha na renderização via kroki.io)*
+
+```plantuml
+{{ diagram.plantuml_source }}
+```
+{% endif %}
+
+{% endfor %}
+
+### 5.2 Especificação
+
+{% for uc in use_cases -%}
+#### {{ uc.id }} — {{ uc.name }}
+
+| Campo | Valor |
+|-------|-------|
+| **Ator** | {{ uc.actor }} |
+| **Pré-condições** | {{ uc.preconditions | join('; ') }} |
+| **Pós-condições** | {{ uc.postconditions | join('; ') }} |
+| **Histórias de origem** | {{ uc.source_stories | join(', ') }} |
+
+**Fluxo Principal**
+
+{% for step in uc.main_flow -%}
+{{ step.step }}. {{ step.description }}
+{% endfor %}
+
+{% if uc.alternative_flows -%}
+**Fluxos Alternativos**
+{% for af in uc.alternative_flows -%}
+- {{ af }}
+{% endfor %}
+{% endif %}
+
+{% if uc.exception_flows -%}
+**Fluxos de Exceção**
+{% for ef in uc.exception_flows -%}
+- {{ ef }}
+{% endfor %}
+{% endif %}
+
+---
 
 {% endfor %}

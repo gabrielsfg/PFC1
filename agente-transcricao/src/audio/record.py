@@ -14,13 +14,10 @@ def record_wav_continuous(
     samplerate: int = DEFAULT_SR,
     channels: int = DEFAULT_CHANNELS,
 ) -> Path:
-    """
-    Grava áudio do microfone continuamente até que stop_event seja sinalizado.
-    Salva o resultado em out_path (.wav).
-    """
+    """Grava áudio do microfone continuamente até stop_event ser sinalizado."""
     out_path.parent.mkdir(parents=True, exist_ok=True)
 
-    chunks = []
+    chunks: list[np.ndarray] = []
 
     def callback(indata, frames, time, status):
         chunks.append(indata.copy())
@@ -31,11 +28,9 @@ def record_wav_continuous(
         dtype="float32",
         callback=callback,
     ):
-        stop_event.wait()  # bloqueia até o usuário clicar em Parar
+        stop_event.wait()
 
-    if chunks:
-        audio = np.concatenate(chunks, axis=0)
-        audio = np.clip(audio, -1.0, 1.0)
-        sf.write(str(out_path), audio, samplerate)
-
+    audio = np.concatenate(chunks, axis=0) if chunks else np.zeros((1, channels), dtype="float32")
+    audio = np.clip(audio, -1.0, 1.0)
+    sf.write(str(out_path), audio, samplerate)
     return out_path

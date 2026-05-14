@@ -1,0 +1,60 @@
+# Documento Final de Requisitos
+
+**Gerado automaticamente pelo pipeline multi-agente de elicitação de requisitos**
+
+---
+
+## Referências
+
+- **Reunião de origem**: {{ metadata.arquivo_origem }}
+- **Data de processamento**: {{ metadata.data_processamento }}
+- **Modelo utilizado**: {{ metadata.modelo_usado }}
+
+---
+
+## 1. Diagrama de Domínio
+
+{% if domain_model.image_path -%}
+![Diagrama de Domínio]({{ domain_model.image_path }})
+{% else -%}
+*Diagrama não disponível (falha na renderização via kroki.io)*
+
+```plantuml
+{{ domain_model.plantuml_source }}
+```
+{% endif %}
+
+### Entidades
+
+{% for entity in domain_model.entities -%}
+#### {{ entity.name }}
+
+| Atributo | Tipo |
+|----------|------|
+{% for attr in entity.attributes -%}
+| `{{ attr.name }}` | {{ attr.type }} |
+{% endfor %}
+
+{% if entity.methods -%}
+**Operações**: {{ entity.methods | join(', ') }}
+{% endif %}
+
+{% endfor %}
+
+### Relacionamentos
+
+| De | Para | Rótulo | Cardinalidade |
+|----|------|--------|---------------|
+{% for rel in domain_model.relationships -%}
+| {{ rel.from_entity }} | {{ rel.to_entity }} | {{ rel.label }} | {{ rel.cardinality }} |
+{% endfor %}
+
+---
+
+## 2. SRS — Especificação de Requisitos de Software
+
+{{ srs_content }}
+
+---
+
+*Documento gerado automaticamente pelo pipeline multi-agente de elicitação de requisitos.*

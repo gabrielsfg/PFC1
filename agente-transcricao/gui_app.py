@@ -1,7 +1,4 @@
-"""
-gui_app.py — Agente de Transcrição
-Grave uma reunião com Iniciar/Parar e transcreva automaticamente com Whisper.
-"""
+# gui_app.py  — GUI com gravação contínua (clica pra gravar, clica pra parar)
 from pathlib import Path
 import threading
 import json
