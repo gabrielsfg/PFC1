@@ -1,0 +1,75 @@
+# Software Requirements Specification (SRS)
+
+**Standard**: IEEE 830
+**Document automatically generated from meeting transcription**
+
+---
+
+## 1. Introduction
+
+### 1.1 Purpose
+{{ introduction.purpose }}
+
+### 1.2 System Scope
+{{ introduction.system_scope }}
+
+### 1.3 Definitions, Acronyms and Abbreviations
+
+| Term | Definition |
+|------|------------|
+{% for d in introduction.definitions -%}
+| {{ d.term }} | {{ d.definition }} |
+{% endfor %}
+
+### 1.4 References
+
+- **Source meeting**: {{ metadata.arquivo_origem }}
+- **Processing date**: {{ metadata.data_processamento }}
+- **Model used**: {{ metadata.modelo_usado }}
+
+---
+
+## 2. General Description
+
+### 2.1 Problem Statement
+{{ introduction.problem_statement }}
+
+### 2.2 Product Perspective
+{{ introduction.product_perspective }}
+
+### 2.3 Stakeholders and Identified Personas
+
+{% for persona in personas -%}
+#### {{ persona.nome }} — {{ persona.papel }}
+
+- **Characteristics**: {{ persona.caracteristicas | join(', ') }}
+- **Context**: {{ persona.contexto }}
+
+> *Relevant excerpts*: {{ persona.trechos_relevantes | join(' / ') }}
+
+{% endfor %}
+
+---
+
+## 3. Functional Requirements
+
+{% for rf in functional_requirements -%}
+**{{ rf.id }}** — {{ rf.description }}
+*Source*: {{ rf.source_stories | join(', ') }}
+
+{% endfor %}
+
+---
+
+## 4. User Stories
+
+{% for group in user_stories -%}
+### {{ group.persona_nome }}
+
+| ID | Story | Priority |
+|----|-------|----------|
+{% for story in group.historias -%}
+| {{ story.id }} | {{ story.historia }} | {{ story.prioridade }} |
+{% endfor %}
+
+{% endfor %}

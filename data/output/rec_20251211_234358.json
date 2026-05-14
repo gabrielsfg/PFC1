@@ -1,0 +1,28 @@
+{
+  "audio_path": "data\\input\\rec_20251211_234358.wav",
+  "language": "pt",
+  "language_probability": 0.9912520051002502,
+  "duration": 20.0,
+  "segments": [
+    {
+      "start": 0.56,
+      "end": 6.06,
+      "text": "O A este é um teste, durante 20 segundos o meu modelo de IA grava um áudio."
+    },
+    {
+      "start": 6.06,
+      "end": 12.56,
+      "text": "Vou fazer essa gravação durante 20 segundos para testar a certibilidade do teste."
+    },
+    {
+      "start": 12.56,
+      "end": 18.56,
+      "text": "Estou testando, 1, 2, 3, teste, testando o meu modelo de IA de geração de áudio."
+    },
+    {
+      "start": 18.56,
+      "end": 20.56,
+      "text": "Este é um teste."
+    }
+  ]
+}

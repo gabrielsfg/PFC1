@@ -36,7 +36,9 @@ Seja preciso e baseie-se apenas nas informações presentes na transcrição.
 Retorne APENAS o JSON, sem texto adicional antes ou depois."""
 
 
-USER_STORIES_PROMPT = """Com base nas personas identificadas e na transcrição original, crie histórias de usuário (user stories) para cada persona.
+USER_STORIES_PROMPT = """Com base nas personas identificadas e na transcrição original, 
+crie histórias de usuário (user stories) para cada persona segunido os critérios 
+INVEST(Independente, Negociável, Valiosa, Estimável, Pequena (Small) e Testável).
 
 PERSONAS IDENTIFICADAS:
 {personas_json}

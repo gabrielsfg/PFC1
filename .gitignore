@@ -41,3 +41,6 @@ desktop.ini
 # Temporary files
 *.tmp
 *~
+
+# External files
+.claude/Documents
