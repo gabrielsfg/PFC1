@@ -8,7 +8,7 @@ from src.models import (
     DomainAttribute,
     DomainRelationship,
 )
-from src.openai_client import OpenAIClient
+from src.anthropic_client import AnthropicClient as OpenAIClient
 from src.kroki_client import KrokiClient
 from config.prompts import SYSTEM_MESSAGE, DOMAIN_ENTITIES_PROMPT, PLANTUML_CLASS_PROMPT
 

@@ -1,21 +1,21 @@
 import os
 from pathlib import Path
 from typing import Optional
-from openai import OpenAI
+import anthropic
 from tenacity import retry, stop_after_attempt, wait_exponential
 from dotenv import load_dotenv
 
 load_dotenv(Path(__file__).parents[1] / ".env")
 
 
-class OpenAIClient:
+class AnthropicClient:
     def __init__(self):
-        self.api_key = os.getenv("OPENAI_API_KEY")
+        self.api_key = os.getenv("ANTHROPIC_API_KEY")
         if not self.api_key:
-            raise ValueError("OPENAI_API_KEY não encontrada no arquivo .env")
+            raise ValueError("ANTHROPIC_API_KEY não encontrada no arquivo .env")
 
-        self.model = os.getenv("OPENAI_MODEL", "gpt-4o-mini")
-        self.client = OpenAI(api_key=self.api_key)
+        self.model = os.getenv("ANTHROPIC_MODEL", "claude-sonnet-4-6")
+        self.client = anthropic.Anthropic(api_key=self.api_key)
 
     @retry(
         stop=stop_after_attempt(3),
@@ -28,13 +28,11 @@ class OpenAIClient:
         temperature: float = 0.3,
         max_tokens: Optional[int] = None,
     ) -> str:
-        response = self.client.chat.completions.create(
+        response = self.client.messages.create(
             model=self.model,
-            messages=[
-                {"role": "system", "content": system_message},
-                {"role": "user", "content": prompt},
-            ],
+            max_tokens=max_tokens or 4096,
             temperature=temperature,
-            max_tokens=max_tokens,
+            system=system_message,
+            messages=[{"role": "user", "content": prompt}],
         )
-        return response.choices[0].message.content.strip()
+        return response.content[0].text.strip()
