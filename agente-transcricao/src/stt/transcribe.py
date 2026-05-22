@@ -1,5 +1,8 @@
 from pathlib import Path
+from typing import Optional
 from faster_whisper import WhisperModel
+from rich.progress import Progress, BarColumn, TimeElapsedColumn, TimeRemainingColumn, TextColumn
+
 
 class Transcriber:
     def __init__(
@@ -7,7 +10,7 @@ class Transcriber:
         model_size: str = "medium",
         device: str = "cpu",
         compute_type: str = "int8",
-        language: str | None = None,
+        language: Optional[str] = None,
         vad_filter: bool = True,
     ):
         self.model = WhisperModel(
@@ -28,22 +31,34 @@ class Transcriber:
             best_of=5
         )
 
+        duration = info.duration
         text_parts = []
         segs = []
-        for seg in segments:
-            segs.append({
-                "start": seg.start,
-                "end": seg.end,
-                "text": seg.text.strip()
-            })
-            text_parts.append(seg.text.strip())
+
+        with Progress(
+            TextColumn("[bold blue]Transcrevendo"),
+            BarColumn(),
+            "[progress.percentage]{task.percentage:>3.0f}%",
+            TimeElapsedColumn(),
+            TimeRemainingColumn(),
+            TextColumn("[dim]{task.fields[segment]}"),
+        ) as progress:
+            task = progress.add_task("", total=duration, segment="")
+            for seg in segments:
+                segs.append({
+                    "start": seg.start,
+                    "end": seg.end,
+                    "text": seg.text.strip()
+                })
+                text_parts.append(seg.text.strip())
+                progress.update(task, completed=seg.end, segment=f"{seg.end:.0f}s / {duration:.0f}s")
 
         full_text = " ".join(text_parts).strip()
 
         return {
             "language": info.language,
             "language_probability": info.language_probability,
-            "duration": info.duration,
+            "duration": duration,
             "segments": segs,
             "text": full_text
         }

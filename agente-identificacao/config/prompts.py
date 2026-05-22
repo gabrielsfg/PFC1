@@ -36,15 +36,11 @@ Seja preciso e baseie-se apenas nas informações presentes na transcrição.
 Retorne APENAS o JSON, sem texto adicional antes ou depois."""
 
 
-USER_STORIES_PROMPT = """Com base nas personas identificadas e na transcrição original, 
-crie histórias de usuário (user stories) para cada persona segunido os critérios 
-INVEST(Independente, Negociável, Valiosa, Estimável, Pequena (Small) e Testável).
+USER_STORIES_PROMPT = """Com base nas personas identificadas, crie histórias de usuário (user stories)
+para cada persona seguindo os critérios INVEST (Independente, Negociável, Valiosa, Estimável, Pequena e Testável).
 
 PERSONAS IDENTIFICADAS:
 {personas_json}
-
-TRANSCRIÇÃO ORIGINAL:
-{transcription}
 
 Para cada persona, crie histórias de usuário no formato:
 "Como [persona], eu quero [objetivo] para [benefício/razão]"
@@ -77,9 +73,6 @@ def get_identification_prompt(transcription: str) -> str:
     return PERSONA_IDENTIFICATION_PROMPT.format(transcription=transcription)
 
 
-def get_user_stories_prompt(personas_json: str, transcription: str) -> str:
+def get_user_stories_prompt(personas_json: str, transcription: str = "") -> str:
     """Retorna o prompt formatado para criação de user stories"""
-    return USER_STORIES_PROMPT.format(
-        personas_json=personas_json,
-        transcription=transcription
-    )
+    return USER_STORIES_PROMPT.format(personas_json=personas_json)

@@ -1,4 +1,4 @@
-openai==1.54.3
+anthropic>=0.40.0
 python-dotenv==1.0.0
 watchdog==4.0.0
 pydantic==2.9.2

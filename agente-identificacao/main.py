@@ -12,10 +12,9 @@ def setup_environment():
     """Configura o ambiente e verifica variáveis necessárias"""
     load_dotenv()
     
-    # Verifica se a API key está configurada
-    if not os.getenv("OPENAI_API_KEY"):
-        print("Erro: OPENAI_API_KEY não encontrada!")
-        print("Configure o arquivo .env com sua chave da OpenAI")
+    if not os.getenv("ANTHROPIC_API_KEY"):
+        print("Erro: ANTHROPIC_API_KEY não encontrada!")
+        print("Configure o arquivo .env com sua chave da Anthropic")
         print("Copie .env.example para .env e adicione sua chave")
         sys.exit(1)
     

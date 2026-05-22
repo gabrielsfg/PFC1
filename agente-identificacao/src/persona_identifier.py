@@ -4,7 +4,7 @@ from pathlib import Path
 from datetime import datetime
 from typing import Dict, List, Optional
 
-from src.openai_client import OpenAIClient
+from src.anthropic_client import AnthropicClient
 from config.prompts import (
     SYSTEM_MESSAGE,
     get_identification_prompt,
@@ -16,7 +16,7 @@ class PersonaIdentifier:
     """Identifica personas em transcrições e cria user stories"""
     
     def __init__(self, output_dir: str = "./data/output"):
-        self.openai_client = OpenAIClient()
+        self.anthropic_client = AnthropicClient()
         self.output_dir = Path(output_dir)
         self.output_dir.mkdir(parents=True, exist_ok=True)
     
@@ -75,7 +75,7 @@ class PersonaIdentifier:
             "metadata": {
                 "arquivo_origem": transcription_path.name,
                 "data_processamento": datetime.now().isoformat(),
-                "modelo_usado": self.openai_client.model
+                "modelo_usado": self.anthropic_client.model
             },
             "analise_personas": personas_result,
             "historias_usuario": user_stories_result
@@ -101,7 +101,7 @@ class PersonaIdentifier:
         try:
             prompt = get_identification_prompt(transcription)
             
-            response = self.openai_client.generate_completion(
+            response = self.anthropic_client.generate_completion(
                 prompt=prompt,
                 system_message=SYSTEM_MESSAGE,
                 temperature=0.3  # Baixa temperatura para respostas mais consistentes
@@ -125,7 +125,7 @@ class PersonaIdentifier:
             personas_json = json.dumps(personas_result, ensure_ascii=False, indent=2)
             prompt = get_user_stories_prompt(personas_json, transcription)
             
-            response = self.openai_client.generate_completion(
+            response = self.anthropic_client.generate_completion(
                 prompt=prompt,
                 system_message=SYSTEM_MESSAGE,
                 temperature=0.5
