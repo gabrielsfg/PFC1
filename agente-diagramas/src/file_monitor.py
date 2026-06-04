@@ -44,11 +44,12 @@ class _JSONHandler(FileSystemEventHandler):
 
 
 class FileMonitor:
-    def __init__(self, input_dir: str, output_dir: str, processed_dir: str, check_interval: int = 5):
+    def __init__(self, input_dir: str, output_dir: str, processed_dir: str,
+                 check_interval: int = 5, fmt: str = "ieee"):
         self.input_dir = Path(input_dir)
         self.input_dir.mkdir(parents=True, exist_ok=True)
         self.check_interval = check_interval
-        self.processor = DiagramsProcessor(output_dir)
+        self.processor = DiagramsProcessor(output_dir, fmt=fmt)
         self.handler = _JSONHandler(self.processor, Path(processed_dir))
         self.observer = Observer()
         self.observer.schedule(self.handler, str(self.input_dir), recursive=False)

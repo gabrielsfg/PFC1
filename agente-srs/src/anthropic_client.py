@@ -5,7 +5,9 @@ import anthropic
 from tenacity import retry, stop_after_attempt, wait_exponential
 from dotenv import load_dotenv
 
-load_dotenv(Path(__file__).parents[1] / ".env")
+# override=True: the agent's .env is authoritative even if an empty ANTHROPIC_API_KEY
+# was inherited from the parent process/environment.
+load_dotenv(Path(__file__).parents[1] / ".env", override=True)
 
 
 class AnthropicClient:
@@ -31,7 +33,7 @@ class AnthropicClient:
     ) -> str:
         response = self.client.messages.create(
             model=self.model,
-            max_tokens=max_tokens or 4096,
+            max_tokens=max_tokens or 8192,
             temperature=temperature,
             system=system_message,
             messages=[{"role": "user", "content": prompt}],

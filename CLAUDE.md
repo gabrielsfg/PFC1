@@ -43,6 +43,23 @@ audio recording
 
 Agents communicate through a shared file system monitored by watchdog — each agent triggers the next when a new file appears in the output directory.
 
+## Output formats and the unified executor
+
+The pipeline supports **two selectable output document formats** (one per run — never both):
+
+- **`ieee`** (default) — IEEE 830 SRS rendered from `agente-srs/templates/srs.md.j2`. Runs Agent 3 **and** Agent 4 (domain diagram + final consolidated document).
+- **`empresa`** — the client (SGG-GO) "Documento de Requisitos" rendered from `agente-srs/templates/feature_requirements.md.j2` (Funcionalidade, RF with Detalhamento/Comentários, Regras de Negócio em tabela, Casos de Uso `UC`, Requisitos Não-Funcionais). This format has **no diagrams**, so **Agent 4 is skipped** — Agent 3's output is the final document.
+
+Format selection:
+- `--format {ieee,empresa}` on `pipeline.py`, `agente-srs/main.py`, and `agente-diagramas/main.py`.
+- Env var `DOCUMENT_FORMAT` is the default for `--monitor` mode (watchdog).
+- In the GUI (`pipeline.py --full`) there is a radio selector.
+- Empresa document metadata (project code, client, system version, authors, dates) is **not** derivable from audio — `default_empresa_meta()` in `agente-srs/src/srs_processor.py` fills placeholders for now (TODO: collect via the GUI).
+
+**Unified executor** — `python pipeline.py --full` opens a single window where you either **record** a meeting or **insert an audio/video file** (skips recording), pick the document format, and the whole pipeline runs to the final document.
+
+**Transcription engine** — Agent 1 transcribes via **Groq** (`whisper-large-v3-turbo`) by default, with an automatic **local faster-whisper fallback** (fast preset: `small` + `beam_size=1`). Any audio **or video** input is normalized by **ffmpeg** to 16 kHz mono FLAC and split on silence if it exceeds `GROQ_MAX_FILE_MB` (~25 MB Groq limit). Requires `ffmpeg` on the PATH and `GROQ_API_KEY` in `agente-transcricao/.env`. Shared modules: `agente-transcricao/src/stt/transcription_service.py`, `groq_transcriber.py`, `src/audio/preprocessor.py`.
+
 ### agente-identificacao
 
 - `main.py` — CLI entry point (`--file`, `--dir`, `--monitor` modes)
@@ -63,10 +80,14 @@ Output JSON shape:
 ### agente-transcricao
 
 - `src/main.py` — Typer CLI (`record`, `transcribe-file` commands)
-- `gui_app.py` — Tkinter GUI alternative
+- `gui_app.py` — Tkinter GUI (record **or** insert audio/video file; Groq + local fallback)
 - `run_transcribe.py` — Simpler CLI bypassing Typer, useful for direct calls
-- `src/stt/transcribe.py` — `Transcriber` class wrapping faster-whisper
+- `src/stt/transcription_service.py` — orchestrator: ffmpeg preprocess → split → Groq per chunk → merge; `transcribe_with_groq`, `transcribe_local_fast`, `save_transcription`
+- `src/stt/groq_transcriber.py` — Groq Whisper client (`GroqUnavailableError` triggers fallback)
+- `src/stt/transcribe.py` — `Transcriber` class wrapping faster-whisper (configurable `beam_size`/`best_of`)
+- `src/audio/preprocessor.py` — ffmpeg extract/compress (16 kHz mono FLAC) + silence-based split
 - `src/audio/record.py` — Microphone capture via sounddevice
+- `config/settings.py` — Groq/local config from `.env`
 
 ## Setup
 

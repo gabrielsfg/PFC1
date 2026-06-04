@@ -3,16 +3,21 @@ import argparse
 from pathlib import Path
 from dotenv import load_dotenv
 
-load_dotenv(Path(__file__).parent / ".env")
+load_dotenv(Path(__file__).parent / ".env", override=True)
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Agent 3 — SRS Document Generator (IEEE 830)")
+    parser = argparse.ArgumentParser(description="Agent 3 — Requirements Document Generator")
     group = parser.add_mutually_exclusive_group(required=True)
     group.add_argument("--file", type=Path, help="Process a single Agent 2 JSON file")
     group.add_argument("--dir", type=Path, help="Batch process a directory of JSON files")
     group.add_argument("--monitor", action="store_true", help="Monitor input directory continuously")
     parser.add_argument("--check-interval", type=int, default=int(os.getenv("CHECK_INTERVAL", "5")))
+    parser.add_argument(
+        "--format", choices=["ieee", "empresa"],
+        default=os.getenv("DOCUMENT_FORMAT", "ieee"),
+        help="Output document format: 'ieee' (IEEE 830 SRS) or 'empresa' (SGG-GO Documento de Requisitos)",
+    )
     args = parser.parse_args()
 
     output_dir = os.getenv("OUTPUT_DIR", "./data/output")
@@ -21,14 +26,14 @@ def main():
 
     if args.file:
         from src.srs_processor import SRSProcessor
-        processor = SRSProcessor(output_dir)
+        processor = SRSProcessor(output_dir, fmt=args.format)
         result = processor.process(args.file)
         if not result:
             raise SystemExit(1)
 
     elif args.dir:
         from src.srs_processor import SRSProcessor
-        processor = SRSProcessor(output_dir)
+        processor = SRSProcessor(output_dir, fmt=args.format)
         results = processor.process_directory(args.dir)
         if not results:
             raise SystemExit(1)
@@ -40,6 +45,7 @@ def main():
             output_dir=output_dir,
             processed_dir=processed_dir,
             check_interval=args.check_interval,
+            fmt=args.format,
         )
         monitor.start()
 

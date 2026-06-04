@@ -3,7 +3,7 @@ from pathlib import Path
 
 from jinja2 import Environment, FileSystemLoader
 
-from src.models import SRSDocument
+from src.models import SRSDocument, FeatureRequirementsDocument
 
 _TEMPLATES_DIR = Path(__file__).parent.parent / "templates"
 
@@ -26,6 +26,24 @@ class DocumentRenderer:
             user_stories=document.user_stories,
             use_cases=document.use_cases,
             use_case_diagrams=document.use_case_diagrams,
+        )
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        output_path.write_text(content, encoding="utf-8")
+        return output_path
+
+    def render_feature_markdown(
+        self, document: FeatureRequirementsDocument, output_path: Path
+    ) -> Path:
+        """Renders the company "Documento de Requisitos" (SGG-GO) format."""
+        template = self.env.get_template("feature_requirements.md.j2")
+        content = template.render(
+            document=document.document,
+            feature=document.feature,
+            functional_requirements=document.functional_requirements,
+            business_rule_groups=document.business_rule_groups,
+            use_cases=document.use_cases,
+            non_functional_requirements=document.non_functional_requirements,
+            project_notes=document.project_notes,
         )
         output_path.parent.mkdir(parents=True, exist_ok=True)
         output_path.write_text(content, encoding="utf-8")

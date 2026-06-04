@@ -10,7 +10,7 @@ from src.file_monitor import FileMonitor
 
 def setup_environment():
     """Configura o ambiente e verifica variáveis necessárias"""
-    load_dotenv()
+    load_dotenv(Path(__file__).parent / ".env", override=True)
     
     if not os.getenv("ANTHROPIC_API_KEY"):
         print("Erro: ANTHROPIC_API_KEY não encontrada!")
