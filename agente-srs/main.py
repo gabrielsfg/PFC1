@@ -18,6 +18,10 @@ def main():
         default=os.getenv("DOCUMENT_FORMAT", "ieee"),
         help="Output document format: 'ieee' (IEEE 830 SRS) or 'empresa' (SGG-GO Documento de Requisitos)",
     )
+    parser.add_argument(
+        "--project-name", default=os.getenv("EMPRESA_PROJECT_NAME", ""),
+        help="Empresa format: human title used as the document H1 and output filename.",
+    )
     args = parser.parse_args()
 
     output_dir = os.getenv("OUTPUT_DIR", "./data/output")
@@ -26,14 +30,14 @@ def main():
 
     if args.file:
         from src.srs_processor import SRSProcessor
-        processor = SRSProcessor(output_dir, fmt=args.format)
+        processor = SRSProcessor(output_dir, fmt=args.format, project_name=args.project_name)
         result = processor.process(args.file)
         if not result:
             raise SystemExit(1)
 
     elif args.dir:
         from src.srs_processor import SRSProcessor
-        processor = SRSProcessor(output_dir, fmt=args.format)
+        processor = SRSProcessor(output_dir, fmt=args.format, project_name=args.project_name)
         results = processor.process_directory(args.dir)
         if not results:
             raise SystemExit(1)

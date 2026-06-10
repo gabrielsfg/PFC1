@@ -145,6 +145,9 @@ class EmpresaDocumentMeta(BaseModel):
     phase: str
     version: str
     version_history: list[VersionEntry]
+    # Optional human-friendly document title. When set, it is used as the H1 title
+    # (instead of the "code – client – product – phase" line). Collected via the GUI.
+    title: str = ""
 
 
 class Feature(BaseModel):

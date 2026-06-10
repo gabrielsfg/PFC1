@@ -1,5 +1,8 @@
+{% if document.title -%}
+# {{ document.title }}
+{% else -%}
 # {{ document.project_code }} – {{ document.client }} – {{ document.product }} – {{ document.phase }}
-
+{% endif %}
 ## Documento de Requisitos
 
 **Versão:** {{ document.version }}
@@ -16,13 +19,33 @@
 
 ---
 
+## Sumário
+
+- [**Funcionalidade:** {{ feature.name }}](#{{ ('Funcionalidade: ' ~ feature.name) | slug }})
+- [**1. Requisitos Funcionais**](#{{ '1. Requisitos Funcionais' | slug }})
+{% for rf in functional_requirements %}    - [{{ rf.id }} – {{ rf.name }}](#{{ (rf.id ~ ' ' ~ rf.name) | slug }})
+{% endfor %}- [**2. Regras de Negócio**](#{{ '2. Regras de Negócio' | slug }})
+{% for group in business_rule_groups %}    - [{{ group.context }}](#{{ group.context | slug }})
+{% endfor %}- [**3. Casos de Uso**](#{{ '3. Casos de Uso' | slug }})
+{% for uc in use_cases %}    - [{{ uc.id }} – {{ uc.name }}](#{{ (uc.id ~ ' ' ~ uc.name) | slug }})
+{% endfor %}{% if non_functional_requirements %}- [**4. Requisitos Não-Funcionais**](#{{ '4. Requisitos Não-Funcionais' | slug }})
+{% for rnf in non_functional_requirements %}    - [{{ rnf.id }} – {{ rnf.name }}](#{{ (rnf.id ~ ' ' ~ rnf.name) | slug }})
+{% endfor %}{% endif %}{% if project_notes and (project_notes.resumo or project_notes.pontos) %}- [**Anexo — Gestão e Decisões do Projeto**](#{{ 'Anexo — Gestão e Decisões do Projeto' | slug }})
+{% endif %}
+
+---
+
 ## Funcionalidade: {{ feature.name }}
 
 {{ feature.description }}
 
 ---
 
-### Requisitos Funcionais
+## 1. Requisitos Funcionais
+
+### 1.1 Funcionalidades
+
+Esta seção apresenta os requisitos funcionais da funcionalidade **{{ feature.name }}**, descrevendo as operações e os comportamentos esperados do sistema.
 
 {% for rf in functional_requirements -%}
 #### {{ rf.id }} – {{ rf.name }}
@@ -44,10 +67,12 @@
 ---
 
 {% endfor -%}
-### Regras de Negócio
+## 2. Regras de Negócio
+
+Esta seção define as regras de negócio aplicáveis à funcionalidade **{{ feature.name }}**, agrupadas por contexto de uso.
 
 {% for group in business_rule_groups -%}
-#### {{ group.context }}
+### {{ group.context }}
 
 | ID | Regra de Negócio | Detalhamento |
 |----|------------------|--------------|
@@ -58,7 +83,9 @@
 {% endfor -%}
 ---
 
-### Casos de Uso
+## 3. Casos de Uso
+
+Esta seção descreve os casos de uso que detalham as interações dos atores com o sistema para a funcionalidade **{{ feature.name }}**.
 
 {% for uc in use_cases -%}
 #### {{ uc.id }} – {{ uc.name }}
@@ -97,7 +124,9 @@
 
 {% endfor -%}
 {% if non_functional_requirements -%}
-### Requisitos Não-Funcionais
+## 4. Requisitos Não-Funcionais
+
+Esta seção apresenta os requisitos não-funcionais (atributos de qualidade) da funcionalidade **{{ feature.name }}**.
 
 {% for rnf in non_functional_requirements -%}
 #### {{ rnf.id }} – {{ rnf.name }}
@@ -113,7 +142,7 @@
 {% endfor -%}
 {% endif -%}
 {% if project_notes and (project_notes.resumo or project_notes.pontos) -%}
-### Anexo — Gestão e Decisões do Projeto
+## Anexo — Gestão e Decisões do Projeto
 
 > Esta seção registra, de forma resumida, decisões e ações de gestão do projeto discutidas na reunião.
 > **Não são requisitos do software.**

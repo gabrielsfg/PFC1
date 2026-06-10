@@ -71,31 +71,27 @@ def _run_agent2(txt_path: Path) -> Path:
     return candidates[0]
 
 
-def _run_agent3(json_path: Path, fmt: str = "ieee") -> Path:
+def _run_agent3(json_path: Path, fmt: str = "ieee", project_name: str = "") -> Path:
     import subprocess
+    import time as _time
     python = _venv_python("agente-srs")
     output_dir = str(_ROOT / "agente-srs" / "data" / "output")
-    result = subprocess.run(
-        [python, "main.py", "--file", str(json_path.resolve()), "--format", fmt],
-        cwd=str(_ROOT / "agente-srs"),
-        capture_output=False,
-    )
+    started = _time.time()
+    cmd = [python, "main.py", "--file", str(json_path.resolve()), "--format", fmt]
+    if project_name:
+        cmd += ["--project-name", project_name]
+    result = subprocess.run(cmd, cwd=str(_ROOT / "agente-srs"), capture_output=False)
     if result.returncode != 0:
         raise RuntimeError("Agent 3 falhou.")
     out_dir = Path(output_dir)
-    # IEEE outputs *_srs_*.md; the empresa format outputs *_requisitos_*.md.
-    # glob.escape the stem: meeting filenames contain "[ ]" which are glob wildcards.
-    stem = _glob.escape(json_path.stem)
-    candidates = sorted(
-        list(out_dir.glob(f"{stem}_srs_*.md"))
-        + list(out_dir.glob(f"{stem}_requisitos_*.md")),
-        reverse=True,
-    )
-    if not candidates:
-        candidates = sorted(out_dir.glob("*.md"), reverse=True)
-    if not candidates:
+    # The output filename depends on the project name, so discover by newest mtime
+    # (a .md written by this run, i.e. modified at/after we started the subprocess).
+    mds = [p for p in out_dir.glob("*.md") if p.stat().st_mtime >= started - 1]
+    if not mds:
+        mds = list(out_dir.glob("*.md"))
+    if not mds:
         raise RuntimeError(f"Nenhum .md encontrado em {out_dir}")
-    return candidates[0]
+    return max(mds, key=lambda p: p.stat().st_mtime)
 
 
 def _run_agent4(json_path: Path, srs_md_path: Path) -> dict:
@@ -120,11 +116,11 @@ def _run_agent4(json_path: Path, srs_md_path: Path) -> dict:
     }
 
 
-def _run_agents3_and_4(json_path: Path, fmt: str = "ieee") -> dict:
+def _run_agents3_and_4(json_path: Path, fmt: str = "ieee", project_name: str = "") -> dict:
     print(f"\n{'='*60}")
     print(f"AGENT 3 — Documento ({_fmt_label(fmt)})")
     print(f"{'='*60}")
-    srs_md = _run_agent3(json_path, fmt)
+    srs_md = _run_agent3(json_path, fmt, project_name=project_name)
 
     if fmt != "ieee":
         # The empresa format has no diagrams: Agent 3's output is the final document.
@@ -145,21 +141,21 @@ def _run_agents3_and_4(json_path: Path, fmt: str = "ieee") -> dict:
 
 # ── Entry points per starting stage ──────────────────────────────────────────
 
-def _from_transcript(txt_path: Path, fmt: str = "ieee") -> None:
+def _from_transcript(txt_path: Path, fmt: str = "ieee", project_name: str = "") -> None:
     print(f"\n{'='*60}")
     print("AGENT 2 — Identificação de Personas")
     print(f"{'='*60}")
     json_path = _run_agent2(txt_path)
-    result = _run_agents3_and_4(json_path, fmt)
+    result = _run_agents3_and_4(json_path, fmt, project_name=project_name)
     _print_summary(result)
 
 
-def _from_json(json_path: Path, fmt: str = "ieee") -> None:
-    result = _run_agents3_and_4(json_path, fmt)
+def _from_json(json_path: Path, fmt: str = "ieee", project_name: str = "") -> None:
+    result = _run_agents3_and_4(json_path, fmt, project_name=project_name)
     _print_summary(result)
 
 
-def _from_audio(audio_path: Path, fmt: str = "ieee") -> None:
+def _from_audio(audio_path: Path, fmt: str = "ieee", project_name: str = "") -> None:
     sys.path.insert(0, str(_ROOT / "agente-transcricao"))
     from src.stt import transcription_service  # type: ignore
     from src.stt.groq_transcriber import GroqUnavailableError  # type: ignore
@@ -177,7 +173,7 @@ def _from_audio(audio_path: Path, fmt: str = "ieee") -> None:
 
     txt_path, _ = transcription_service.save_transcription(audio_path, result)
     print(f"Transcrição salva em: {txt_path}")
-    _from_transcript(txt_path, fmt)
+    _from_transcript(txt_path, fmt, project_name=project_name)
 
 
 def _full_pipeline(initial_fmt: str = "ieee") -> None:
@@ -346,7 +342,7 @@ def _full_pipeline(initial_fmt: str = "ieee") -> None:
             ui_status("Estruturando os requisitos…")
             set_bar(slices["agent3"][0])
             pulse(True)
-            srs_md = _run_agent3(json_path, fmt)
+            srs_md = _run_agent3(json_path, fmt, project_name=project_name_var.get().strip())
             pulse(False)
             set_bar(slices["agent3"][1])
             log("✔ Documento gerado.")
@@ -448,7 +444,7 @@ def _full_pipeline(initial_fmt: str = "ieee") -> None:
     # === GUI layout ===
     root = tk.Tk()
     root.title("Pipeline de Elicitação de Requisitos")
-    root.geometry("560x640")
+    root.geometry("560x710")
     root.resizable(False, False)
     root.configure(bg="#2b2b2b")
 
@@ -479,6 +475,16 @@ def _full_pipeline(initial_fmt: str = "ieee") -> None:
     tk.Radiobutton(fmt_frame, text="Documento de Requisitos — Empresa (SGG)", variable=format_var,
                    value="empresa", bg="#2b2b2b", fg="white", selectcolor="#444444",
                    activebackground="#2b2b2b", activeforeground="white").pack(anchor="w")
+
+    # Project/system name (optional) — used as the document title and output filename.
+    name_frame = tk.Frame(root, bg="#2b2b2b")
+    name_frame.pack(pady=(2, 6))
+    tk.Label(name_frame, text="Nome do sistema/documento (opcional):", font=("Helvetica", 9),
+             bg="#2b2b2b", fg="#cccccc").pack(anchor="w")
+    project_name_var = tk.StringVar(value="")
+    tk.Entry(name_frame, textvariable=project_name_var, width=52, font=("Helvetica", 10),
+             bg="#3c3c3c", fg="white", insertbackground="white",
+             relief="flat").pack(anchor="w", ipady=3)
 
     # Record section
     tk.Label(root, text="── Gravar reunião ──", font=("Helvetica", 9, "bold"),
@@ -582,6 +588,8 @@ Exemplos:
                        help="Começa a partir do JSON de saída do Agent 2")
     parser.add_argument("--format", choices=["ieee", "empresa"], default="ieee",
                         help="Formato do documento (ieee | empresa). No modo --full há seletor na janela.")
+    parser.add_argument("--project-name", default="",
+                        help="Formato empresa: título do documento e nome do arquivo de saída.")
     args = parser.parse_args()
 
     if args.full:
@@ -591,11 +599,11 @@ Exemplos:
     # CLI modes: time the whole run and report it at the end.
     start = time.time()
     if args.from_audio:
-        _from_audio(args.from_audio, args.format)
+        _from_audio(args.from_audio, args.format, project_name=args.project_name)
     elif args.from_transcript:
-        _from_transcript(args.from_transcript, args.format)
+        _from_transcript(args.from_transcript, args.format, project_name=args.project_name)
     elif args.from_json:
-        _from_json(args.from_json, args.format)
+        _from_json(args.from_json, args.format, project_name=args.project_name)
     print(f"Tempo total de execução: {_format_duration(time.time() - start)}\n")
 
 

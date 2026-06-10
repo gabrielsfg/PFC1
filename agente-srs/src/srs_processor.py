@@ -11,12 +11,15 @@ from src.document_renderer import DocumentRenderer
 
 
 class SRSProcessor:
-    def __init__(self, output_dir: str = "./data/output", fmt: str = "ieee"):
+    def __init__(self, output_dir: str = "./data/output", fmt: str = "ieee",
+                 project_name: str = ""):
         self.output_dir = Path(output_dir)
         self.output_dir.mkdir(parents=True, exist_ok=True)
         self.images_dir = self.output_dir / "images"
         self.images_dir.mkdir(parents=True, exist_ok=True)
         self.fmt = fmt
+        # Optional human title for the empresa document (used as H1 + output filename).
+        self.project_name = (project_name or os.getenv("EMPRESA_PROJECT_NAME", "")).strip()
         if fmt == "empresa":
             self.generator = FeatureRequirementsGenerator()
         else:
@@ -62,12 +65,16 @@ class SRSProcessor:
 
     def _process_empresa(self, json_path: Path, agent2_output: Agent2Output) -> dict:
         doc_meta = default_empresa_meta()
+        if self.project_name:
+            doc_meta.title = self.project_name  # used as the H1 document title
         # RNF section is optional (the SGG model document has none). On by default.
         include_nfr = os.getenv("EMPRESA_INCLUDE_NFR", "true").strip().lower() not in ("0", "false", "no", "nao", "não")
         document = self.generator.generate(agent2_output, doc_meta, include_nfr=include_nfr)
 
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        stem = f"{json_path.stem}_requisitos_{timestamp}"
+        # Name the output after the project name when provided, else the JSON stem.
+        base = _safe_filename(self.project_name) if self.project_name else json_path.stem
+        stem = f"{base}_requisitos_{timestamp}"
         md_path = self.output_dir / f"{stem}.md"
         pdf_path = self.output_dir / f"{stem}.pdf"
 
@@ -75,7 +82,8 @@ class SRSProcessor:
         self.renderer.render_feature_markdown(document, md_path)
         print(f"  -> {md_path}")
 
-        pdf_path = self._render_pdf(md_path, pdf_path)
+        # WeasyPrint so the Sumário gets page numbers (CSS target-counter).
+        pdf_path = self._render_pdf(md_path, pdf_path, engine="weasyprint")
 
         print("\nDocumento de Requisitos (formato empresa) gerado com sucesso!")
         return {
@@ -88,10 +96,10 @@ class SRSProcessor:
             "non_functional_requirements": len(document.non_functional_requirements),
         }
 
-    def _render_pdf(self, md_path: Path, pdf_path: Path) -> Path | None:
+    def _render_pdf(self, md_path: Path, pdf_path: Path, engine: str = "auto") -> Path | None:
         print("Renderizando PDF...")
         try:
-            self.renderer.render_pdf(md_path, pdf_path)
+            self.renderer.render_pdf(md_path, pdf_path, engine=engine)
             print(f"  -> {pdf_path}")
             return pdf_path
         except Exception as e:
@@ -124,6 +132,19 @@ class SRSProcessor:
         except Exception as e:
             print(f"Erro ao carregar {json_path.name}: {e}")
             return None
+
+
+def _safe_filename(name: str, max_len: int = 80) -> str:
+    """Turn a free-text project name into a safe file base (no path/invalid chars)."""
+    import re
+    cleaned = re.sub(r'[\\/:*?"<>|]+', " ", name)        # drop filesystem-invalid chars
+    cleaned = re.sub(r"\s+", " ", cleaned).strip()
+    if len(cleaned) > max_len:
+        cut = cleaned[:max_len]
+        if " " in cut:
+            cut = cut[:cut.rstrip().rfind(" ")]          # avoid cutting mid-word
+        cleaned = cut.strip()
+    return cleaned or "documento"
 
 
 def default_empresa_meta() -> EmpresaDocumentMeta:
