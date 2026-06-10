@@ -10,11 +10,12 @@ from src.document_renderer import DocumentRenderer
 
 
 class DiagramsProcessor:
-    def __init__(self, output_dir: str = "./data/output"):
+    def __init__(self, output_dir: str = "./data/output", fmt: str = "ieee"):
         self.output_dir = Path(output_dir)
         self.output_dir.mkdir(parents=True, exist_ok=True)
         self.images_dir = self.output_dir / "images"
         self.images_dir.mkdir(parents=True, exist_ok=True)
+        self.fmt = fmt
         self.generator = DomainDiagramGenerator(self.images_dir)
         self.assembler = DocumentAssembler()
         self.renderer = DocumentRenderer()
@@ -27,6 +28,19 @@ class DiagramsProcessor:
         print(f"\n{'='*60}")
         print(f"Processando: {json_path.name}")
         print(f"{'='*60}")
+
+        # The "empresa" format has no domain/use-case diagrams: the Agent 3 document
+        # is already the final deliverable, so Agent 4 is a no-op.
+        if self.fmt == "empresa":
+            print("Formato 'empresa' não requer o Agente 4 (documento já está completo). Pulando.")
+            return {
+                "skipped": True,
+                "source": str(json_path),
+                "markdown": str(srs_md_path) if srs_md_path else None,
+                "pdf": None,
+                "entities": 0,
+                "relationships": 0,
+            }
 
         agent2_output = self._load_input(json_path)
         if agent2_output is None:

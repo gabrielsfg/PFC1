@@ -13,7 +13,18 @@
       "Bash(pyenv versions *)",
       "Bash(conda info *)",
       "Bash(git -C /Users/gabrielfsilva/Documents/Tcc/PFC1 status --short)",
-      "Bash(git -C /Users/gabrielfsilva/Documents/Tcc/PFC1 log --oneline)"
+      "Bash(git -C /Users/gabrielfsilva/Documents/Tcc/PFC1 log --oneline)",
+      "Bash(python -m py_compile src/models.py src/feature_generator.py src/document_renderer.py src/srs_processor.py src/file_monitor.py main.py config/prompts.py)",
+      "Bash(python -m py_compile main.py src/diagrams_processor.py src/file_monitor.py)",
+      "Bash(python -m py_compile config/settings.py src/audio/preprocessor.py src/stt/groq_transcriber.py src/stt/transcription_service.py src/stt/transcribe.py)",
+      "Bash(python -m py_compile pipeline.py)",
+      "Bash(python -m py_compile gui_app.py)",
+      "Bash(python -c \"import pydantic, jinja2; print\\('pydantic', pydantic.VERSION\\); print\\('jinja2', jinja2.__version__\\)\")",
+      "Bash(python -m pip list)",
+      "PowerShell(Get-Command python, python3, py -ErrorAction SilentlyContinue)",
+      "PowerShell(python --version)",
+      "PowerShell(py --version)",
+      "WebFetch(domain:github.com)"
     ]
   }
 }

@@ -3,7 +3,7 @@ import argparse
 from pathlib import Path
 from dotenv import load_dotenv
 
-load_dotenv()
+load_dotenv(Path(__file__).parent / ".env", override=True)
 
 
 def main():
@@ -17,6 +17,11 @@ def main():
     parser.add_argument("--srs-md", type=Path, default=None,
                         help="Path to Agent 3 Markdown output to embed in the final document")
     parser.add_argument("--check-interval", type=int, default=int(os.getenv("CHECK_INTERVAL", "5")))
+    parser.add_argument(
+        "--format", choices=["ieee", "empresa"],
+        default=os.getenv("DOCUMENT_FORMAT", "ieee"),
+        help="Document format. 'empresa' skips Agent 4 (no diagrams in that format).",
+    )
     args = parser.parse_args()
 
     output_dir = os.getenv("OUTPUT_DIR", "./data/output")
@@ -25,14 +30,14 @@ def main():
 
     if args.file:
         from src.diagrams_processor import DiagramsProcessor
-        processor = DiagramsProcessor(output_dir)
+        processor = DiagramsProcessor(output_dir, fmt=args.format)
         result = processor.process(args.file, srs_md_path=args.srs_md)
         if not result:
             raise SystemExit(1)
 
     elif args.dir:
         from src.diagrams_processor import DiagramsProcessor
-        processor = DiagramsProcessor(output_dir)
+        processor = DiagramsProcessor(output_dir, fmt=args.format)
         results = processor.process_directory(args.dir)
         if not results:
             raise SystemExit(1)
@@ -44,6 +49,7 @@ def main():
             output_dir=output_dir,
             processed_dir=processed_dir,
             check_interval=args.check_interval,
+            fmt=args.format,
         )
         monitor.start()
 

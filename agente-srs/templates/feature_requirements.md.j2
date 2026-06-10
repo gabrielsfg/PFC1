@@ -1,0 +1,157 @@
+{% if document.title -%}
+# {{ document.title }}
+{% else -%}
+# {{ document.project_code }} – {{ document.client }} – {{ document.product }} – {{ document.phase }}
+{% endif %}
+## Documento de Requisitos
+
+**Versão:** {{ document.version }}
+
+---
+
+## Controle de Versão do Documento
+
+| Data | Versão | Descrição | Autor(es) |
+|------|--------|-----------|-----------|
+{% for entry in document.version_history -%}
+| {{ entry.date }} | {{ entry.version }} | {{ entry.description }} | {{ entry.authors }} |
+{% endfor %}
+
+---
+
+## Sumário
+
+- [**Funcionalidade:** {{ feature.name }}](#{{ ('Funcionalidade: ' ~ feature.name) | slug }})
+- [**1. Requisitos Funcionais**](#{{ '1. Requisitos Funcionais' | slug }})
+{% for rf in functional_requirements %}    - [{{ rf.id }} – {{ rf.name }}](#{{ (rf.id ~ ' ' ~ rf.name) | slug }})
+{% endfor %}- [**2. Regras de Negócio**](#{{ '2. Regras de Negócio' | slug }})
+{% for group in business_rule_groups %}    - [{{ group.context }}](#{{ group.context | slug }})
+{% endfor %}- [**3. Casos de Uso**](#{{ '3. Casos de Uso' | slug }})
+{% for uc in use_cases %}    - [{{ uc.id }} – {{ uc.name }}](#{{ (uc.id ~ ' ' ~ uc.name) | slug }})
+{% endfor %}{% if non_functional_requirements %}- [**4. Requisitos Não-Funcionais**](#{{ '4. Requisitos Não-Funcionais' | slug }})
+{% for rnf in non_functional_requirements %}    - [{{ rnf.id }} – {{ rnf.name }}](#{{ (rnf.id ~ ' ' ~ rnf.name) | slug }})
+{% endfor %}{% endif %}{% if project_notes and (project_notes.resumo or project_notes.pontos) %}- [**Anexo — Gestão e Decisões do Projeto**](#{{ 'Anexo — Gestão e Decisões do Projeto' | slug }})
+{% endif %}
+
+---
+
+## Funcionalidade: {{ feature.name }}
+
+{{ feature.description }}
+
+---
+
+## 1. Requisitos Funcionais
+
+### 1.1 Funcionalidades
+
+Esta seção apresenta os requisitos funcionais da funcionalidade **{{ feature.name }}**, descrevendo as operações e os comportamentos esperados do sistema.
+
+{% for rf in functional_requirements -%}
+#### {{ rf.id }} – {{ rf.name }}
+
+{% if rf.screen -%}
+**Tela:** {{ rf.screen }}
+
+{% endif -%}
+**Detalhamento:**
+
+{{ rf.detail }}
+
+{% if rf.comments -%}
+**Comentários:**
+
+{{ rf.comments }}
+
+{% endif -%}
+---
+
+{% endfor -%}
+## 2. Regras de Negócio
+
+Esta seção define as regras de negócio aplicáveis à funcionalidade **{{ feature.name }}**, agrupadas por contexto de uso.
+
+{% for group in business_rule_groups -%}
+### {{ group.context }}
+
+| ID | Regra de Negócio | Detalhamento |
+|----|------------------|--------------|
+{% for rule in group.rules -%}
+| {{ rule.id }} | {{ rule.name }} | {{ rule.detail }} |
+{% endfor %}
+
+{% endfor -%}
+---
+
+## 3. Casos de Uso
+
+Esta seção descreve os casos de uso que detalham as interações dos atores com o sistema para a funcionalidade **{{ feature.name }}**.
+
+{% for uc in use_cases -%}
+#### {{ uc.id }} – {{ uc.name }}
+
+| Campo | Descrição |
+|-------|-----------|
+| **Objetivo** | {{ uc.objective }} |
+| **Ator** | {{ uc.actor }} |
+| **Pré-condições** | {{ uc.preconditions | join('; ') }} |
+| **Pós-condições** | {{ uc.postconditions | join('; ') }} |
+
+**Fluxo Principal – FP {{ uc.main_flow.title }}**
+
+{% for step in uc.main_flow.steps -%}
+{{ loop.index }}. {{ step }}
+{% endfor %}
+{% for af in uc.alternative_flows -%}
+**Fluxo Alternativo – {{ af.id }}{% if af.title %} {{ af.title }}{% endif %}**
+
+{{ af.condition }}
+
+{% for step in af.steps -%}
+{{ loop.index }}. {{ step }}
+{% endfor %}
+{% endfor -%}
+{% for ef in uc.exception_flows -%}
+**Fluxo Exceção – {{ ef.id }}{% if ef.title %} {{ ef.title }}{% endif %}**
+
+{{ ef.condition }}
+
+{% for step in ef.steps -%}
+{{ loop.index }}. {{ step }}
+{% endfor %}
+{% endfor -%}
+---
+
+{% endfor -%}
+{% if non_functional_requirements -%}
+## 4. Requisitos Não-Funcionais
+
+Esta seção apresenta os requisitos não-funcionais (atributos de qualidade) da funcionalidade **{{ feature.name }}**.
+
+{% for rnf in non_functional_requirements -%}
+#### {{ rnf.id }} – {{ rnf.name }}
+
+| Campo | Descrição |
+|-------|-----------|
+| **Categoria** | {{ rnf.category }} |
+| **Descrição** | {{ rnf.description }} |
+| **Critério de Aceitação** | {{ rnf.acceptance_criteria }} |
+
+---
+
+{% endfor -%}
+{% endif -%}
+{% if project_notes and (project_notes.resumo or project_notes.pontos) -%}
+## Anexo — Gestão e Decisões do Projeto
+
+> Esta seção registra, de forma resumida, decisões e ações de gestão do projeto discutidas na reunião.
+> **Não são requisitos do software.**
+
+{% if project_notes.resumo -%}
+{{ project_notes.resumo }}
+
+{% endif -%}
+{% for ponto in project_notes.pontos -%}
+- {{ ponto }}
+{% endfor %}
+{% endif -%}
