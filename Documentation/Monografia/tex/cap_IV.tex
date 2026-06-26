@@ -1,0 +1,90 @@
+
+\chapter{Arquitetura e Sistema Proposto}
+\label{cap:arquitetura}
+
+Este capítulo descreve a arquitetura do sistema proposto, o projeto de cada um dos quatro agentes especializados, a estratégia de seleção de modelos por agente e o estudo de caso real utilizado para a validação.
+
+\section{Visão Geral e Arquitetura do Sistema}
+
+O sistema proposto é composto por quatro agentes especializados conectados por meio de um \textit{pipeline} sequencial baseado em arquivos, ilustrado na Figura~\ref{fig:arquitetura}. Cada agente monitora o diretório de saída de seu predecessor utilizando a biblioteca \textit{watchdog}; ao detectar um novo arquivo, dispara o processamento automaticamente, sem intervenção manual. Esse projeto proporciona baixo acoplamento entre os estágios, isolamento de falhas e artefatos intermediários auditáveis. O usuário pode ingressar no \textit{pipeline} em qualquer estágio (fornecendo o áudio bruto, uma transcrição já existente ou um arquivo JSON de análise anterior), o que permite o reaproveitamento parcial de resultados entre execuções.
+
+\begin{figure}[htb]
+\centering
+\begin{tikzpicture}[
+  node distance=0.55cm,
+  box/.style={draw, rounded corners=3pt, fill=black!5,
+              minimum width=0.85\textwidth, minimum height=0.95cm,
+              align=center, font=\small\bfseries},
+  art/.style={font=\scriptsize\itshape, text=black!60},
+  arr/.style={-{Stealth[length=4pt]}, thick}
+]
+  \node[box] (a1)
+    {Agente 1: Transcrição\\[-2pt]
+     {\normalfont\scriptsize Groq \texttt{whisper-large-v3-turbo}
+       $\cdot$ \textit{fallback} faster-whisper}};
+
+  \node[box, below=0.75cm of a1] (a2)
+    {Agente 2: Identificação de Personas e Histórias de Usuário\\[-2pt]
+     {\normalfont\scriptsize Claude \texttt{haiku-4-5}}};
+
+  \node[box, below=0.75cm of a2] (a3)
+    {Agente 3: Gerador do Documento de Requisitos\\[-2pt]
+     {\normalfont\scriptsize Claude \texttt{sonnet-4-6}
+       $\cdot$ IEEE~830 \textbar{} formato empresa}};
+
+  \node[box, below=0.75cm of a3] (a4)
+    {Agente 4: Síntese do Diagrama de Domínio\\[-2pt]
+     {\normalfont\scriptsize Claude \texttt{sonnet-4-6}
+       $\cdot$ PlantUML via kroki.io
+       $\cdot$ \textit{somente IEEE~830}}};
+
+  \draw[arr] ([yshift=0.6cm]a1.north)
+    -- node[art,right=3pt]{arquivo de áudio / vídeo} (a1.north);
+  \draw[arr] (a1.south)
+    -- node[art,right=3pt]{transcrição (.txt)} (a2.north);
+  \draw[arr] (a2.south)
+    -- node[art,right=3pt]{personas + histórias de usuário (.json)} (a3.north);
+  \draw[arr] (a3.south)
+    -- node[art,right=3pt]{documento de requisitos (.md + .pdf)} (a4.north);
+  \draw[arr] (a4.south)
+    -- node[art,right=3pt]{documento final unificado} ([yshift=-0.6cm]a4.south);
+\end{tikzpicture}
+\caption{\textit{Pipeline} de quatro agentes. Os agentes se comunicam por meio de um sistema de arquivos compartilhado, monitorado pela biblioteca \textit{watchdog}. O Agente~4 é ignorado nas execuções no formato empresa.}
+\label{fig:arquitetura}
+\end{figure}
+
+O \textit{pipeline} suporta dois formatos de saída selecionáveis, escolhidos uma única vez por execução: \textbf{IEEE~830}, a estrutura padrão de Especificação de Requisitos de Software utilizada ao longo desta pesquisa; e \textbf{formato empresa}, um \textit{layout} de documento específico de cliente, solicitado pelo parceiro industrial (Seção~\ref{sec:estudocaso}). Nas execuções no formato empresa, o Agente~4 é ignorado, pois esse formato de cliente não inclui diagramas de domínio. O formato afeta apenas o \textit{template} do documento e alguns \textit{prompts} dos agentes; todos os estágios anteriores (transcrição, identificação de personas e geração de histórias de usuário) são agnósticos ao formato.
+
+\section{Projeto dos Agentes}
+\label{sec:agentes}
+
+\subsection{Agente 1: Transcrição da Reunião}
+
+O Agente~1 aceita qualquer arquivo de áudio ou vídeo e produz uma transcrição em texto puro. O processamento começa com a normalização via \textbf{ffmpeg}: a entrada é convertida em um arquivo FLAC mono de 16~kHz, reduzindo o tamanho e preservando o sinal relevante para a transcrição. Se o arquivo normalizado exceder o limite de tamanho da API da Groq, ele é dividido em segmentos nas fronteiras de silêncio, cada um transcrito de forma independente e, ao final, mesclado em uma única saída.
+
+A transcrição é realizada pela \textbf{Groq} executando o modelo {\ttfamily whisper-large-v3-turbo}~\cite{whisper2022,groq2025}, escolhido por combinar alta acurácia multilíngue e baixa latência por meio de inferência acelerada por \textit{hardware}. Caso a API da Groq esteja indisponível, o agente recorre automaticamente ao \textbf{faster-whisper}, executando o modelo \texttt{small} localmente~\cite{ctranslate2}, trocando acurácia por disponibilidade \textit{offline}.
+
+\subsection{Agente 2: Identificação de Personas e Extração de Histórias de Usuário}
+
+O Agente~2 lê a transcrição e executa duas chamadas sequenciais a um LLM, utilizando o \textbf{Claude \texttt{haiku-4-5}}~\cite{anthropic2025claude}. A primeira chamada identifica as personas distintas das partes interessadas presentes na conversa, extraindo, para cada uma: nome ou identificador, papel, características definidoras e trechos representativos de fala. A segunda chamada gera histórias de usuário específicas de cada persona, seguindo o critério INVEST~\cite{wake2003invest} no formato \textit{``Como [persona], quero [objetivo] para [benefício]''}. Decompor a identificação e a geração em duas chamadas reduz a interferência de contexto e melhora a estruturação da saída. Os resultados são salvos em um documento JSON tipado, que serve de contrato entre os Agentes~2 e~3.
+
+\subsection{Agente 3: Geração do Documento de Requisitos}
+
+O Agente~3 lê o JSON produzido pelo Agente~2 e gera um documento de requisitos utilizando o \textbf{Claude \texttt{sonnet-4-6}} com \textit{templates} \textbf{Jinja2}. No modo IEEE~830, a saída segue a estrutura padrão de SRS (introdução, descrição geral, partes interessadas, requisitos funcionais e tabela de histórias de usuário). No modo empresa, segue o \textit{layout} do cliente (funcionalidades, requisitos funcionais detalhados com comentários, regras de negócio, casos de uso e requisitos não-funcionais). O documento é renderizado em \textit{Markdown} e, em seguida, em PDF por meio do \textbf{WeasyPrint}, utilizando CSS \textit{Paged Media} para gerar um sumário com numeração automática de páginas.
+
+\subsection{Agente 4: Síntese do Diagrama de Domínio}
+
+O Agente~4 só é ativado nas execuções no formato IEEE~830. Ele lê tanto o documento do Agente~3 quanto o JSON original do Agente~2 e utiliza o \textbf{Claude \texttt{sonnet-4-6}} para extrair as entidades de domínio e seus relacionamentos. O diagrama de classes em PlantUML resultante é renderizado em PNG por meio da API pública \textbf{kroki.io} e incorporado a um documento de requisitos final unificado, que consolida todas as seções anteriores.
+
+\section{Estratégia de Seleção de Modelos}
+
+A seleção de modelo por agente reflete um compromisso explícito entre custo e qualidade. O Agente~2 realiza extração estruturada com um esquema de saída bem definido (JSON tipado); a tarefa é repetitiva e executada em todas as reuniões, o que torna o custo por chamada uma preocupação primária, daí o uso do modelo mais leve \texttt{haiku-4-5}. Os Agentes~3 e~4 realizam síntese aberta e geração de documentos, que exigem raciocínio mais forte e fluência de linguagem; para ambos, utiliza-se o \texttt{sonnet-4-6}. O Agente~1 emprega um modelo de ASR dedicado (Whisper) em vez de um LLM de propósito geral, pois o reconhecimento de fala é uma tarefa especializada na qual o Whisper alcança acurácia e velocidade substancialmente melhores.
+
+\section{Estudo de Caso Real}
+\label{sec:estudocaso}
+
+Para validar o sistema em um cenário autêntico, estabeleceu-se uma parceria com a equipe de tecnologia de um órgão público brasileiro. A equipe forneceu uma reunião gravada de partes interessadas e um documento de requisitos oficial, produzido manualmente para o mesmo sistema, que serve como referência (\textit{ground truth}) para a avaliação (QP3--QP4).
+
+A reunião envolveu \textbf{10 participantes} e teve duração de \textbf{1~hora, 37~minutos e 47~segundos}, conduzida inteiramente em português brasileiro. O tema foi a reformulação de um módulo de gestão de saldo orçamentário em um sistema governamental de planejamento financeiro. O arquivo de vídeo bruto (609~MB) foi processado de ponta a ponta pelo \textit{pipeline}: normalização via ffmpeg, segmentação por silêncio, transcrição pela Groq, identificação de personas e geração do documento no formato empresa.
+
+O formato empresa foi adotado a pedido do parceiro, uma vez que a organização não utiliza o IEEE~830 internamente. Esse requisito motivou a arquitetura de formato duplo: os estágios centrais de extração de dados são agnósticos ao formato, e o formato do documento é um parâmetro de saída configurável. O documento gerado e o documento oficial de referência são comparados quantitativamente no Capítulo~\ref{cap:avaliacao}.

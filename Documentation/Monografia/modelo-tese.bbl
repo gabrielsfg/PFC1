@@ -1,0 +1,208 @@
+\begin{thebibliography}{10}
+
+\bibitem{ami_dataset}
+{\sffamily\scshape {AMI Consortium}.}
+\newblock {\bfseries The {AMI} meeting corpus}.
+\newblock \url{https://huggingface.co/datasets/knkarthick/AMI}, 2024.
+\newblock Accessed: December 2024.
+
+\bibitem{anthropic2025claude}
+{\sffamily\scshape {Anthropic}.}
+\newblock {\bfseries Claude model family}.
+\newblock \url{https://www.anthropic.com}, 2025.
+\newblock Accessed: June 2025.
+
+\bibitem{bokhari2011metrics}
+{\sffamily\scshape Bokhari, M.~U.; Siddiqui, S.~T.}
+\newblock {\bfseries Metrics for requirements engineering and automated
+  requirements tools}.
+\newblock In: {\itshape Proceedings of the 5th National Conference on Computing
+  for Nation Development (INDIACom)}, p. 10--11, New Delhi, India, 2011.
+
+\bibitem{cai2025designing}
+{\sffamily\scshape Cai, Y.; Li, R.; Liang, P.; Shahin, M.; Li, Z.}
+\newblock {\bfseries Designing {LLM}-based multi-agent systems for software
+  engineering tasks: Quality attributes, design patterns and rationale}.
+\newblock {\itshape ACM Transactions on Software Engineering and Methodology},
+  2025.
+\newblock arXiv:2511.08475.
+
+\bibitem{cohn2004}
+{\sffamily\scshape Cohn, M.}
+\newblock {\bfseries User Stories Applied: For Agile Software Development}.
+\newblock Addison-Wesley, Boston, USA, 2004.
+
+\bibitem{delgado2024aidriven}
+{\sffamily\scshape Delgado, A.; others.}
+\newblock {\bfseries {AI}-driven user story generation}.
+\newblock In: {\itshape Proceedings of the 2024 IEEE International Conference
+  on Software Analysis, Evolution and Reengineering (SANER)}, p. 1--12. IEEE,
+  2024.
+
+\bibitem{fellow2025}
+{\sffamily\scshape {Fellow.ai}.}
+\newblock {\bfseries Fellow: {AI} meeting assistant}.
+\newblock \url{https://fellow.ai}, 2025.
+\newblock Accessed: June 2025.
+
+\bibitem{groq2025}
+{\sffamily\scshape {Groq, Inc.}.}
+\newblock {\bfseries Groq {API}: Fast {AI} inference}.
+\newblock \url{https://groq.com}, 2025.
+\newblock Accessed: June 2025.
+
+\bibitem{hong2024metagpt}
+{\sffamily\scshape Hong, S.; Zhuge, M.; Chen, J.; Zheng, X.; Cheng, Y.; Zhang,
+  C.; Wang, J.; Wang, Z.; Yau, S. K.~S.; Lin, Z.; Zhou, L.; Ran, C.; Xiao, L.;
+  Wu, C.; Schmidhuber, J.}
+\newblock {\bfseries {MetaGPT}: Meta programming for a multi-agent
+  collaborative framework}.
+\newblock In: {\itshape Proceedings of the 12th International Conference on
+  Learning Representations (ICLR 2024)}, 2024.
+
+\bibitem{hort2025survey}
+{\sffamily\scshape Hort, M.; Vallecillos-Ruiz, F.; Moonen, L.}
+\newblock {\bfseries Large language models: A survey of surveys}.
+\newblock Preprint. \url{https://hal.science/hal-05341748}, 2025.
+
+\bibitem{ieee830}
+{\sffamily\scshape {IEEE}.}
+\newblock {\bfseries {IEEE} Recommended Practice for Software Requirements
+  Specifications}.
+\newblock Institute of Electrical and Electronics Engineers, New York, USA,
+  1998.
+
+\bibitem{jamie2025}
+{\sffamily\scshape {Jamie}.}
+\newblock {\bfseries Jamie: {AI} note-taking assistant}.
+\newblock \url{https://www.meetjamie.ai}, 2025.
+\newblock Accessed: June 2025.
+
+\bibitem{jin2024mare}
+{\sffamily\scshape Jin, D.; Jin, Z.; Chen, X.; Wang, C.}
+\newblock {\bfseries {MARE}: Multi-agents collaboration framework for
+  requirements engineering}.
+\newblock {\itshape arXiv preprint arXiv:2405.03256}, 2024.
+
+\bibitem{kasakowskij2025talk2text}
+{\sffamily\scshape Kasakowskij, T.; Haake, J.~M.}
+\newblock {\bfseries {T\textsuperscript{3}} {Talk2Text}: A model for near
+  real-time voice transcription in virtual group meetings}.
+\newblock {\itshape Discover Education}, 4:146, 2025.
+
+\bibitem{lucassen2016qus}
+{\sffamily\scshape Lucassen, G.; Dalpiaz, F.; van~der Werf, J. M. E.~M.;
+  Brinkkemper, S.}
+\newblock {\bfseries Improving agile requirements: The quality user story
+  framework and tool}.
+\newblock {\itshape Requirements Engineering}, 21(3):383--403, 2016.
+
+\bibitem{luo2024repoagent}
+{\sffamily\scshape Luo, Q.; Ye, Y.; Liang, S.; Zhang, Z.; Qin, Y.; Lu, Y.; Wu,
+  Y.; Cong, X.; Lin, Y.; Zhang, Y.; Che, X.; Liu, Z.; Sun, M.}
+\newblock {\bfseries {RepoAgent}: An {LLM}-powered open-source framework for
+  repository-level code documentation generation}.
+\newblock In: {\itshape Proceedings of the 2024 Conference on Empirical Methods
+  in Natural Language Processing: System Demonstrations}, p. 436--464.
+  Association for Computational Linguistics, 2024.
+
+\bibitem{motger2025share}
+{\sffamily\scshape Motger, Q.; Catot, C.; Franch, X.}
+\newblock {\bfseries {ShaRE} your data! characterizing datasets for {LLM}-based
+  requirements engineering}.
+\newblock In: {\itshape arXiv preprint arXiv:2510.18787}, 2025.
+
+\bibitem{naimi2024automating}
+{\sffamily\scshape Naimi, L.; Bouziane, E.~M.; Jakimi, A.; Saadane, R.; Chehri,
+  A.}
+\newblock {\bfseries Automating software documentation: Employing {LLMs} for
+  precise use case description}.
+\newblock In: {\itshape Procedia Computer Science}, volume 246, p. 1346--1354.
+  Elsevier, 2024.
+
+\bibitem{ctranslate2}
+{\sffamily\scshape {OpenNMT}.}
+\newblock {\bfseries {CTranslate2}: Fast inference engine for transformer
+  models}.
+\newblock \url{https://github.com/OpenNMT/CTranslate2}, 2024.
+
+\bibitem{pohl2010}
+{\sffamily\scshape Pohl, K.}
+\newblock {\bfseries Requirements Engineering: Fundamentals, Principles, and
+  Techniques}.
+\newblock Springer, Berlin, Heidelberg, 2010.
+
+\bibitem{qian2024chatdev}
+{\sffamily\scshape Qian, C.; Liu, W.; Liu, H.; Chen, N.; Dang, Y.; Li, J.;
+  Yang, C.; Chen, W.; Su, Y.; Cong, X.; Xu, J.; Li, D.; Liu, Z.; Sun, M.}
+\newblock {\bfseries {ChatDev}: Communicative agents for software development}.
+\newblock In: {\itshape Proceedings of the 62nd Annual Meeting of the
+  Association for Computational Linguistics (ACL 2024)}. Association for
+  Computational Linguistics, 2024.
+
+\bibitem{whisper2022}
+{\sffamily\scshape Radford, A.; Kim, J.~W.; Xu, T.; others.}
+\newblock {\bfseries Robust speech recognition via large-scale weak
+  supervision}.
+\newblock {\itshape arXiv preprint arXiv:2212.04356}, 2022.
+
+\bibitem{ren2024combining}
+{\sffamily\scshape Ren, S.; Nakagawa, H.; Tsuchiya, T.}
+\newblock {\bfseries {LLM}-based class diagram derivation from user stories
+  with chain-of-thought promptings}.
+\newblock In: {\itshape Proceedings of the 2024 IEEE 48th Annual Computers,
+  Software, and Applications Conference (COMPSAC)}, p. 1376--1381. IEEE, 2024.
+
+\bibitem{sami2024experimentingmultiagent}
+{\sffamily\scshape Sami, M.~A.; Waseem, M.; Rasheed, Z.; Saari, M.; Syst{\"a},
+  K.; Abrahamsson, P.}
+\newblock {\bfseries Experimenting with multi-agent software development:
+  Towards a unified platform}, 2024.
+
+\bibitem{sanwal2024autonomous}
+{\sffamily\scshape Sanwal, M.; Deva, I.}
+\newblock {\bfseries An autonomous multi-agent {LLM} framework for agile
+  software development}.
+\newblock {\itshape International Journal of Trend in Scientific Research and
+  Development (IJTSRD)}, 8(5):892--898, 2024.
+\newblock \url{https://www.ijtsrd.com/papers/ijtsrd70467.pdf}.
+
+\bibitem{sommerville2015}
+{\sffamily\scshape Sommerville, I.}
+\newblock {\bfseries Software Engineering}.
+\newblock Pearson, Boston, USA, 10 edition, 2015.
+
+\bibitem{su2023hotgpt}
+{\sffamily\scshape Su, Y.; Wan, C.; Sethi, U.; Lu, S.; Musuvathi, M.; Nath, S.}
+\newblock {\bfseries {HotGPT}: How to make software documentation more useful
+  with a large language model?}
+\newblock In: {\itshape Proceedings of the 19th Workshop on Hot Topics in
+  Operating Systems (HotOS '23)}, p. 87--93, Providence, RI, USA, 2023. ACM.
+
+\bibitem{vaswani2017attention}
+{\sffamily\scshape Vaswani, A.; Shazeer, N.; Parmar, N.; Uszkoreit, J.; Jones,
+  L.; Gomez, A.~N.; Kaiser, L.; Polosukhin, I.}
+\newblock {\bfseries Attention is all you need}.
+\newblock In: {\itshape Advances in Neural Information Processing Systems
+  (NeurIPS)}, volume~30, 2017.
+
+\bibitem{wake2003invest}
+{\sffamily\scshape Wake, B.}
+\newblock {\bfseries {INVEST} in good stories, and {SMART} tasks}.
+\newblock
+  \url{https://xp123.com/articles/invest-in-good-stories-and-smart-tasks/},
+  2003.
+\newblock Accessed: June 2025.
+
+\bibitem{wooldridge2009}
+{\sffamily\scshape Wooldridge, M.}
+\newblock {\bfseries An Introduction to MultiAgent Systems}.
+\newblock John Wiley \& Sons, Chichester, UK, 2 edition, 2009.
+
+\bibitem{xu2023requirement}
+{\sffamily\scshape Xu, X.; Dou, Y.; Qian, L.; Zhang, Z.; Ma, Y.; Tan, Y.}
+\newblock {\bfseries A requirement quality assessment method based on user
+  stories}.
+\newblock {\itshape Electronics}, 12(9):2155, 2023.
+
+\end{thebibliography}

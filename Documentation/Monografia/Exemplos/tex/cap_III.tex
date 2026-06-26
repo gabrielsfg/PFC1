@@ -1,0 +1,161 @@
+\chapter{Mapeamento Sistemático}
+\label{cap:mapeamento}
+
+% ---------------------------------------------------------------------
+Nesse capítulo é apresentado o mapeamento sistemático, que foi organizado em três etapas (planejamento, condução e publicação dos resultados) conforme proposto por~\cite{Fabbri}. Essas três etapas foram realizadas na ferramenta Parsifal\cite{Parsifal}.
+
+O planejamento é a parte na qual é definido o protocolo, nessa estapa definimos os objetivos do estudo, quais são as questões de pesquisa, as \textit{keywords} e a \textit{string de busca} para encontrar os artigos, critérios de inclusão e exclusão também são definidos aqui.
+
+Na condução é realizada a seleção dos trabalhos baseado no protocolo construído na etapa anterior, baseado nos critérios de inclusão e exclusão. Após a seleção os dados são extraídos e sintetizados por meio de um formulário de extração de dados.
+
+Por fim na publicação de resultados é feita a escrita desse mapeamento sistemático.
+
+
+\section{Objetivo e Questões de Pesquisa}
+
+O principal objetivo desse estudo foi identificar quais modelos preditivos de óbito foram utilizados em outros trabalhos em relação ao avanço da vacinação na população. As questões de pesquisa (\textbf{QP}) que visamos responder com o intuito de atender esse objetivo foram:
+
+\begin{enumerate}
+    \item[\textbf{QP1.}] Quais modelos preditivos são utilizados para predizer o número de óbitos por COVID-19 no contexto da introdução da vacinação?
+    \item[\textbf{QP2.}] Quais são os tipos de informações utilizadas para apoiar a predição?
+\end{enumerate}
+
+
+\section{Estratégia de Busca (String de Busca)}
+
+Nesta seção mostra a \textit{string de busca} utilizada com o intuito de obter os melhores artigos, para assim obter uma visão ampla do tópico abordado no estudo:
+
+\begin{center}
+    \textit{("death prediction") AND ("covid-19") AND ("vaccination")}
+\end{center}
+
+Como resultado inicial foram encontrados 64 artigos, dstribuídos em 3 bases bibliográficas digitais sendo elas: ACM Digital Library com 43 artigos (67,2\%), IEEE com 11 artigos (17,2\%), Science@Direct com 10 artigos (15,6\%).
+
+Para auxiliar no gerenciamento e organização desde a busca até a extração de dados dos artigos selecionados, utilizamos a ferramenta virtual Parsifal.
+
+\section{Identificação e Seleção dos Estudos Primários}
+
+Esta seção descreve o método utilizado para selecionar os estudos relevantes para responder às questões de pesquisa deste mapeamento sistemático.Todos os 64 artigos foram analisados e categorizados de acordo com os seguintes critérios.
+
+\subsection{Critérios de Inclusão}
+
+Como se trata de um mapeamento inicial para o tópico escolhido apenas um critério, mais amplo, foi escolhido como critério de inclusão.
+
+\begin{enumerate}
+    \item Quais são os tipos de informações utilizadas para apoiar a predição?
+\end{enumerate}
+
+\subsection{Critérios de Exclusão}
+
+Foram escolhidos 5 critérios de exclusão para o tópico abordado.
+
+\begin{enumerate}
+    \item Não aborda a COVID-19.
+    \item Não aborda modelos preditivos de óbito.
+    \item Não aborda vacinação contra COVID-19.
+    \item Não é um estudo primário.
+    \item Texto completo indisponível.
+\end{enumerate}
+
+Se um texto se encaixa ao menos em uma categoria dessas enumeradas acima ele será excluído da pesquisa e categorizado de acordo com o motivo de sua exclusão. Caso contrário ele será selecionado para a extração de dados.
+
+Nesse estudo 64 artigos foram escolhidos de acordo com a \textit{string de busca} e 1 foi eliminado por ser duplicata, sobrando assim 63 artigos. Com a leitura do resumo de cada artigo , aplicando os critérios de inclusão e exclusão, 57 trabalhos foram eliminados por se encaixarem em algum dos critérios de exclusão, restando assim 6 artigos aceitos.
+
+Desses 57 trabalhos excluídos, 27 (47,3\%) foram excluídos por não abordarem modelos preditivos de óbito, 19 (33,3\%) por não terem texto completo disponível, 9 (15,8\%) por não abordarem vacinação contra COVID-19, 1 (1,8\%) por não abordar COVID-19 e finalmente 1 (1,8\%) por não ser um estudo primário.
+
+\section{Síntese dos Dados}
+
+Após a etapa de extração de dados foi realizada uma síntese deles com o objetivo de responder as questões de pesquisa proposta nesse estudo.
+
+\subsection{QP1. Quais modelos preditivos são utilizados para predizer o número de óbitos por COVID-19 no contexto da introdução da vacinação?}
+
+Os modelos encontrados nos artigos aceitos são:
+
+\begin{itemize}
+    \item \textbf{SIRUCQHE (Susceptible - Infected - Removed - Unsusceptible - Contagious - Quarantined - Hospitalized - Extinct):} que traduzindo significa Suscetível-Infectado-Removido-Insusceptível-Contagioso-Em Quarentena-Hospitalizado-Extinto. Esse modelo é composto por 8 equações com diferenças na variação do tempo de fluxos individuais entre vários compartimentos \cite{Scarabaggio};\\
+    
+    
+    \item \textbf{SEIAQFR (Susceptible - Exposed - Infected - Asymptomatic - Quarantined - Fatal - Recovered):} que significa respectivamente, Suscetível-Exposto-Infectado-Assintomático-Em Quarentena-Fatal-Recuperado \cite{Rakshit}.;\\
+    
+    
+    \item \textbf{SIR (Susceptible - Infected - Recovered):} que trauzido significa respectivamente, Suscetível-Infectado-Recuperado com parâmetros de variação de tempo \cite{Chinchilla};\\
+
+    \item \textbf{DNN (Fully Connected Deep Neural Network):}, traduzindo significa rede neural profunda totalmente conectada. Ela não requer nenhuma suposição sobre a entrada para ser usada , é uma aplicação genérica de uma rede neural artificial \cite{Alkhammash};\\
+    
+    
+    \item \textbf{LSTM (Long Short-Term Memory):}, conhecida como memória de curto longo prazo é uma arquitetura de rede recorrente combinada com um algoritmo de aprendizado baseado em gradientes. Uma vantagem do modelo LSTM é sua habilidade de aprender mesmo com ruídos, ou sequência de entradas incompreensíveis sem perda de eficiência. Há dois artigos que utilizam esse modelo preditivo \cite{Nikita} e \cite{Alkhammash} ;\\
+    
+    
+    \item \textbf{TM (Transformer Model):}, modelo transformador é um modelo DNN que lida com pontos de entrada de dados sequenciais usados na representação de entrada \cite{Alkhammash};\\
+    
+    
+    \item \textbf{RNN (Recurrent Neural Network):} ou rede neural recorrente é o mais simples modelo de aprendizado profundo que consegue lembrar de informações passadas e realizar predições \cite{Nikita};\\
+    
+    
+    \item \textbf{CNN (Convolutional Neural Network):} a Rede Neural Convolucional é um modelo de aprendizado profundo que trabalha bem com imagens, textos e dados numéricos \cite{Nikita};\\
+
+    \item \textbf{ANN (Multi-Layer Perceptron Artificial Neural Network):}  A arquitetura nesse modelo possui um conjunto de neurônios na camada de entrada , uma ou mais camadas escondidas, e apenas uma camada de saída. Possui apenas um neurônio na camada de saída, a estimativa de casos e mortes foi realizada em redes separadas. A arquitetura \textit{feed-foward} da ANN foi utilizada, nela os dados fluem da entrada até a saída sem nenhum \textit{feedback} \cite{DeCarvalho}. \\
+\end{itemize}    
+
+
+\subsection{QP2. Quais são os tipos de informações utilizadas para apoiar a predição?}
+
+No artigo \cite{Nikita} há as seguintes informações:
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|c|c|}
+        \hline
+        \textbf{Parâmetros} &  \textbf{Valores} \\
+         \hline
+         Números de camadas de convolução & 2 \\
+         \hline
+         Números de camadas de max-pooling & 1 \\
+         \hline
+         Número de camadas completamente conectadas & 3 \\
+         \hline
+         Número de nós em camadas completamente conectadas & 100, 50, 1 \\
+         \hline
+         Número de filtros em cada camada de convolução & 100, 64 \\
+         \hline
+         Tamanho do kernel/filtro em cada camada de convolução & 3 \\
+         \hline
+         Tamanho da pool na camada max-pooling & 3 \\
+         \hline
+         Strides & 2 \\
+         \hline
+         Função de ativação em camadas de convolução & Relu \\
+         \hline
+         Épocas & 100 \\
+         \hline
+    \end{tabular}
+    \caption{Parâmetros usados no modelo CNN no \cite{Nikita}}
+    \label{tab:my_label}
+\end{table}
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|c|c|}
+    \hline
+         \textbf{Parâmetros} & \textbf{Valores} \\
+         \hline
+         Números de camadas & 3 \\
+         \hline
+         Números de nós em cada camada & 128, 100, 50 \\
+         \hline 
+         Números de camadas completamente conectadas & 2 \\
+         \hline
+         Número de nós em camadas completamente conectadas & 50, 1 \\
+         \hline
+         Função de ativação & Relu \\
+         \hline
+         Épocas & 100 \\
+         \hline
+    \end{tabular}
+    \caption{Parâmetros usados nos modelos RNN e LSTM no \cite{Nikita}}
+    \label{tab:my_label1}
+\end{table}
+
+No artigo \cite{Alkhammash} são utilizadas as seguintes informações nos modelos de predição : pessoas vacinadas, pessoas totalmente vacinadas, pessoas vacinadas por cem, pessoas totalmente vacinadas por cem, extrema pobreza, instalações para lavar as mãos, internações semanais no hospital, internações semanais no hospital por milhão, pacientes na UTI por milhão, internações semanais na UTI por milhão, internações semanais na UTI, pacientes hospitalizados por milhão, pacientes hospitalizados, pacientes de UTI, novas vacinas, total vacinações por cem, vacinações totais, novas vacinações suavizadas por milhão, novas vacinações suavizadas e novas mortes por milhão.
+
+No artigo \cite{Rakshit} utiliza os seguintes parâmetros em seu modelo $\beta$ (frequência média de contato), $\alpha$ (taxa de exposição se torna infecciosa), $\gamma$ (taxa de sintomáticos são movidos para o estado de quarentena no hospital ou em casa), $\varphi$ (taxa de pessoas assintomáticas também contribuem para o grupo de infectados sintomáticos desenvolvendo sintomas após (1/$\varphi$ ) dias), $\theta$ (taxa de recuperação após o tratamento), $\delta$ (taxa de mortalidade/fatalidade).

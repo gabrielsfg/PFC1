@@ -1,0 +1,111 @@
+
+\chapter{Avaliação}
+\label{cap:avaliacao}
+
+Este capítulo apresenta a avaliação do sistema proposto. A Seção~\ref{sec:desenho} descreve o desenho da avaliação: os conjuntos de dados, as métricas e o protocolo associado a cada questão de pesquisa. A Seção~\ref{sec:resultados} reporta os resultados obtidos, e a Seção~\ref{sec:ameacas} discute as ameaças à validade do estudo.
+
+\section{Desenho da Avaliação}
+\label{sec:desenho}
+
+A avaliação foi estruturada em torno das cinco questões de pesquisa definidas no Capítulo~\ref{cap:introducao}, cada uma associada a um agente ou ao \textit{pipeline} como um todo. Esta seção descreve, para cada questão, os dados utilizados, as métricas adotadas e o protocolo de medição.
+
+\subsection{Conjuntos de Dados}
+
+Três fontes de dados sustentam a avaliação:
+
+\begin{itemize}
+    \item \textbf{Corpus AMI}: conjunto de reuniões anotadas~\cite{ami_dataset}, utilizado para a avaliação da identificação de personas e da geração de histórias de usuário (QP2). Sete reuniões foram processadas na etapa inicial desta pesquisa.
+    \item \textbf{Corpus de áudio em português}: utilizado para a medição da acurácia de transcrição (QP1), que exige pares de áudio e transcrição de referência em português.
+    \item \textbf{Estudo de caso real (parceiro público)}: a reunião gravada e o documento de requisitos oficial descritos na Seção~\ref{sec:estudocaso}, base das questões QP3 e QP4 e do estudo de propagação de erro (QP5).
+\end{itemize}
+
+\subsection{Métricas e Protocolo por Questão de Pesquisa}
+
+\paragraph{QP1: Acurácia da transcrição (Agente~1).}
+Mede-se a Taxa de Erro de Palavra (WER) e a Taxa de Erro de Caractere (CER) da transcrição produzida frente à transcrição de referência, sobre o corpus de áudio em português. Reporta-se, ainda, o \textit{Real-Time Factor} (RTF), razão entre o tempo de processamento e a duração do áudio, e compara-se a transcrição via Groq com a execução local do \textit{faster-whisper}.
+
+\paragraph{QP2: Identificação de personas e histórias de usuário (Agente~2).}
+Avalia-se a identificação de personas por meio de Precisão, Revocação e F1, comparando as personas identificadas com os papéis de referência das reuniões. A qualidade das histórias de usuário é medida pela taxa de conformidade com os seis critérios INVEST, aplicada por um protocolo de LLM como juiz e validada em uma amostra por anotação manual. A concordância entre avaliadores é quantificada pelo \textit{kappa} de Cohen.
+
+\paragraph{QP3: Qualidade percebida do documento (Agente~3).}
+A qualidade do documento gerado é avaliada por profissionais por meio de uma pesquisa estruturada em escala Likert de cinco pontos, organizada em construtos (por exemplo, completude/acurácia, clareza/organização e utilidade/satisfação). Reportam-se a média e o desvio-padrão por construto, a consistência interna via alfa de Cronbach e a distribuição das respostas. Dada a natureza ordinal das respostas e o tamanho da amostra, adotam-se também medidas robustas (mediana) e testes não-paramétricos para comparações entre subgrupos.
+
+\paragraph{QP4: Cobertura frente ao documento oficial (Agente~3).}
+Compara-se o documento gerado com o documento oficial produzido manualmente (\textit{gold standard}), por meio de um protocolo de casamento item a item dos requisitos. A partir desse casamento, calculam-se a Precisão, a Revocação e o F1 da cobertura, separadamente para requisitos funcionais, regras de negócio e casos de uso. O casamento é conduzido por anotação manual, com validação por um segundo anotador (\textit{kappa} de Cohen).
+
+\paragraph{QP5: Propagação de erro e custo por agente (\textit{pipeline}).}
+A propagação de erro é analisada como um estudo de caso qualitativo, rastreando como um erro de transcrição se manifesta nos artefatos a jusante até o documento final. Complementarmente, medem-se o tempo de processamento por estágio, o tempo total por reunião e o custo de API (estimado a partir do número de \textit{tokens} consumidos por cada agente), oferecendo evidência sobre a viabilidade prática do sistema.
+
+\section{Resultados e Discussão}
+\label{sec:resultados}
+
+% BLOQUEADO: depende de executar os experimentos (o harness de métricas ainda
+% será construído). Um bloco por questão de pesquisa, com tabelas e figuras.
+
+\subsection{QP1: Acurácia da Transcrição}
+% TODO: tabela de WER/CER (Groq x local) por corpus; RTF; discussão.
+
+\subsection{QP2: Identificação de Personas e Histórias de Usuário}
+% TODO: P/R/F1 de personas; conformidade INVEST; kappa; descritivas.
+
+\subsection{QP3: Qualidade Percebida do Documento}
+% TODO: média/DP/mediana e Cronbach por construto; NPS; gráfico de barras
+% divergentes; comparação entre subgrupos (participou x não participou).
+
+\subsection{QP4: Cobertura frente ao Documento Oficial}
+
+Esta análise compara o documento gerado pelo sistema (no formato empresa) com o documento de requisitos oficial do parceiro (PR0102), produzido manualmente por um analista e adotado como referência (\textit{gold standard}). A apresentação a seguir é qualitativa; a quantificação em termos de Precisão, Revocação e F1 é tratada como trabalho pendente ao final desta subseção.
+
+\paragraph{Escopo comparável.}
+Um cuidado metodológico precede a comparação: o documento oficial detalha \textbf{apenas um item} do projeto (a tela de Manutenção de Saldo, item~2.1), enquanto a reunião (e, por consequência, o documento gerado) abrange \textbf{todo o escopo} discutido (itens~2.1 a~2.7). Uma comparação por contagem bruta de requisitos seria, portanto, enganosa. A avaliação de cobertura deve separar o \textbf{escopo comparável} (item~2.1, presente nos dois documentos) do \textbf{escopo adicional} (itens~2.2 a~2.7, presentes apenas no documento gerado).
+
+\paragraph{Convergência no núcleo funcional.}
+No escopo comparável, os dois documentos identificaram os mesmos pontos centrais discutidos na reunião, entre eles:
+\begin{itemize}
+    \item a granularidade multidimensional do saldo (exercício, unidade, ação orçamentária, grupo de despesa e fonte de recurso);
+    \item as operações de inclusão, edição e consulta de saldo;
+    \item a multisseleção de ação, grupo e fonte; e
+    \item a sinalização (\textit{flag}) de inclusão de saldo com valor zerado ou sem dotação.
+\end{itemize}
+Este último ponto (um detalhe bastante específico) foi capturado por ambos os documentos, o que constitui forte evidência de que o sistema extraiu com precisão o conteúdo efetivamente discutido na reunião.
+
+\paragraph{Cobertura adicional do documento gerado.}
+Por refletir toda a reunião, o documento gerado contempla requisitos ausentes do documento oficial por pertencerem a outros itens de escopo: a validação de saldo nos pontos de consumo (envio, alteração, homologação e autorização), o tratamento de exercícios futuros e os limites e o monitoramento da LOA. Trata-se de cobertura legítima, e não de ruído.
+
+\paragraph{Limitação de cobertura do documento gerado.}
+Em sentido inverso, o documento oficial contém detalhes que o gerado não reproduz, todos relativos à \textbf{concretude da interface}: o caminho de menu, os títulos de tela, os filtros campo a campo, as colunas da grade, a paginação e a integração com sistemas externos. Esses detalhes derivam de protótipos visuais, ausentes do áudio da reunião. Não se trata, portanto, de uma falha do sistema, mas de uma limitação do insumo, mitigável no futuro com entrada multimodal (anexação de telas e protótipos).
+
+\paragraph{Fidelidade terminológica.}
+Por fim, observou-se que o documento gerado registra o termo ``HIPOF'' onde o sistema real é ``IPOF'', em decorrência de um erro de transcrição do Agente~1 que se propagou até o documento final, caso analisado em detalhe na propagação de erro (QP5).
+
+% TODO: calcular Precisão/Revocação/F1 sobre o ESCOPO COMPARÁVEL (item 2.1),
+% com protocolo de casamento item-a-item e 2º anotador (kappa de Cohen).
+
+\subsection{QP5: Propagação de Erro e Custo por Agente}
+
+Em um \textit{pipeline} sequencial de agentes, um erro cometido em um estágio inicial pode propagar-se para todos os artefatos subsequentes. Esta análise documenta um caso concreto observado no estudo de caso real e estabelece o protocolo para a medição de custo e latência.
+
+\paragraph{Estudo de caso de propagação de erro.}
+Durante o processamento da reunião do parceiro, o Agente~1 transcreveu incorretamente a sigla ``IPOF'' (Instrumento de Planejamento, Orçamento e Finanças) como ``HIPOF''. Por se tratar de um \textit{pipeline} baseado em arquivos, essa transcrição alimentou o Agente~2 e, em seguida, o Agente~3, de modo que o termo incorreto reapareceu em diversos pontos do documento de requisitos final. O caso ilustra, de forma concreta, um modo de falha central de sistemas agênticos: a acurácia do primeiro agente (medida pela WER/CER na QP1) impacta diretamente a qualidade dos artefatos produzidos a jusante, sem que os agentes seguintes disponham de meios para detectar ou corrigir o erro herdado. O achado motiva, como trabalho futuro (Capítulo~\ref{cap:conclusao}), a adoção de um dicionário de termos do domínio aplicado após a transcrição.
+
+\paragraph{Custo e latência por agente.}
+% TODO: medir e tabular o tempo de processamento por estágio, o tempo total
+% por reunião e o custo de API (tokens x preço) por agente. Requer instrumentar
+% e executar o pipeline (decisão pendente com o autor).
+
+\section{Ameaças à Validade}
+\label{sec:ameacas}
+
+Discutem-se a seguir as principais ameaças à validade deste estudo, organizadas nas categorias de construto, interna, externa e de conclusão.
+
+\paragraph{Validade de construto.}
+Refere-se a se os instrumentos medem efetivamente o que se pretende medir. A qualidade percebida do documento (QP3) é um construto subjetivo; para mitigá-lo, a pesquisa foi organizada em construtos com múltiplos itens, e a consistência interna é verificada pelo alfa de Cronbach.
+
+\paragraph{Validade interna.}
+Diz respeito a fatores que poderiam enviesar os resultados. A pontuação de conformidade INVEST e o casamento de requisitos, quando realizados por um único anotador, estão sujeitos a viés de julgamento; mitiga-se essa ameaça com um segundo anotador e a medição da concordância via \textit{kappa} de Cohen. Na pesquisa de opinião, o fato de parte dos respondentes ter participado da reunião pode influenciar a percepção, o que é tratado como uma variável de subgrupo na análise.
+
+\paragraph{Validade externa.}
+Refere-se à capacidade de generalização. A validação no mundo real apoia-se em um único caso real (o parceiro público), e o corpus AMI representa um cenário específico de reuniões; assim, os resultados não se generalizam automaticamente para todos os domínios. O tamanho reduzido da amostra da pesquisa também limita a generalização das conclusões da QP3.
+
+\paragraph{Validade de conclusão.}
+Relaciona-se à solidez das inferências estatísticas. Dado o tamanho reduzido da amostra e a natureza ordinal das escalas Likert, privilegiam-se testes não-paramétricos e a reportagem de medidas robustas (mediana e intervalo), além da média, evitando conclusões além do que os dados sustentam.

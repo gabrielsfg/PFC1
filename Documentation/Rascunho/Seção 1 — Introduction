@@ -1,0 +1,21 @@
+Seção 1 — Introduction
+
+Parágrafo de motivação: Por que elicitação de requisitos a partir de reuniões é cara e sujeita a erros? O que se perde quando só tem anotações manuais?
+
+Um problema sobre elicitacao de requisitos eh a dificuldade, uma vez que na maioria das empresas existem pessoas especialisadas nisso, pessoas essas conhecidas como Analistas de requisitos, ou Product Owner em projetos ageis, ou entao um scrum master. So esse fator ja eh o suficiente para argumentar o custo e a dificuldade em levanto de requisitos. 
+
+Requisitos, historias de usuarios, casos de uso etc sao fatores considerados extremamente importantes quando se fala de desenvolvimento de software, uma vez que sao esses pontos que trazem uma visao do objetivo do projeto, qual a demanda dos stake holders, quais os criterios de prontos. Ou seja esse documento serve como uma base em todo o desenvolvido do projeto, com isso pode-se afirmar que um projeto sem documento de requisitos ou com um documento mal feito dificulta a implementacao dos desenvolvedores alem de trazer uma dificuldade de alinhamento entre o desejado e o que realmente eh realizado.
+
+Dessa forma como o modelo atual de levantamento de requisitos eh feito por pessoas existe o risco de muitas vezes algumas informacoes se perdere, uma vez que a pessoa participa da reuniao e a partir disso escreve o documento, ou seja muitas vezes pode ter erros devido a falha na memoria do responsavel por ser totalmente normal as pessoas esquecerem coisas, e isso pode fazer com que informacoes se percam pelo caminho e como foi discutido anteriormente o objetivo do documento eh ser o mais fiel possivel a reuniao, e aos desejos dos stakeholders.
+
+Gap na literatura: você pesquisou — existe algum sistema que faz o pipeline completo áudio → documento de requisitos estruturado? O que existe para por quê o seu é diferente?
+
+(Voce ja tem a resposta pelos sites que pesquisou)
+
+Por que multi-agente? Por que 4 agentes especializados ao invés de um único prompt grande que faça tudo?
+
+Cada agente tem um foco especifico buscando sempre isolar responsabilidade, e permite ainda que o usuario parta de um ponto x para chegar ate o documento nao, nao precisando sempre executar a pipeline completa, um exemplo de um caso onde o usuario ja tem o audio gravado ou entao ja tem ate a transcricao com isso o sistema nao precisa partir do ponto 0 desde gravar o audio permitindo ainda assim ele utilizar o sistema.
+
+Contribuições: liste em suas palavras o que você acha que o trabalho entrega que não existia (sistema implementado end-to-end, validação real, análise de propagação de erro, harness de métricas, open-source).
+
+O sistema intrega uma maior facilidade de geracao de documento de requisitos a partir de reunioes, alem de ganho de tempo uma vez que o usuario assim que parar de gravar o sistema automaticamente ja ira executar toda a pipeline e em minutos ira fornecer o documento final para o usuario.

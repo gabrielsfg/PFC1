@@ -1,0 +1,11 @@
+# Evaluation harness — PFC2 quantitative metrics.
+# Install into the relevant agent's virtualenv (see README), e.g.:
+#   agente-transcricao/.venv for QP1, agente-identificacao/.venv for QP2.
+
+jiwer>=3.0          # WER / CER                       (QP1)
+scikit-learn>=1.3   # Precision / Recall / F1, kappa  (QP2)
+pandas>=2.0         # data wrangling                  (all)
+scipy>=1.11         # Mann-Whitney U                  (QP3)
+pingouin>=0.5       # Cronbach's alpha                (QP3)
+matplotlib>=3.7     # figures                         (QP3)
+python-dotenv>=1.0  # load each agent's .env

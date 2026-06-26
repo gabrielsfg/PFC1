@@ -1,0 +1,12 @@
+\babel@toc {brazil}{}\relax 
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Uma figura típica.\relax }}{23}{figure.caption.37}%
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Esta figura é um exemplo de um rótulo de figura que ocupa mais de uma linha, devendo ser identado e justificado.\relax }}{23}{figure.caption.38}%
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Figura incluída no texto com a classe graphicx.\relax }}{24}{figure.caption.39}%
+\contentsline {figure}{\numberline {3.4}{\ignorespaces {\ref {sub@subfig:ex1}} e {\ref {sub@subfig:ex2}} representam dois exemplos do uso de subfiguras dentro de uma única figura.\relax }}{24}{figure.caption.41}%
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {Segunda subfigura (um pedaço).}}}{24}{figure.caption.41}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsfinish 

@@ -36,12 +36,10 @@ data/
 
 # Documentation (material de desenvolvimento e documentos do cliente — não versionar).
 # Exceções: docs legítimas do repositório, referenciadas pelo CLAUDE.md.
-Documentation/
-!Documentation/conventions.md
-!Documentation/roadmap.md
+
 
 # Análises usadas na escrita do TCC (material pessoal — não versionar).
-analise-tcc/
+
 
 # Audio files
 *.wav

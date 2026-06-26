@@ -1,0 +1,134 @@
+\chapter{Prompts do Agente de Identificação}
+\label{apend:prompts}
+
+Este apêndice reproduz os \textit{prompts} utilizados pelo Agente~2 (identificação de personas e geração de histórias de usuário), tal como definidos em \texttt{agente-identificacao/config/prompts.py}. Os marcadores entre chaves --- \texttt{\{transcription\}} e \texttt{\{personas\_json\}} --- são substituídos em tempo de execução, respectivamente, pela transcrição da reunião e pelo JSON de personas produzido na primeira chamada.
+
+\section{Mensagem de Sistema}
+
+{\footnotesize
+\begin{verbatim}
+Você é um especialista em engenharia de requisitos e análise de
+reuniões de elicitação. Sua tarefa é analisar a transcrição de uma
+reunião e separar claramente DOIS conceitos:
+
+1. PERSONAS / ATORES DO SISTEMA: os perfis de usuário que vão USAR o
+   software discutido (ex.: Administrador, Operador, Cliente, Gestor,
+   Usuário do órgão). Você os infere a partir das funcionalidades
+   descritas, MESMO que essas pessoas não estejam na reunião.
+2. PARTICIPANTES DA REUNIÃO: as pessoas que efetivamente falaram
+   (equipe do projeto: analistas, desenvolvedores, gerente de
+   projeto, prototipador). Servem apenas como metadado de
+   rastreabilidade e NÃO são as personas do sistema — a menos que
+   sejam, claramente, também usuárias do software.
+
+Os requisitos e casos de uso derivados depois serão escritos do ponto
+de vista das PERSONAS (atores do sistema). Seja preciso e baseie-se
+apenas na transcrição.
+\end{verbatim}
+}
+
+\section{Prompt de Identificação de Personas}
+
+{\footnotesize
+\begin{verbatim}
+Analise a transcrição de reunião abaixo e produza a análise de
+personas do SISTEMA que está sendo discutido.
+
+TRANSCRIÇÃO:
+{transcription}
+
+IMPORTANTE — distinga DOIS conceitos:
+- "personas": os ATORES / USUÁRIOS DO SISTEMA (perfis que vão usar o
+  software), inferidos das funcionalidades discutidas (ex.: "Operador
+  de Orçamento", "Gestor", "Administrador"). Mesmo que essas pessoas
+  não estejam presentes na reunião. NÃO use os nomes dos participantes
+  da reunião como personas (a não ser que sejam, claramente, também
+  usuários do sistema). Identifique de 2 a 6 atores distintos,
+  consolidando perfis semelhantes.
+- "participantes_reuniao": as pessoas que efetivamente FALARAM na
+  reunião (equipe do projeto). Apenas metadado.
+
+Separe também, de forma RESUMIDA, as DISCUSSÕES DE GESTÃO DE PROJETO
+(cronograma, EAP, prazos, alocação de equipe, reuniões de validação,
+priorização de escopo, mapeamento de código, transferência de
+conhecimento) no campo "gestao_projeto" — essas discussões NÃO são
+requisitos do software, mas devem ser registradas à parte.
+
+Retorne em formato JSON:
+
+{
+  "personas": [
+    {
+      "id": "persona_1",
+      "nome": "Nome do ATOR DO SISTEMA (ex.: Operador de Orçamento)",
+      "papel": "Perfil/função de uso no sistema",
+      "caracteristicas": ["característica 1", "característica 2"],
+      "contexto": "Como esse ator usa o sistema e o que precisa",
+      "trechos_relevantes": ["Trecho que evidencia esse ator"]
+    }
+  ],
+  "participantes_reuniao": [
+    { "nome": "Nome de quem falou",
+      "papel_na_reuniao": "ex.: analista, desenvolvedor, gerente" }
+  ],
+  "resumo_conversa": "Resumo do sistema/funcionalidade discutidos",
+  "tipo_interacao": "ex.: reunião de levantamento de requisitos",
+  "gestao_projeto": {
+    "resumo": "1 a 3 frases sobre decisões de gestão (não requisitos)",
+    "pontos": ["ponto principal 1", "ponto principal 2"]
+  }
+}
+
+Seja preciso e baseie-se apenas na transcrição.
+Retorne APENAS o JSON, sem texto adicional antes ou depois.
+\end{verbatim}
+}
+
+\section{Prompt de Geração de Histórias de Usuário}
+
+{\footnotesize
+\begin{verbatim}
+Com base nas PERSONAS DO SISTEMA (atores) abaixo, crie histórias de
+usuário (user stories) seguindo os critérios INVEST (Independente,
+Negociável, Valiosa, Estimável, Pequena e Testável).
+
+PERSONAS (ATORES DO SISTEMA):
+{personas_json}
+
+Para cada persona (ator do sistema), crie histórias no formato:
+"Como [ator do sistema], eu quero [objetivo no sistema] para
+[benefício/razão]"
+
+REGRAS IMPORTANTES:
+- Escreva do ponto de vista do ATOR DO SISTEMA (use o campo
+  "personas", NÃO os "participantes_reuniao").
+- Inclua APENAS necessidades de COMPORTAMENTO DO SOFTWARE. NÃO crie
+  histórias sobre gestão de projeto (cronograma, EAP, prazos, alocação
+  de equipe, reuniões, mapeamento de código, transferência de
+  conhecimento).
+- Consolide histórias redundantes; foque no que o sistema deve fazer
+  para cada ator.
+
+Retorne em formato JSON:
+
+{
+  "user_stories": [
+    {
+      "persona_id": "persona_1",
+      "persona_nome": "Nome da persona",
+      "historias": [
+        {
+          "id": "story_1",
+          "historia": "Como [persona], eu quero [objetivo] para [...]",
+          "prioridade": "alta|média|baixa",
+          "contexto": "Contexto adicional da história",
+          "trecho_base": "Trecho da transcrição que originou a história"
+        }
+      ]
+    }
+  ]
+}
+
+Retorne APENAS o JSON, sem texto adicional.
+\end{verbatim}
+}

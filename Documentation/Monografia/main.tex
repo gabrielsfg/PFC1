@@ -1,0 +1,97 @@
+% =====================================================================
+%  ARQUIVO PRINCIPAL DA MONOGRAFIA — documento final (raiz do projeto).
+%  Este é o arquivo a ser compilado (defina-o como "Main document" no
+%  Overleaf). O texto continua organizado em capítulos separados, em
+%  ./tex/cap_*.tex, montados aqui via \input.
+%
+%  Ordem de compilação: pdflatex -> bibtex -> pdflatex -> pdflatex
+% =====================================================================
+\documentclass[relatorio]{inf-ufg}
+% Opções da classe inf-ufg (ao usar mais de uma, separe por vírgulas)
+%   [tese]         -> Tese de doutorado.
+%   [dissertacao]  -> Dissertação de mestrado (padrão).
+%   [monografia]   -> Monografia de especialização.
+%   [relatorio]    -> Relatório final de graduação.
+%   [abnt]         -> Usa o estilo "abnt-alf" de citação bibliográfica.
+%   [nocolorlinks] -> Links de navegação em preto (use na versão de impressão).
+
+% Pacotes adicionais usados nesta monografia
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning}
+
+% Remove a marca d'água "Modelo" da capa (este já não é o arquivo-modelo).
+\renewcommand{\modelo}{}
+
+%----------------------------------------------------- INICIO DO DOCUMENTO %
+\begin{document}
+
+%------------------------------------------ AUTOR, TÍTULO E DATA DE DEFESA %
+\autor{Gabriel Ferreira Silva}
+\autorR{Ferreira Silva, Gabriel}
+
+\titulo{Inteligência Artificial Generativa e Engenharia de Software: Desafios e Oportunidades}
+%\subtitulo{\textless Subtítulo do Trabalho\textgreater}
+
+\cidade{Goiânia} % Nome da cidade em que foi desenvolvido o trabalho
+\dia{30}  % data da defesa: 30/06/2026
+\mes{6}   % número 1--12; a classe converte para o nome (6 -> Junho)
+\ano{2026}
+
+%-------------------------------------------------------------- ORIENTADOR %
+\orientador{Jacson Rodrigues Barbosa}
+\orientadorR{Rodrigues Barbosa, Jacson}
+
+%\coorientador{\textless Nome do Co-orientador\textgreater}
+%\coorientadorR{\textless Nome Reverso do Co-orientador\textgreater}
+
+%-------------------------------------------------- INSTITUIÇÃO E PROGRAMA %
+\universidade{Universidade Federal de Goiás}
+\uni{UFG}
+\unidade{Instituto de Informática}
+%\departamento{\textless Nome do Departamento\textgreater}
+
+%-------------------------------------------------- ELEMENTOS PRÉ-TEXTUAIS %
+\capa    % Gera o modelo da capa externa do trabalho
+\publica % Gera a autorização para publicação em formato eletrônico
+\rosto   % Primeira folha interna do trabalho
+
+\input{./pre/pre_aprovacao}
+\input{./pre/pre_direitos}
+\input{./pre/pre_dedicatoria}
+\input{./pre/pre_agradecimentos}
+\input{./pre/pre_epigrafe}
+\input{./pre/pre_resumo}
+\input{./pre/pre_abstract}
+
+\tabelas[fig]
+% nada [] -> só o sumário | fig -> + lista de figuras | tab -> + lista de
+% tabelas | alg -> + algoritmos | cod -> + códigos. Combináveis (ex.: figtab).
+% (use figtab quando o capítulo de avaliação já tiver tabelas)
+
+%--------------------------------------------------------------- CAPÍTULOS %
+\input{./tex/cap_I}    % Introdução                 (redigido)
+\input{./tex/cap_II}   % Fundamentação Teórica      (redigido)
+\input{./tex/cap_III}  % Trabalhos Relacionados     (redigido)
+\input{./tex/cap_IV}   % Arquitetura / Proposta     (redigido)
+\input{./tex/cap_V}    % Avaliação                  (desenho redigido; resultados a fazer)
+\input{./tex/cap_VI}   % Conclusão                  (esqueleto / depende dos resultados)
+
+%------------------------------------------------------------ BIBLIOGRAFIA %
+\cleardoublepage
+\nocite{*} %%% Retire esta linha para gerar a bibliografia apenas com as
+           %%% referências efetivamente citadas no texto.
+\arial
+\bibliography{./bib/modelo-tese} %%% Arquivo .bib
+\label{ref-bib}
+
+%--------------------------------------------------------------- APÊNDICES %
+\apendices
+
+\input{./pos/apend_I}
+\input{./pos/apend_II}
+
+\end{document}
+
+%------------------------------------------------------------------------- %
+%                  F I M   D O   A R Q U I V O :  m a i n . t e x          %
+%------------------------------------------------------------------------- %

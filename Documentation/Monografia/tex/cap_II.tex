@@ -1,0 +1,57 @@
+
+\chapter{Fundamentação Teórica}
+\label{cap:fundamentacao}
+
+Este capítulo apresenta os conceitos fundamentais para a compreensão deste trabalho. Inicialmente, discute-se a engenharia de requisitos e a atividade de elicitação (Seção~\ref{sec:er}). Em seguida, abordam-se as histórias de usuário e o \textit{framework} INVEST (Seção~\ref{sec:invest}) e a especificação de requisitos no padrão IEEE~830 (Seção~\ref{sec:ieee830}). Por fim, apresentam-se os fundamentos de inteligência artificial generativa e modelos de linguagem (Seção~\ref{sec:llm}), de sistemas multiagente (Seção~\ref{sec:mas}) e de reconhecimento automático de fala (Seção~\ref{sec:asr}).
+
+\section{Engenharia de Requisitos e Elicitação}
+\label{sec:er}
+
+A Engenharia de Requisitos (ER) é o ramo da engenharia de software dedicado a descobrir, documentar e manter o conjunto de requisitos de um sistema~\cite{pohl2010}. Um requisito descreve uma capacidade ou condição que o sistema deve atender para satisfazer as necessidades das partes interessadas (\textit{stakeholders}). É prática consolidada distinguir os \textit{requisitos funcionais}, que especificam o que o sistema deve fazer (serviços, comportamentos e transformações de dados), dos \textit{requisitos não-funcionais}, que impõem restrições sobre como o sistema deve operar (desempenho, segurança, usabilidade, entre outros)~\cite{sommerville2015}.
+
+O processo de ER costuma ser organizado em atividades de \textit{elicitação}, \textit{análise e negociação}, \textit{especificação}, \textit{validação} e \textit{gerência} de requisitos~\cite{pohl2010}. A elicitação é a primeira e uma das mais críticas dessas atividades: é nela que o analista interage com as partes interessadas (por meio de entrevistas, \textit{workshops} e, sobretudo, reuniões) para descobrir e compreender suas necessidades. A literatura é consistente ao apontar que erros introduzidos nesta fase são os mais caros de corrigir, pois se propagam para todas as etapas subsequentes do desenvolvimento; quanto mais tarde um defeito de requisito é detectado, maior o custo de sua correção~\cite{sommerville2015}.
+
+Na prática das organizações, a elicitação é conduzida por profissionais especializados (analistas de requisitos, \textit{product owners} ou \textit{scrum masters}), cuja tarefa é capturar discussões complexas e transformá-las em artefatos formais. Esse fluxo manual é trabalhoso e suscetível a falhas: há perda de informação entre a reunião e a documentação, sobrecarga cognitiva sobre o profissional que participa e registra simultaneamente, e inconsistência de granularidade entre os artefatos resultantes. A busca por métricas e por ferramentas que apoiem e automatizem essas atividades é, portanto, um tema de interesse contínuo na área~\cite{bokhari2011metrics}.
+
+\section{Histórias de Usuário e o Framework INVEST}
+\label{sec:invest}
+
+No desenvolvimento ágil de software, as \textit{histórias de usuário} (\textit{user stories}) são o artefato predominante para a representação de requisitos~\cite{cohn2004}. Uma história de usuário é uma descrição curta de uma funcionalidade, redigida da perspectiva de quem deseja utilizá-la, tipicamente no formato \textit{``Como [papel], quero [objetivo] para [benefício]''}~\cite{lucassen2016qus}. Mais do que um documento, a história de usuário é um convite à conversa: ela captura a intenção de forma concisa e adia o detalhamento para o momento da implementação.
+
+Para avaliar se uma história de usuário está bem formulada, Wake~\cite{wake2003invest} propôs o conjunto de heurísticas INVEST, acrônimo de seis critérios: \textit{Independent} (independente de outras histórias), \textit{Negotiable} (negociável, não um contrato fechado), \textit{Valuable} (de valor para o usuário), \textit{Estimable} (estimável em esforço), \textit{Small} (pequena o suficiente para caber em uma iteração) e \textit{Testable} (testável por meio de critérios de aceitação). O critério \textit{Small} é, na prática, um dos mais difíceis de atender, pois histórias amplas demais comprometem a estimativa e o planejamento.
+
+A avaliação sistemática da qualidade de histórias de usuário tem sido objeto de pesquisa. Lucassen et al.~\cite{lucassen2016qus} formalizaram o \textit{framework} \textit{Quality User Story} (QUS), com 13 critérios de sintaxe, semântica e pragmática, e a ferramenta AQUSA para a detecção automática de defeitos. Xu et al.~\cite{xu2023requirement}, por sua vez, combinaram o INVEST com um modelo de sete critérios para automatizar essa avaliação. Neste trabalho, o critério INVEST é adotado tanto como guia para a geração das histórias quanto como base para a sua avaliação.
+
+\section{Especificação de Requisitos de Software (IEEE~830)}
+\label{sec:ieee830}
+
+Uma Especificação de Requisitos de Software (do inglês \textit{Software Requirements Specification}, SRS) é o documento que registra, de forma estruturada, os requisitos de um sistema, servindo de acordo entre clientes e desenvolvedores e de base para o projeto, a implementação e os testes. O padrão IEEE~830~\cite{ieee830} estabelece uma prática recomendada para a elaboração desse documento, descrevendo as características desejáveis de uma boa SRS (correta, não ambígua, completa, consistente, verificável, modificável e rastreável) e propondo uma estrutura de referência.
+
+Segundo o padrão, uma SRS organiza-se, em linhas gerais, em três partes: uma \textit{introdução} (propósito, escopo, definições e visão geral), uma \textit{descrição geral} (perspectiva e funções do produto, características dos usuários, restrições e dependências) e os \textit{requisitos específicos}, nos quais se detalham os requisitos funcionais e não-funcionais, frequentemente apoiados por casos de uso. Os \textit{casos de uso} descrevem a interação entre atores e o sistema para a realização de um objetivo, complementando a especificação textual dos requisitos. Neste trabalho, o padrão IEEE~830 é um dos dois formatos de saída suportados pelo sistema proposto (Capítulo~\ref{cap:arquitetura}).
+
+\section{Inteligência Artificial Generativa e Modelos de Linguagem}
+\label{sec:llm}
+
+A inteligência artificial generativa designa a classe de técnicas capazes de produzir conteúdo novo (texto, imagem, áudio ou código) a partir de padrões aprendidos de grandes volumes de dados. No domínio do processamento de linguagem natural, esse avanço é impulsionado pelos \textit{Modelos de Linguagem de Grande Escala} (do inglês \textit{Large Language Models}, LLMs), redes neurais com bilhões de parâmetros treinadas para prever a continuação de uma sequência de texto e que, como consequência, adquirem capacidade de compreensão e geração de linguagem em domínios variados~\cite{hort2025survey}. Esses modelos têm sido aplicados a uma ampla gama de tarefas de engenharia de software, da geração de código à melhoria automática da documentação de sistemas~\cite{su2023hotgpt}.
+
+A maior parte dos LLMs modernos baseia-se na arquitetura \textit{Transformer}, introduzida por Vaswani et al.~\cite{vaswani2017attention}, cujo mecanismo de \textit{autoatenção} permite ponderar a relevância de cada elemento da sequência em relação aos demais, capturando dependências de longo alcance de forma paralelizável. A interação com esses modelos se dá pela \textit{engenharia de \textit{prompts}}, isto é, a formulação cuidadosa das instruções de entrada para orientar a saída do modelo, recurso central neste trabalho, em que cada agente é especializado por meio de \textit{prompts} próprios.
+
+Um padrão de uso particularmente relevante para a avaliação é o de \textit{LLM como juiz} (\textit{LLM-as-judge}), no qual um modelo de linguagem é empregado para avaliar artefatos segundo critérios definidos, como julgar a conformidade de uma história de usuário com o INVEST. Por ser uma avaliação automática, esse padrão é escalável, mas requer validação contra avaliadores humanos para que se possa confiar em seus julgamentos, conforme adotado neste trabalho.
+
+\section{Sistemas Multiagente}
+\label{sec:mas}
+
+Um \textit{agente} é uma entidade computacional situada em um ambiente, capaz de perceber esse ambiente e de agir sobre ele de forma autônoma para atingir seus objetivos~\cite{wooldridge2009}. Um \textit{sistema multiagente} (do inglês \textit{Multi-Agent System}, MAS) é composto por múltiplos agentes que interagem entre si, por cooperação ou coordenação, para resolver problemas que estariam além da capacidade (ou da conveniência) de um único agente.
+
+Com a popularização dos LLMs, arquiteturas multiagente passaram a ser aplicadas a tarefas de engenharia de software, atribuindo a agentes especializados papéis distintos que colaboram para produzir um resultado. Um levantamento recente de Cai et al.~\cite{cai2025designing}, que analisou 94 trabalhos sobre sistemas multiagente baseados em LLMs para engenharia de software, identificou a \textit{Cooperação Baseada em Papéis} (\textit{Role-Based Cooperation}) como o padrão de projeto mais adotado. A decomposição de um problema em agentes especializados, em contraste com um único \textit{prompt} monolítico, traz vantagens de engenharia como a separação de responsabilidades, o isolamento de falhas, a possibilidade de testar e evoluir cada agente de forma independente e a seleção do modelo mais adequado (em capacidade e custo) para cada tarefa. Essas propriedades fundamentam a arquitetura adotada neste trabalho.
+
+\section{Reconhecimento Automático de Fala}
+\label{sec:asr}
+
+O reconhecimento automático de fala (do inglês \textit{Automatic Speech Recognition}, ASR) é a tarefa de converter um sinal de áudio com fala em texto. É a tecnologia habilitadora deste trabalho, pois transforma o áudio bruto de uma reunião na transcrição que alimenta os estágios seguintes. Radford et al.~\cite{whisper2022} introduziram o Whisper, um modelo treinado por supervisão fraca em larga escala que alcança transcrição multilíngue robusta sob condições acústicas adversas (ruído de fundo, sotaques e falantes não nativos), características comuns em reuniões reais.
+
+O ASR em reuniões de elicitação, contudo, enfrenta desafios específicos: vocabulário técnico, fala sobreposta e siglas próprias de cada projeto, que modelos de propósito geral podem transcrever incorretamente. A qualidade de uma transcrição é tipicamente medida pela \textit{Taxa de Erro de Palavra} (do inglês \textit{Word Error Rate}, WER) e pela \textit{Taxa de Erro de Caractere} (\textit{Character Error Rate}, CER). A WER é definida como
+\[
+  \mathrm{WER} = \frac{S + D + I}{N},
+\]
+em que $S$, $D$ e $I$ são, respectivamente, o número de substituições, exclusões e inserções necessárias para transformar a transcrição produzida na transcrição de referência, e $N$ é o número total de palavras na referência. A CER é calculada de forma análoga, no nível de caracteres. Essas métricas fundamentam a avaliação do primeiro agente do sistema (Capítulo~\ref{cap:avaliacao}).
