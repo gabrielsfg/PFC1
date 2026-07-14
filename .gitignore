@@ -12,6 +12,9 @@ ENV/
 .eggs/
 dist/
 build/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
 
 # Environment files
 .env
@@ -34,14 +37,24 @@ data/
 **/output/
 **/processed/
 
-# Documentation (material de desenvolvimento e documentos do cliente — não versionar).
-# Exceções: docs legítimas do repositório, referenciadas pelo CLAUDE.md.
-Documentation/
+# Documentation (monografia LaTeX, PDFs de citações, exemplos — não versionar).
+# Exceção: conventions.md, doc legítima do repositório referenciada pelo CLAUDE.md.
+Documentation/*
 !Documentation/conventions.md
-!Documentation/roadmap.md
 
 # Análises usadas na escrita do TCC (material pessoal — não versionar).
 analise-tcc/
+
+# Avaliação: só os *.template.json são versionados. Os arquivos reais gerados
+# a partir deles contêm dados específicos (papéis gold-standard, preços, uso).
+evaluation/gold_roles.json
+evaluation/aliases.json
+evaluation/prices.json
+evaluation/usage.csv
+
+# Configuração local do editor/agente
+.claude/
+
 
 # Audio files
 *.wav

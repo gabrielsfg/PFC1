@@ -1,0 +1,5 @@
+{
+  "_comment": "USD per MILLION tokens. Fill from the providers' current pricing pages, then save as prices.json.",
+  "claude-haiku-4-5-20251001": { "input": 0.0, "output": 0.0 },
+  "claude-sonnet-4-6": { "input": 0.0, "output": 0.0 }
+}

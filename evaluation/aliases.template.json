@@ -1,0 +1,12 @@
+{
+  "_comment": "Maps a normalized PREDICTED role (lowercased, no accents) to a canonical GOLD role. This encodes the human matching protocol. Extend as you inspect the predictions; save as aliases.json.",
+  "designer": "industrial designer",
+  "designer industrial": "industrial designer",
+  "especialista em marketing": "marketing",
+  "marketing": "marketing",
+  "gerente de projeto": "project manager",
+  "lider de projeto": "project manager",
+  "designer de interface": "user interface",
+  "especialista em interface": "user interface",
+  "designer de interface de usuario": "user interface"
+}

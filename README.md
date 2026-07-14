@@ -6,6 +6,8 @@
 
 Pipeline multi-agente que automatiza a elicitação de requisitos de software: parte de gravações de reuniões e produz documentos estruturados de requisitos (SRS IEEE 830, diagramas de domínio e histórias de usuário).
 
+📄 **Monografia (PDF):** [Inteligência Artificial Generativa e Engenharia de Software: Um estudo de caso](https://COLE_AQUI_O_LINK_DO_PDF)
+
 ---
 
 ## Resultados PFC1 (validado no AMI Meeting Corpus — 7 reuniões)

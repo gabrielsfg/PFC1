@@ -4,11 +4,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-TCC/PFC (Projeto Final de Curso) em duas fases — PFC1 (concluído) e PFC2 (em andamento) — sobre IA Generativa e Engenharia de Software na UFG. O objetivo é automatizar o pipeline completo de elicitação de requisitos: de áudios de reuniões até histórias de usuário estruturadas, usando uma arquitetura multi-agente.
+TCC/PFC (Projeto Final de Curso) em duas fases — PFC1 (concluído) e PFC2 (em andamento) — sobre IA Generativa e Engenharia de Software na UFG. O objetivo é automatizar o pipeline completo de elicitação de requisitos: de áudios de reuniões até documentos de requisitos estruturados, usando uma arquitetura multi-agente.
 
 **PFC1 results** (validated on AMI Meeting Corpus, 7 meetings): 100% persona identification accuracy (28/28), 83% INVEST compliance, 9/10 qualitative framework score.
 
-**PFC2 goals**: implement Agent 3 (Formatting Agent), quantitative metrics (WER/CER for Agent 1; Precision/Recall/F1 for Agent 2), expand validation to 50–100 AMI meetings, real-world validation with dev teams.
+**PFC2 goals**: quantitative metrics (WER/CER for Agent 1; Precision/Recall/F1 for Agent 2), expand validation to more AMI meetings, real-world validation with the SGG-GO government partner (meeting already processed, gold-standard document available).
 
 ## Conventions
 
@@ -20,51 +20,54 @@ Full details in [Documentation/conventions.md](Documentation/conventions.md). Ke
 
 ## Architecture
 
-Five specialized agents in a sequential file-based pipeline:
+Four specialized agents in a sequential file-based pipeline:
 
 ```
-agente-transcricao/   → Agent 1: Whisper speech-to-text, outputs .txt
-agente-identificacao/ → Agent 2: GPT-4o-mini persona identification + user story extraction, outputs .json
-agente-srs/           → Agent 3: generates IEEE 830 SRS document (Markdown + PDF)          [PLANNED]
-agente-casos-de-uso/  → Agent 4: generates structured use cases + UML diagrams via kroki.io  [PLANNED]
-agente-diagramas/     → Agent 5: generates domain model diagram, assembles final document     [PLANNED]
+agente-transcricao/   → Agent 1: Groq whisper-large-v3-turbo STT, outputs .txt
+agente-identificacao/ → Agent 2: claude-haiku-4-5 persona identification + user story extraction, outputs .json
+agente-srs/           → Agent 3: claude-sonnet-4-6 SRS document generator (IEEE 830 or empresa format), outputs .md + .pdf
+agente-diagramas/     → Agent 4: claude-sonnet-4-6 domain diagram + final unified document (IEEE 830 only)
 data/                 → Shared input/output directory (gitignored)
 ```
 
 **Full data flow**:
 ```
-audio recording
+audio/video file
   → Agent 1 → transcription .txt
   → Agent 2 → personas + user stories .json
-  → Agent 3 → SRS document IEEE 830 (.md + .pdf)
-  → Agent 4 → use cases document (.md + .pdf, UML diagrams via kroki.io)
-  → Agent 5 → domain diagram + final unified requirements document (.md + .pdf)
+  → Agent 3 → requirements document (.md + .pdf)  [empresa format: pipeline ends here]
+  → Agent 4 → domain diagram + final unified document (.md + .pdf)  [ieee format only]
 ```
 
-Agents communicate through a shared file system monitored by watchdog — each agent triggers the next when a new file appears in the output directory.
+Agents communicate through a shared file system — the unified executor (`pipeline.py`) runs them sequentially. Watchdog-based monitoring is available for `--monitor` mode.
 
 ## Output formats and the unified executor
 
 The pipeline supports **two selectable output document formats** (one per run — never both):
 
 - **`ieee`** (default) — IEEE 830 SRS rendered from `agente-srs/templates/srs.md.j2`. Runs Agent 3 **and** Agent 4 (domain diagram + final consolidated document).
-- **`empresa`** — the client (SGG-GO) "Documento de Requisitos" rendered from `agente-srs/templates/feature_requirements.md.j2` (Funcionalidade, RF with Detalhamento/Comentários, Regras de Negócio em tabela, Casos de Uso `UC`, Requisitos Não-Funcionais). This format has **no diagrams**, so **Agent 4 is skipped** — Agent 3's output is the final document.
+- **`empresa`** — the SGG-GO partner "Documento de Requisitos" rendered from `agente-srs/templates/feature_requirements.md.j2` (Funcionalidade, RF with Detalhamento/Comentários, Regras de Negócio em tabela, Casos de Uso `CSU`, Requisitos Não-Funcionais optional). This format has **no diagrams**, so **Agent 4 is skipped** — Agent 3's output is the final document.
 
 Format selection:
 - `--format {ieee,empresa}` on `pipeline.py`, `agente-srs/main.py`, and `agente-diagramas/main.py`.
 - Env var `DOCUMENT_FORMAT` is the default for `--monitor` mode (watchdog).
 - In the GUI (`pipeline.py --full`) there is a radio selector.
-- Empresa document metadata (project code, client, system version, authors, dates) is **not** derivable from audio — `default_empresa_meta()` in `agente-srs/src/srs_processor.py` fills placeholders for now (TODO: collect via the GUI).
+- Empresa document metadata (project code, client, system version, authors, dates) is **not** derivable from audio — `default_empresa_meta()` in `agente-srs/src/srs_processor.py` fills placeholders (TODO: collect via the GUI).
 
-**Unified executor** — `python pipeline.py --full` opens a single window where you either **record** a meeting or **insert an audio/video file** (skips recording), pick the document format, and the whole pipeline runs to the final document.
+**Unified executor** — `pipeline.py` entry points:
+- `--full` — opens the Tkinter GUI: record or insert audio/video file, pick format, runs full pipeline
+- `--from-audio <file>` — starts from an audio/video file (skips recording)
+- `--from-transcript <file>` — starts from an existing `.txt` transcription (skips Agent 1)
+- `--from-json <file>` — starts from an existing Agent 2 JSON (skips Agents 1 and 2)
 
-**Transcription engine** — Agent 1 transcribes via **Groq** (`whisper-large-v3-turbo`) by default, with an automatic **local faster-whisper fallback** (fast preset: `small` + `beam_size=1`). Any audio **or video** input is normalized by **ffmpeg** to 16 kHz mono FLAC and split on silence if it exceeds `GROQ_MAX_FILE_MB` (~25 MB Groq limit). Requires `ffmpeg` on the PATH and `GROQ_API_KEY` in `agente-transcricao/.env`. Shared modules: `agente-transcricao/src/stt/transcription_service.py`, `groq_transcriber.py`, `src/audio/preprocessor.py`.
+**Transcription engine** — Agent 1 transcribes via **Groq** (`whisper-large-v3-turbo`) by default, with an automatic **local faster-whisper fallback** (fast preset: `small` + `beam_size=1`). Any audio **or video** input is normalized by **ffmpeg** to 16 kHz mono FLAC and split on silence if it exceeds `GROQ_MAX_FILE_MB` (~20 MB). Requires `ffmpeg` on the PATH and `GROQ_API_KEY` in `agente-transcricao/.env`. Shared modules: `agente-transcricao/src/stt/transcription_service.py`, `groq_transcriber.py`, `src/audio/preprocessor.py`.
 
 ### agente-identificacao
 
-- `main.py` — CLI entry point (`--file`, `--dir`, `--monitor` modes)
-- `src/persona_identifier.py` — Core orchestration: calls OpenAI twice (identify personas → generate user stories), parses JSON, saves output
-- `src/openai_client.py` — OpenAI wrapper with tenacity retry/backoff
+- `main.py` — CLI entry point (`--file`, `--dir`, `--monitor`, `--output-dir` modes)
+- `src/persona_identifier.py` — Core orchestration: calls Anthropic Claude twice (identify personas → generate user stories), parses JSON, saves output
+- `src/anthropic_client.py` — Anthropic Claude wrapper with tenacity retry/backoff; default model: `claude-haiku-4-5-20251001` (overridable via `ANTHROPIC_MODEL` env var)
+- `src/openai_client.py` — **legacy dead code** (kept for reference; not used by persona_identifier.py)
 - `src/file_monitor.py` — Watchdog-based watcher; calls `PersonaIdentifier` on new `.txt` files
 - `config/prompts.py` — All LLM prompts (system message, persona identification, user stories with INVEST criteria)
 
@@ -77,6 +80,25 @@ Output JSON shape:
 }
 ```
 
+### agente-srs
+
+- `main.py` — CLI entry point (`--file`, `--format {ieee,empresa}`, `--project-name`)
+- `src/srs_processor.py` — Orchestrator: routes to ieee or empresa generator based on `--format`
+- `src/srs_generator.py` — IEEE 830 generator: calls Claude sonnet to produce introduction, functional requirements, use cases + PlantUML diagrams via kroki.io
+- `src/feature_generator.py` — Empresa format generator: calls Claude sonnet to produce Funcionalidade, RF, RN, CSU, RNF sections
+- `src/anthropic_client.py` — Anthropic Claude wrapper; default model: `claude-sonnet-4-6`
+- `src/document_renderer.py` — Jinja2 template rendering → Markdown → PDF via WeasyPrint
+- `templates/srs.md.j2` — IEEE 830 Jinja2 template
+- `templates/feature_requirements.md.j2` — Empresa format Jinja2 template (includes Sumário with CSS page numbers)
+
+### agente-diagramas (Agent 4)
+
+- `main.py` — CLI entry point (`--file`, `--format`)
+- `src/domain_diagram_generator.py` — Calls Claude sonnet to extract domain entities and relationships, generates PlantUML class diagram, renders via kroki.io
+- `src/document_assembler.py` — Assembles final unified requirements document
+- `src/anthropic_client.py` — Anthropic Claude wrapper; default model: `claude-sonnet-4-6`
+- `src/kroki_client.py` — kroki.io API client (PlantUML → PNG/SVG)
+
 ### agente-transcricao
 
 - `src/main.py` — Typer CLI (`record`, `transcribe-file` commands)
@@ -87,7 +109,7 @@ Output JSON shape:
 - `src/stt/transcribe.py` — `Transcriber` class wrapping faster-whisper (configurable `beam_size`/`best_of`)
 - `src/audio/preprocessor.py` — ffmpeg extract/compress (16 kHz mono FLAC) + silence-based split
 - `src/audio/record.py` — Microphone capture via sounddevice
-- `config/settings.py` — Groq/local config from `.env`
+- `config/settings.py` — Groq/local config from `.env`; default `GROQ_MAX_FILE_MB=20`
 
 ## Setup
 
@@ -97,164 +119,98 @@ Each agent has its own `requirements.txt` and `.env`. Install and configure them
 # Identification agent
 cd agente-identificacao
 pip install -r requirements.txt
-cp .env.example .env  # then fill in OPENAI_API_KEY
+cp .env.example .env  # then fill in ANTHROPIC_API_KEY
 
 # Transcription agent
 cd agente-transcricao
 pip install -r requirements.txt
+# fill in GROQ_API_KEY in .env
+
+# SRS agent
+cd agente-srs
+pip install -r requirements.txt
+# fill in ANTHROPIC_API_KEY in .env
+
+# Diagrams agent
+cd agente-diagramas
+pip install -r requirements.txt
+# fill in ANTHROPIC_API_KEY in .env
 ```
 
 ### Environment variables (agente-identificacao/.env)
 
 | Variable | Purpose |
 |---|---|
-| `OPENAI_API_KEY` | Required |
-| `OPENAI_MODEL` | Default: `gpt-4o-mini` |
+| `ANTHROPIC_API_KEY` | Required |
+| `ANTHROPIC_MODEL` | Default: `claude-haiku-4-5-20251001` |
 | `INPUT_DIR` | Path to transcription .txt files |
 | `OUTPUT_DIR` | Path for output JSON files |
 | `PROCESSED_DIR` | Tracks already-processed files |
 | `CHECK_INTERVAL` | Monitor polling interval (seconds) |
-| `MAX_RETRIES` | OpenAI API retry attempts |
-| `HUGGINGFACE_TOKEN` | For AMI dataset scripts |
+| `MAX_RETRIES` | Anthropic API retry attempts |
+| `HUGGINGFACE_TOKEN` | For AMI dataset scripts only |
+
+### Environment variables (agente-srs/.env and agente-diagramas/.env)
+
+| Variable | Purpose |
+|---|---|
+| `ANTHROPIC_API_KEY` | Required |
+| `ANTHROPIC_MODEL` | Default: `claude-sonnet-4-6` |
+| `DOCUMENT_FORMAT` | Default format for `--monitor` mode (`ieee` or `empresa`) |
+| `EMPRESA_INCLUDE_NFR` | Set to `false` to omit the RNF section in empresa format |
 
 ## Running the agents
 
-### Identification agent
+### Full pipeline (recommended)
 
 ```bash
-cd agente-identificacao
+# GUI mode — record or insert file, pick format
+python pipeline.py --full
 
-# Monitor a directory continuously (main use case)
-python main.py --monitor
+# From an audio/video file
+python pipeline.py --from-audio path/to/meeting.mp4 --format empresa
 
-# Process a single transcription file
-python main.py --file path/to/transcription.txt
+# From existing transcript
+python pipeline.py --from-transcript path/to/transcript.txt --format ieee
 
-# Batch process a directory
-python main.py --dir path/to/dir
-
-# Custom monitor interval
-python main.py --monitor --check-interval 10
+# From existing Agent 2 JSON
+python pipeline.py --from-json path/to/analysis.json --format empresa --project-name "MyProject"
 ```
 
-### Transcription agent
+### Individual agents
 
 ```bash
+# Agent 2 — Identification
+cd agente-identificacao
+python main.py --file path/to/transcription.txt
+
+# Agent 3 — SRS
+cd agente-srs
+python main.py --file path/to/analysis.json --format empresa --project-name "MyProject"
+
+# Agent 1 — Transcription
 cd agente-transcricao
-
-# Record audio and transcribe
-python src/main.py record
-
-# Transcribe an existing audio file
 python src/main.py transcribe-file <audio_file>
-
-# Direct transcription (simpler)
 python run_transcribe.py <file> --model-size small --device cpu
-
-# Launch GUI
-python gui_app.py
 ```
 
 ## Key implementation details
 
 - `_parse_json_response()` in `persona_identifier.py` strips markdown code fences before JSON parsing — LLM responses often wrap JSON in ```json blocks.
 - `processed_files.txt` in `PROCESSED_DIR` prevents reprocessing the same file; delete it to reprocess.
-- Whisper model sizes: `tiny`, `base`, `small`, `medium`, `large-v3` — balance speed vs. accuracy. Default is `small`.
-- User stories follow the **INVEST** criteria and Portuguese format: *"Como [persona], eu quero [objetivo] para [benefício]"*. The main failure mode identified in PFC1 is violating the "Small" criterion (stories too broad, need decomposition).
+- Whisper fallback model is `small` with `beam_size=1` for speed; configurable via `LOCAL_WHISPER_MODEL` and `LOCAL_WHISPER_BEAM_SIZE` env vars.
+- User stories follow the **INVEST** criteria and Portuguese format: *"Como [persona], eu quero [objetivo] para [benefício]"*. Main failure mode: violating the "Small" criterion (stories too broad).
 - AMI dataset scripts (`import_ami_dataset.py`, `investigate_ami.py`) are exploratory utilities, not part of the main pipeline. AMI data is accessed via HuggingFace `datasets` library using `HUGGINGFACE_TOKEN`.
-- Known issue from PFC1: UTF-8 encoding errors with special characters in output JSON — needs fixing in PFC2.
-- Agent 3 (Formatting Agent) is planned but not yet implemented. It will read Agent 2's JSON output and produce structured requirements documentation (PDF/Markdown or integration with requirements management tools).
+- **Persona vs. actor distinction** (empresa format): prompts distinguish `participantes_reuniao` (meeting attendees) from `atores_sistema` (actual software users/actors). This was a known failure mode in v1 (meeting participants were used as actors) — fixed in v2 via prompt engineering.
+- **Empresa format use cases**: numbered as `CSU1`, `CSU2`, ... (not `UC`); business rules numbered continuously as `RN1`, `RN2`, ... (not restarting per group).
+- WeasyPrint PDF engine is fixed for the empresa format to enable CSS Paged Media (table of contents with `target-counter(page)`). Pandoc is the alternative engine for IEEE 830.
+- kroki.io is the public PlantUML rendering API (no key required). Used by both `agente-srs` (use case diagrams, ieee format) and `agente-diagramas` (domain class diagram).
 
-## Agent 3, 4 and 5 — Requirements Formatting (planned, PFC2)
+## Real-world case study (SGG-GO)
 
-The formatting stage is split into three specialized agents, all triggered sequentially by file monitoring (same watchdog pattern as Agents 1→2):
-
-```
-agente-identificacao/output/*.json
-        ↓ Agent 3
-User stories document (Markdown + PDF)
-        ↓ Agent 4
-Use cases document (Markdown + PDF)
-        ↓ Agent 5
-Domain diagrams (PlantUML via kroki.io → PNG/SVG embedded in Markdown + PDF)
-        ↓
-Final unified requirements document (Markdown + PDF)
-```
-
-### Agent 3 — SRS Document Generator (`agente-srs/`)
-
-**Input**: JSON from Agent 2 (`analise_personas` + `historias_usuario`)
-
-**Output**: Software Requirements Specification (SRS) following **IEEE 830**, assembled by LLM from the Agent 2 JSON:
-
-```
-1. Introdução
-   1.1 Propósito do documento
-   1.2 Escopo do sistema
-   1.3 Definições, acrônimos e abreviações
-   1.4 Referências (reunião de origem, data, participantes — from metadata)
-
-2. Descrição Geral
-   2.1 Identificação do problema (derived from resumo_conversa + tipo_interacao)
-   2.2 Perspectiva do produto
-   2.3 Stakeholders / Personas (name, role, characteristics, context — from analise_personas)
-
-3. Requisitos Funcionais
-   RF001, RF002, ... (numbered, extracted and normalized from user stories)
-
-4. Histórias de Usuário
-   Table per persona: ID | Como... | Quero... | Para... | INVEST score
-```
-
-Cases de uso (Agent 4) and domain diagrams (Agent 5) are referenced in the document but generated by downstream agents.
-
-**Format**: Markdown source (`.md`) + PDF via Pandoc or WeasyPrint
-
-**Stack** (suggested): `jinja2` for SRS template rendering, `weasyprint` or `pandoc` (subprocess) for PDF, LLM call (GPT-4o-mini) to fill free-text sections (problem statement, scope, definitions)
-
----
-
-### Agent 4 — Use Case Generator (`agente-casos-de-uso/`)
-
-**Input**: Agent 3 output + original Agent 2 JSON
-
-**Output**: For each user story / persona interaction:
-- Structured use case template: Actor, Pre-condition, Post-condition, Main flow, Alternative flows, Exception flows
-- Use case diagram in PlantUML (rendered to PNG/SVG via kroki.io API)
-
-**Format**: Markdown + embedded diagram images + PDF
-
-**Stack** (suggested): `requests` (kroki.io API calls), `jinja2` for use case templates
-
----
-
-### Agent 5 — Domain Diagram Generator (`agente-diagramas/`)
-
-**Input**: Agents 3 + 4 output + Agent 2 JSON
-
-**Output**:
-- Domain model diagram: entities, attributes, relationships extracted from personas and requirements context
-- PlantUML class diagram source sent to kroki.io → PNG/SVG
-- Final unified requirements document assembling all previous sections
-
-**Format**: Markdown with embedded images + single final PDF
-
-**Stack** (suggested): `requests` (kroki.io), LLM call (GPT-4o-mini) to extract domain entities from requirements context
-
----
-
-### Inter-agent communication (Agents 3–5)
-
-Same file-based watchdog pattern as Agents 1–2. Each agent monitors the output directory of the previous one. Suggested directory layout:
-
-```
-agente-srs/               # Agent 3 — IEEE 830 SRS document
-agente-casos-de-uso/      # Agent 4 — use cases + UML diagrams
-agente-diagramas/         # Agent 5 — domain diagram + final unified document
-```
-
-Each with its own `requirements.txt`, `.env`, `main.py`, `src/`, `config/prompts.py`, and `templates/` (Jinja2 templates for document sections).
-
-### kroki.io integration note
-
-kroki.io is a free public API that renders PlantUML/Mermaid/etc. diagrams to PNG/SVG. Encoding: POST diagram source (or base64-encode it in the URL). No API key required for public instance. Consider self-hosting for production to avoid external dependency.
+A partnership with a Brazilian public sector technology agency provided a real stakeholder meeting for end-to-end validation:
+- **Meeting**: 10 participants, 1h 37m 47s, Brazilian Portuguese, budget balance management domain
+- **Input**: 609 MB video file → Agent 1 → Agent 2 → Agent 3 (empresa format)
+- **Gold standard**: official requirements document (`PR0102`) produced manually by the agency's analyst
+- **Comparison files**: `analise-tcc/comparacao_PR0102.md` (v1 analysis) and `comparacao_PR0102_v2_pos_melhorias.md` (v2 after prompt improvements)
+- **Known error propagation example**: Whisper transcribed "IPOF" as "HIPOF" — this error propagated through all downstream agents into the final document (quantitative RQ5 evidence)

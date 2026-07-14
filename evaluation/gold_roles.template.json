@@ -1,0 +1,10 @@
+{
+  "_comment": "Gold roles per meeting (the human ground truth). Key = metadata.arquivo_origem without .txt. The four roles below are the standard AMI scenario-meeting roles; adjust per meeting and remove this comment line, saving as gold_roles.json.",
+  "meeting_0":   ["Project Manager", "Marketing", "User Interface", "Industrial Designer"],
+  "meeting_2":   ["Project Manager", "Marketing", "User Interface", "Industrial Designer"],
+  "meeting_30":  ["Project Manager", "Marketing", "User Interface", "Industrial Designer"],
+  "meeting_58":  ["Project Manager", "Marketing", "User Interface", "Industrial Designer"],
+  "meeting_113": ["Project Manager", "Marketing", "User Interface", "Industrial Designer"],
+  "meeting_117": ["Project Manager", "Marketing", "User Interface", "Industrial Designer"],
+  "meeting_127": ["Project Manager", "Marketing", "User Interface", "Industrial Designer"]
+}
