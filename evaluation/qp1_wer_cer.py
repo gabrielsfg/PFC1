@@ -26,11 +26,23 @@ from __future__ import annotations
 
 import argparse
 import csv
+import gc
+import os
 import re
 import string
 import sys
 import time
 from pathlib import Path
+
+# Cap the math-library thread pools BEFORE numpy / ctranslate2 / MKL load.
+# faster-whisper (via CTranslate2) otherwise spins one OpenMP/MKL worker per
+# core, and each worker reserves its own scratch buffers; on a RAM-tight box
+# that surfaces as "mkl_malloc: failed to allocate memory". A small, fixed
+# pool keeps the local engine's footprint flat across hundreds of clips.
+_THREADS = os.environ.get("QP1_LOCAL_THREADS", "2")
+for _var in ("OMP_NUM_THREADS", "MKL_NUM_THREADS", "OPENBLAS_NUM_THREADS",
+             "NUMEXPR_NUM_THREADS", "VECLIB_MAXIMUM_THREADS"):
+    os.environ.setdefault(_var, _THREADS)
 
 # --- make Agent 1's modules importable, and load its .env ------------------
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -45,21 +57,87 @@ import jiwer  # noqa: E402
 
 from src.stt.transcription_service import (  # noqa: E402
     transcribe_with_groq,
-    transcribe_local_fast,
     GroqUnavailableError,
 )
+from src.stt.transcribe import Transcriber  # noqa: E402
+from src.audio.preprocessor import extract_and_compress, cleanup_paths  # noqa: E402
+from config.settings import LOCAL_WHISPER_MODEL, LOCAL_WHISPER_BEAM_SIZE  # noqa: E402
 
 _PUNCT = str.maketrans("", "", string.punctuation + "«»“”‘’–—")
 
+# --- normalização de números por extenso (PT) para dígitos ------------------
+# Evita que "2026" (hipótese) vs "dois mil e vinte e seis" (referência) conte
+# como erro de transcrição, quando na verdade é só diferença de formato.
+_UNITS = {
+    "zero": 0, "um": 1, "uma": 1, "dois": 2, "duas": 2, "tres": 3, "três": 3,
+    "quatro": 4, "cinco": 5, "seis": 6, "sete": 7, "oito": 8, "nove": 9,
+    "dez": 10, "onze": 11, "doze": 12, "treze": 13, "catorze": 14, "quatorze": 14,
+    "quinze": 15, "dezesseis": 16, "dezessete": 17, "dezoito": 18, "dezenove": 19,
+    "vinte": 20, "trinta": 30, "quarenta": 40, "cinquenta": 50, "sessenta": 60,
+    "setenta": 70, "oitenta": 80, "noventa": 90,
+    "cem": 100, "cento": 100, "duzentos": 200, "trezentos": 300, "quatrocentos": 400,
+    "quinhentos": 500, "seiscentos": 600, "setecentos": 700, "oitocentos": 800,
+    "novecentos": 900,
+}
+_SCALES = {"mil": 1000, "milhao": 1_000_000, "milhão": 1_000_000,
+           "milhoes": 1_000_000, "milhões": 1_000_000}
+
+
+def _words_to_number(tokens: list[str]) -> str:
+    """Convert a run of PT number-words into a single integer string."""
+    total, current = 0, 0
+    for t in tokens:
+        if t in _UNITS:
+            current += _UNITS[t]
+        elif t in _SCALES:
+            scale = _SCALES[t]
+            current = (current or 1) * scale
+            total += current
+            current = 0
+        # "e" e outros conectivos são ignorados
+    return str(total + current)
+
+
+def _collapse_number_words(text: str) -> str:
+    """Replace each maximal run of number-words/'e' by its numeric value."""
+    tokens = text.split()
+    out, run = [], []
+    numberish = set(_UNITS) | set(_SCALES) | {"e"}
+    for tok in tokens:
+        if tok in numberish:
+            run.append(tok)
+        else:
+            if run:
+                # só converte se o trecho tem ao menos um número (não só "e")
+                if any(t in _UNITS or t in _SCALES for t in run):
+                    out.append(_words_to_number([t for t in run if t != "e"]))
+                else:
+                    out.extend(run)
+                run = []
+            out.append(tok)
+    if run and any(t in _UNITS or t in _SCALES for t in run):
+        out.append(_words_to_number([t for t in run if t != "e"]))
+    elif run:
+        out.extend(run)
+    return " ".join(out)
+
 
 def normalize(text: str) -> str:
-    """Lowercase, drop punctuation and collapse whitespace (accents are kept)."""
+    """Lowercase, drop punctuation, normalize spelled-out numbers, collapse spaces."""
     text = (text or "").lower().translate(_PUNCT)
-    return re.sub(r"\s+", " ", text).strip()
+    text = re.sub(r"\s+", " ", text).strip()
+    text = _collapse_number_words(text)
+    return text
 
 
-def load_manifest(manifest: Path, clips_dir: Path | None, limit: int | None):
-    """Yield (audio_path, reference) from a Common-Voice-style TSV/CSV."""
+def load_manifest(manifest: Path, clips_dir: Path | None, limit: int | None,
+                  min_words: int = 0):
+    """Yield (audio_path, reference) from a Common-Voice-style TSV/CSV.
+
+    Skips references with fewer than ``min_words`` words: very short clips make
+    a single substitution explode the per-clip WER and add little statistical
+    value.
+    """
     delimiter = "\t" if manifest.suffix.lower() == ".tsv" else ","
     with manifest.open(encoding="utf-8", newline="") as f:
         reader = csv.DictReader(f, delimiter=delimiter)
@@ -71,6 +149,8 @@ def load_manifest(manifest: Path, clips_dir: Path | None, limit: int | None):
             ref = row.get("sentence") or row.get("reference") or row.get("text")
             if not audio or not ref:
                 continue
+            if min_words and len(ref.split()) < min_words:
+                continue
             p = Path(audio)
             if not p.is_absolute() and clips_dir is not None:
                 p = clips_dir / p
@@ -78,10 +158,33 @@ def load_manifest(manifest: Path, clips_dir: Path | None, limit: int | None):
             yield p, ref
 
 
-def transcribe(engine: str, path: Path) -> tuple[str, float, float]:
+def _transcribe_local_reuse(model: Transcriber, path: Path) -> dict:
+    """Run the local engine on one clip, reusing a single ``Transcriber``.
+
+    Mirrors ``transcribe_local_fast`` (ffmpeg-normalize → faster-whisper) but
+    does NOT reload the Whisper model per clip — the caller builds it once.
+    Reloading per clip is what let MKL scratch buffers pile up and exhaust RAM.
+    """
+    try:
+        audio = extract_and_compress(path)  # makes video files work too
+        cleanup_after = audio != path
+    except Exception:  # noqa: BLE001 -- ffmpeg missing: feed the raw file
+        audio = path
+        cleanup_after = False
+    try:
+        return model.transcribe_file(audio)
+    finally:
+        if cleanup_after:
+            cleanup_paths([audio])
+
+
+def transcribe(engine: str, path: Path, local_model: Transcriber | None) -> tuple[str, float, float]:
     """Return (hypothesis_text, audio_duration_s, processing_time_s)."""
     start = time.perf_counter()
-    result = transcribe_with_groq(path) if engine == "groq" else transcribe_local_fast(path)
+    if engine == "groq":
+        result = transcribe_with_groq(path)
+    else:
+        result = _transcribe_local_reuse(local_model, path)
     elapsed = time.perf_counter() - start
     return result.get("text", ""), float(result.get("duration") or 0.0), elapsed
 
@@ -93,13 +196,25 @@ def run_engine(engine: str, pairs: list[tuple[Path, str]], writer: csv.writer) -
     rtfs: list[float] = []
     failures = 0
 
-    for path, reference in pairs:
+    # Build the local model ONCE and reuse it across every clip (see above).
+    local_model: Transcriber | None = None
+    if engine == "local":
+        local_model = Transcriber(
+            model_size=LOCAL_WHISPER_MODEL,
+            device="cpu",
+            compute_type="int8",
+            language=None,
+            beam_size=LOCAL_WHISPER_BEAM_SIZE,
+            best_of=LOCAL_WHISPER_BEAM_SIZE,
+        )
+
+    for i, (path, reference) in enumerate(pairs):
         if not path.exists():
             print(f"  [skip] missing audio: {path}", file=sys.stderr)
             failures += 1
             continue
         try:
-            hyp, duration, elapsed = transcribe(engine, path)
+            hyp, duration, elapsed = transcribe(engine, path, local_model)
         except GroqUnavailableError as exc:
             print(f"  [skip] Groq unavailable ({exc}); aborting groq run.", file=sys.stderr)
             failures += 1
@@ -119,8 +234,13 @@ def run_engine(engine: str, pairs: list[tuple[Path, str]], writer: csv.writer) -
         if rtf == rtf:  # not NaN
             rtfs.append(rtf)
         writer.writerow([engine, path.name, f"{duration:.2f}", f"{elapsed:.2f}",
-                         f"{rtf:.3f}", f"{wer:.4f}", f"{cer:.4f}"])
+                         f"{rtf:.3f}", f"{wer:.4f}", f"{cer:.4f}", ref_n, hyp_n])
         print(f"  {engine:5s} {path.name:30s} WER={wer:.3f} CER={cer:.3f} RTF={rtf:.2f}")
+
+        # Reclaim CTranslate2/MKL scratch periodically so the local engine's
+        # memory stays flat over a long run.
+        if engine == "local" and i % 25 == 0:
+            gc.collect()
 
     # Corpus-level WER/CER (aggregate over all words/chars, not a mean of ratios).
     corpus_wer = jiwer.wer(refs, hyps) if refs else float("nan")
@@ -138,10 +258,12 @@ def main() -> int:
                     help="Base directory for relative audio paths (e.g. the 'clips' folder).")
     ap.add_argument("--engine", choices=["groq", "local", "both"], default="both")
     ap.add_argument("--limit", type=int, default=None, help="Max number of clips to score.")
+    ap.add_argument("--min-words", type=int, default=0,
+                    help="Skip references with fewer than N words (e.g. 3).")
     ap.add_argument("--out", type=Path, default=Path("results_qp1.csv"))
     args = ap.parse_args()
 
-    pairs = list(load_manifest(args.manifest, args.clips_dir, args.limit))
+    pairs = list(load_manifest(args.manifest, args.clips_dir, args.limit, args.min_words))
     if not pairs:
         print("No (audio, reference) pairs found in the manifest.", file=sys.stderr)
         return 1
@@ -151,7 +273,8 @@ def main() -> int:
     summaries = []
     with args.out.open("w", encoding="utf-8", newline="") as f:
         writer = csv.writer(f)
-        writer.writerow(["engine", "clip", "audio_s", "proc_s", "rtf", "wer", "cer"])
+        writer.writerow(["engine", "clip", "audio_s", "proc_s", "rtf", "wer", "cer",
+                          "reference", "hypothesis"])
         for engine in engines:
             print(f"\n=== Engine: {engine} ===")
             summaries.append(run_engine(engine, pairs, writer))

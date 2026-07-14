@@ -1,0 +1,12 @@
+tipo;id_oficial;descricao_oficial;id_gerado_sugerido;descricao_gerado;casa(1/0);observacao
+RF;RF1;Consultar/Manutencao de saldo orcamentario: filtros (acao, grupo, fonte, exercicio, unidade), grade, editar saldo, ordenacao, paginacao;RF1+RF5;RF1 Cadastro/Manutencao de saldos + RF5 Consulta de saldo disponivel;1;Nucleo de manutencao/consulta presente no gerado; UI fina (paginacao, ordenacao) ausente
+RF;RF2;Excluir a tela Visualizar parametro de programacao;-;(sem correspondente);0;Operacao de UI especifica (excluir tela) nao capturada do audio
+RF;RF3;Inclusao de parametros: multiselecao de acao, flag incluir com valor zerado/sem dotacao;RF1+RF3;RF1 cadastro + RF3 Validacao obrigatoria de criacao sem dotacao (flag);1;Flag sem dotacao capturada (forte evidencia); multiselecao via RF2 lote
+RF;RF4;Excluir a tela Alterar parametro de programacao;-;(sem correspondente);0;Operacao de UI especifica nao capturada
+RF;RF5;Excluir a tela Incluir fonte de recurso;-;(sem correspondente);0;Operacao de UI especifica nao capturada
+RN;RN1;Consultar parametros: demais regras permanecem sem alteracao;RN6+RN7;RN6 filtros obrigatorios + RN7 filtros opcionais na consulta;1;Oficial e generico (so diz que regras antigas permanecem); gerado detalha mais
+RN;RN2;Inclusao parametros: demais regras permanecem sem alteracao;RN1+RN2+RN3;RN1 granularidade + RN2 decisao sem dotacao + RN3 parametrizacao;1;Gerado detalha as regras de inclusao
+RN;RN3;Alteracao parametros: demais regras permanecem sem alteracao;RN4;RN4 edicao de saldos sem exclusao;1;Gerado cobre a edicao
+CSU;CSU1;Consultar parametros de programacao (acessar tela, verificar campos, pesquisar);CSU4+CSU12;CSU4 Consultar saldo disponivel + CSU12 Consultar com filtros;1;Fluxo de consulta presente
+CSU;CSU2;Incluir programacao geral por ano (exercicio, acao, grupo, fonte, tipo, correcao, zerado, salvar);CSU1;CSU1 Incluir saldo orcamentario;1;Fluxo de inclusao presente e detalhado
+CSU;CSU3;Alterar parametro de programacao (pesquisar, selecionar registro, editar saldo, salvar);CSU2;CSU2 Editar saldo orcamentario;1;Fluxo de edicao presente

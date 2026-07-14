@@ -19,6 +19,9 @@ class AnthropicClient:
         self.model = os.getenv("ANTHROPIC_MODEL", "claude-sonnet-4-6")
         self.client = anthropic.Anthropic(api_key=self.api_key)
         self.max_retries = int(os.getenv("MAX_RETRIES", "3"))
+        # Token accounting (QP5 cost evaluation): accumulate usage across calls.
+        self.total_input_tokens = 0
+        self.total_output_tokens = 0
 
     @retry(
         stop=stop_after_attempt(3),
@@ -38,4 +41,10 @@ class AnthropicClient:
             system=system_message,
             messages=[{"role": "user", "content": prompt}],
         )
+        # QP5: accumulate token usage and report the running total.
+        self.total_input_tokens += response.usage.input_tokens
+        self.total_output_tokens += response.usage.output_tokens
+        print(f"[tokens] {self.model} +in={response.usage.input_tokens} "
+              f"+out={response.usage.output_tokens} | "
+              f"acumulado in={self.total_input_tokens} out={self.total_output_tokens}")
         return response.content[0].text.strip()

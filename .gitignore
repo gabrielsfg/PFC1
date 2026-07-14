@@ -37,6 +37,31 @@ data/
 **/output/
 **/processed/
 
+# Documentation (monografia LaTeX, PDFs de citações, exemplos, corpus, slides,
+# apresentações — material pesado/pessoal, não versionar).
+# Exceção: conventions.md, doc legítima do repositório referenciada pelo CLAUDE.md.
+Documentation/*
+!Documentation/conventions.md
+
+# Corpus e datasets (áudio/texto de terceiros, arquivos muito grandes).
+Corpus/
+**/Corpus/
+*.tar.gz
+*.tar
+*.zip
+*.7z
+
+# Slides e apresentações
+*.pptx
+*.ppt
+*.key
+
+# Documentos finais gerados pelo pipeline (requisitos, SRS em PDF/DOCX).
+*_requisitos_*
+*.docx
+
+# Atalhos do Windows
+*.lnk
 # Documentation (monografia LaTeX, PDFs de citações, exemplos — não versionar).
 # Exceção: conventions.md, doc legítima do repositório referenciada pelo CLAUDE.md.
 Documentation/*

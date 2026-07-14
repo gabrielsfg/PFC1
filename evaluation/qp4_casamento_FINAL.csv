@@ -1,0 +1,12 @@
+tipo;id_oficial;descricao_oficial;id_gerado_sugerido;descricao_gerado;casa(1/0);observacao
+RF;RF1;Consultar/Manutencao de saldo orcamentario: filtros, grade, editar saldo, ordenacao, paginacao;RF1+RF2;RF1 Consulta de saldo + RF2 Manutencao de saldos (doc sonnet 2026-06-27);1;Nucleo de manutencao/consulta presente; UI fina (paginacao, ordenacao) ausente
+RF;RF2;Excluir a tela Visualizar parametro de programacao;-;(sem correspondente);0;Operacao de UI especifica (excluir tela) nao capturada do audio
+RF;RF3;Inclusao de parametros: multiselecao de acao, flag incluir com valor zerado/sem dotacao;RF2;RF2 Manutencao de saldos + regra de flag sem dotacao (doc sonnet);1;Flag sem dotacao capturada (forte evidencia)
+RF;RF4;Excluir a tela Alterar parametro de programacao;-;(sem correspondente);0;Operacao de UI especifica nao capturada
+RF;RF5;Excluir a tela Incluir fonte de recurso;-;(sem correspondente);0;Operacao de UI especifica nao capturada
+RN;RN1;Consultar parametros: demais regras permanecem sem alteracao;RN grupo consulta;Regras de consulta de saldo (doc sonnet);1;Oficial generico; gerado detalha mais
+RN;RN2;Inclusao parametros: demais regras permanecem sem alteracao;RN1-RN5;Regras de cadastro/edicao (granularidade, sem dotacao, parametrizacao);1;Gerado detalha as regras de inclusao
+RN;RN3;Alteracao parametros: demais regras permanecem sem alteracao;RN4;Regra de edicao de saldos sem exclusao;1;Gerado cobre a edicao
+CSU;CSU1;Consultar parametros de programacao;CSU1+CSU14;CSU1 Consultar Saldo Disponivel + CSU14 Consultar por Dimensoes (doc sonnet);1;Fluxo de consulta presente
+CSU;CSU2;Incluir programacao geral por ano;CSU10+CSU11;CSU10 Manter Saldo + CSU11 Gerar Saldos a partir de Dotacoes (doc sonnet);1;Fluxo de inclusao presente
+CSU;CSU3;Alterar parametro de programacao;CSU12;CSU12 Editar Saldo com Percentual de Correcao (doc sonnet);1;Fluxo de edicao presente

@@ -1,0 +1,627 @@
+engine,clip,audio_s,proc_s,rtf,wer,cer,reference,hypothesis
+groq,common_voice_pt_21994903.mp3,6.82,4.68,0.686,0.0714,0.0253,nós partiremos amanhã antes do nascer do sol foi a única resposta do alquimista,nós partiremos amanhã antes do nascer do sol foi a única resposta do alquimismo
+groq,common_voice_pt_21994905.mp3,4.87,18.88,3.875,0.0000,0.0000,o leão e a leoa são animais assustadores,o leão e a leoa são animais assustadores
+groq,common_voice_pt_21917227.mp3,5.66,4.06,0.716,0.0000,0.0000,alguns foram embora enquanto eu estava lá e outras pessoas vieram,alguns foram embora enquanto eu estava lá e outras pessoas vieram
+groq,common_voice_pt_21917226.mp3,3.70,3.90,1.054,0.0000,0.0000,não faça 1 cavalo livre,não faça 1 cavalo livre
+groq,common_voice_pt_22009148.mp3,4.75,4.35,0.914,0.1111,0.0244,reserve 1 hotel para amanhã às 9 da noite,reserva 1 hotel para amanhã às 9 da noite
+groq,common_voice_pt_30613698.mp3,4.90,18.97,3.875,0.5000,0.2286,de olho no pomar e outro no vinhedo,de olho do mar e outro dos viñedos
+groq,common_voice_pt_30613704.mp3,2.81,3.90,1.387,0.0000,0.0000,todo mundo está em pé,todo mundo está em pé
+groq,common_voice_pt_30613695.mp3,3.24,3.98,1.229,0.0000,0.0000,o que você fez,o que você fez
+groq,common_voice_pt_30613709.mp3,7.24,4.00,0.553,0.2500,0.1071,estes sistemas são essenciais para o desenvolvimento do catalão em novas tecnologias,estes sistemas são 16 técnicos para o desenvolvimento do catalão e novas tecnologias
+groq,common_voice_pt_30613708.mp3,3.42,7.02,2.053,0.0000,0.0000,nossa senhora dos remédios,nossa senhora dos remédios
+groq,common_voice_pt_30613696.mp3,5.15,7.16,1.391,0.0000,0.0000,pegue as amostras para sua observação,pegue as amostras para sua observação
+groq,common_voice_pt_29206687.mp3,2.92,7.00,2.401,0.0000,0.0000,barra do guarita,barra do guarita
+groq,common_voice_pt_29206190.mp3,4.54,7.05,1.553,0.2857,0.0732,a parte complicada é integrálo ao sistema,að parte complicada é integral ao sistema
+local,common_voice_pt_21994903.mp3,6.82,5.63,0.827,0.0714,0.0127,nós partiremos amanhã antes do nascer do sol foi a única resposta do alquimista,nós partiremos amanhã antes de nascer do sol foi a única resposta do alquimista
+local,common_voice_pt_21994905.mp3,4.87,3.21,0.659,0.1250,0.0500,o leão e a leoa são animais assustadores,o leão e a leó são animais assustadores
+local,common_voice_pt_21917227.mp3,5.66,3.11,0.549,0.0000,0.0000,alguns foram embora enquanto eu estava lá e outras pessoas vieram,alguns foram embora enquanto eu estava lá e outras pessoas vieram
+local,common_voice_pt_21917226.mp3,3.70,2.97,0.805,0.0000,0.0000,não faça 1 cavalo livre,não faça 1 cavalo livre
+local,common_voice_pt_22009148.mp3,4.75,3.10,0.653,0.4444,0.2195,reserve 1 hotel para amanhã às 9 da noite,reserve un hotel para mañana a 9 de noite
+local,common_voice_pt_30613698.mp3,4.90,3.64,0.743,0.6250,0.1714,de olho no pomar e outro no vinhedo,de olho do o mar é outro no vinho
+local,common_voice_pt_30613704.mp3,2.81,3.37,1.200,0.0000,0.0000,todo mundo está em pé,todo mundo está em pé
+local,common_voice_pt_30613695.mp3,3.24,3.04,0.939,0.2500,0.1429,o que você fez,e o que você fez
+local,common_voice_pt_30613709.mp3,7.24,3.96,0.548,0.5000,0.1667,estes sistemas são essenciais para o desenvolvimento do catalão em novas tecnologias,esses sistemas são intencíveis para o desenvolvimento de cada 1 de novas tecnologias
+local,common_voice_pt_30613708.mp3,3.42,3.32,0.970,0.0000,0.0000,nossa senhora dos remédios,nossa senhora dos remédios
+local,common_voice_pt_30613696.mp3,5.15,3.08,0.598,0.1667,0.0541,pegue as amostras para sua observação,pegue as amostras para a sua observação
+local,common_voice_pt_29206687.mp3,2.92,3.02,1.037,0.0000,0.0000,barra do guarita,barra do guarita
+local,common_voice_pt_29206190.mp3,4.54,2.99,0.658,0.0000,0.0000,a parte complicada é integrálo ao sistema,a parte complicada é integrálo ao sistema
+local,common_voice_pt_29206688.mp3,5.40,3.10,0.574,0.2500,0.0820,ele tentou coletar estrume da rua e vendêlos mas ele não saiu,ele tentou coletar a estrome da rua e vendemos mas ele não saiu
+local,common_voice_pt_29206689.mp3,3.60,3.25,0.902,0.1429,0.0938,aquele que avisa não é 1 traidor,aquele que avisa não é 1 peidor
+local,common_voice_pt_29206191.mp3,5.44,3.31,0.608,0.2500,0.0923,para demiurgo o universo sensível tem a textura de 1 teia molhada,para demiúrgico o universo é sensível ter a textura de 1 teia molhada
+local,common_voice_pt_29206743.mp3,2.81,2.94,1.046,0.0000,0.0000,e é a torneira,e é a torneira
+local,common_voice_pt_29206745.mp3,4.79,3.12,0.651,0.4286,0.1739,defende a urna eletrônica e critica apoiadores,defende a unha deetrônica e criese apoiadores
+local,common_voice_pt_29206741.mp3,5.51,3.14,0.570,0.1818,0.1231,da mesma forma devemos acrescentar o tema da morte e ressurreição,da mesma forma devemos acrescentar o tema da morte da resolução
+local,common_voice_pt_36049718.mp3,4.97,2.97,0.599,0.0000,0.0000,você sabe que vai começar a filmar amanhã,você sabe que vai começar a filmar amanhã
+local,common_voice_pt_36049353.mp3,4.50,3.27,0.726,0.0000,0.0000,o olhar para o aluno é individualizado,o olhar para o aluno é individualizado
+local,common_voice_pt_36049652.mp3,3.78,2.92,0.773,0.0000,0.0000,santa cecília do pavão,santa cecília do pavão
+local,common_voice_pt_36049721.mp3,3.89,3.00,0.772,0.0000,0.0000,conceição do canindé,conceição do canindé
+local,common_voice_pt_36049228.mp3,4.25,2.97,0.698,0.0000,0.0000,você pode mudar de ideia,você pode mudar de ideia
+local,common_voice_pt_36049649.mp3,7.85,3.23,0.412,0.0714,0.0132,de repente 1 dos falcões fez 1 mergulho intermitente no céu atacando o outro,de repente 1 dos talcões fez 1 mergulho intermitente no céu atacando o outro
+local,common_voice_pt_36049232.mp3,5.33,3.15,0.590,0.0000,0.0000,população crime e pauperismo,população crime e pauperismo
+local,common_voice_pt_36049351.mp3,6.41,3.10,0.483,0.0833,0.0364,você está hoje ou aqui para eu vir comigo por 5 minutos,você está hoje ou aqui para eu ouvir comigo por 5 minutos
+local,common_voice_pt_36049722.mp3,4.86,3.08,0.635,0.0000,0.0000,foi como ver a noiva na décima segunda hora,foi como ver a noiva na décima segunda hora
+local,common_voice_pt_36049720.mp3,4.14,3.11,0.751,0.0000,0.0000,o senhor tem 1 grande susto,o senhor tem 1 grande susto
+local,common_voice_pt_36049719.mp3,8.14,3.35,0.411,0.0000,0.0000,exercícios que beneficiam cada grupo muscular e articulam aqueles que compõem a coluna,exercícios que beneficiam cada grupo muscular e articulam aqueles que compõem a coluna
+local,common_voice_pt_19276296.mp3,2.74,3.16,1.154,0.0000,0.0000,projetor de tela,projetor de tela
+local,common_voice_pt_19276293.mp3,3.62,3.07,0.848,0.0000,0.0000,ter 1 plano de longo prazo,ter 1 plano de longo prazo
+local,common_voice_pt_19276298.mp3,3.34,3.07,0.919,0.2000,0.1034,ela nasceu em phoenix arizona,ela nasceu em fenix arizona
+local,common_voice_pt_19276294.mp3,3.26,3.00,0.918,0.0000,0.0000,nós não temos relação de sangue,nós não temos relação de sangue
+local,common_voice_pt_19276292.mp3,7.58,3.38,0.446,1.2000,0.3667,alguém pode atender o telefone,alguém ou ele tem de ir ao telefone
+local,common_voice_pt_19276297.mp3,4.06,2.98,0.734,0.0000,0.0000,a alça da taça está quebrada,a alça da taça está quebrada
+local,common_voice_pt_19276300.mp3,4.06,2.95,0.727,0.1667,0.0323,o árabe aceitouos sem 1 palavra,o árabe aceitouos tem 1 palavra
+local,common_voice_pt_19276301.mp3,4.30,2.95,0.688,0.4286,0.2121,o festival de arte foi 1 desastre,o feixe valdiarte foi 1 desastre
+local,common_voice_pt_19276315.mp3,2.74,2.91,1.065,0.0000,0.0000,não é 1 pouco cheio,não é 1 pouco cheio
+local,common_voice_pt_19276316.mp3,2.62,2.99,1.143,0.0000,0.0000,não é o dinheiro,não é o dinheiro
+local,common_voice_pt_19276295.mp3,2.98,2.97,0.997,0.3333,0.0833,tudo estava sincronizado,tudo estava synchronizado
+local,common_voice_pt_27023330.mp3,3.82,2.89,0.758,0.0000,0.0000,bebeu do próprio veneno,bebeu do próprio veneno
+local,common_voice_pt_27023601.mp3,5.08,2.91,0.573,0.0000,0.0000,mas a largura de banda lenta pode causar problemas,mas a largura de banda lenta pode causar problemas
+local,common_voice_pt_27023336.mp3,5.51,3.18,0.578,0.0000,0.0000,esta é a minha sentença que se pronuncia firme e firmemente,esta é a minha sentença que se pronuncia firme e firmemente
+local,common_voice_pt_27023597.mp3,3.13,3.26,1.042,0.0000,0.0000,o vinho faz você dormir,o vinho faz você dormir
+local,common_voice_pt_27023595.mp3,5.15,3.17,0.617,0.0769,0.0357,qual é a distância da terra até a lua e desta até plutão,qual a distância da terra até a lua e desta até plutão
+local,common_voice_pt_27023546.mp3,4.28,2.94,0.687,0.0000,0.0000,o governo proibiu a exportação de crustáceos,o governo proibiu a exportação de crustáceos
+local,common_voice_pt_27023543.mp3,6.01,3.06,0.509,0.1000,0.0333,a inovação é a oportunidade para taiwan sobreviver no futuro,a inovação é a oportunidade para taiyuan sobreviver no futuro
+local,common_voice_pt_27023540.mp3,6.30,3.23,0.513,0.0909,0.0149,sua população é basicamente dedicada ao turismo ecológico e à pesca,sua população é basicamente dedicada ao turismo ecológico e a pesca
+local,common_voice_pt_27023332.mp3,4.72,3.34,0.709,0.0000,0.0000,atividades que envolvem o processo de aprendizagem,atividades que envolvem o processo de aprendizagem
+local,common_voice_pt_27023535.mp3,5.80,3.00,0.518,0.0000,0.0000,quem sabe se depois de tantos terrores a criança nasceria morta,quem sabe se depois de tantos terrores a criança nasceria morta
+local,common_voice_pt_27023334.mp3,4.90,2.95,0.603,0.0000,0.0000,isso influencia poderosamente o nível de salários,isso influencia poderosamente o nível de salários
+local,common_voice_pt_27685086.mp3,5.51,3.04,0.552,0.0000,0.0000,se isso não for possível as chamadas necessárias serão feitas,se isso não for possível as chamadas necessárias serão feitas
+local,common_voice_pt_27685090.mp3,3.71,3.29,0.888,0.0000,0.0000,a vacina chegará aos jovens europeus,a vacina chegará aos jovens europeus
+local,common_voice_pt_27685068.mp3,7.78,3.29,0.423,0.2500,0.0667,oceanos pacífico atlântico índico antártico e glacial ártico,oceanos pacífico atlântico índico antártico iglesial ártico
+local,common_voice_pt_27685101.mp3,2.74,3.21,1.173,0.0000,0.0000,você vai fazer isso,você vai fazer isso
+local,common_voice_pt_27685099.mp3,5.94,3.10,0.522,0.3333,0.0339,angola guiné bissau cabo verde e moçambique falam português,angola guinébissau cabo verde e mozambique falam português
+local,common_voice_pt_27685098.mp3,8.46,3.14,0.371,0.0000,0.0000,em relação aos resultados estes são produzidos principalmente por extrações de bombeamento para consumo,em relação aos resultados estes são produzidos principalmente por extrações de bombeamento para consumo
+local,common_voice_pt_27685069.mp3,3.96,3.10,0.783,0.0000,0.0000,toda forma de amor é válida,toda forma de amor é válida
+local,common_voice_pt_25183518.mp3,3.46,3.03,0.876,0.1667,0.0312,a cristiane não saiu do facebook,a cristiana não saiu do facebook
+local,common_voice_pt_25183528.mp3,3.67,2.93,0.798,0.7500,0.1667,artur antunis oliveira freitas,artura em túnis oliveira freitas
+local,common_voice_pt_25183535.mp3,2.88,2.92,1.014,0.2500,0.0455,celso lopes de freitas,celso lobes de freitas
+local,common_voice_pt_25183529.mp3,5.04,3.02,0.600,0.1667,0.0678,seja dono da sua boca para não ser escravo de suas palavras,seja o dono da sua boca para não ser escraus de suas palavras
+local,common_voice_pt_25183530.mp3,2.48,3.11,1.251,0.0000,0.0000,antônio josé de almeida,antônio josé de almeida
+local,common_voice_pt_25183533.mp3,2.81,3.16,1.125,0.0000,0.0000,tente você mesmo primeiro,tente você mesmo primeiro
+local,common_voice_pt_25183521.mp3,5.15,3.15,0.612,1.0000,0.2439,nicoli franciane lorrane thamires e kaíke,nicolio franciano e lorrânio tamires e caíque
+local,common_voice_pt_25183532.mp3,2.84,2.94,1.033,0.6667,0.1765,passou este passe,eu sou este passe
+local,common_voice_pt_28306613.mp3,3.35,3.12,0.931,0.0000,0.0000,ele precisava de 1 bebida,ele precisava de 1 bebida
+local,common_voice_pt_28306610.mp3,5.80,3.28,0.566,0.0000,0.0000,todos os órgãos estão expostos em nossa sala de exposições,todos os órgãos estão expostos em nossa sala de exposições
+local,common_voice_pt_28306611.mp3,4.79,3.11,0.650,0.0000,0.0000,gosto de estudar física ao invés de história,gosto de estudar física ao invés de história
+local,common_voice_pt_28306590.mp3,5.04,3.13,0.621,0.0000,0.0000,isso é verdade tanto nas cartas quanto na política,isso é verdade tanto nas cartas quanto na política
+local,common_voice_pt_28306604.mp3,3.53,2.96,0.840,0.6000,0.2400,acabou sendo 1 chá amargo,acabou sendo chá no arco
+local,common_voice_pt_28306603.mp3,5.51,3.26,0.591,0.1000,0.1277,reserveme 1 reserva no quênia para 1 festa de 6,reserveme 1 reserva no quênia para 1 festa de senhos
+local,common_voice_pt_28306602.mp3,4.90,3.29,0.671,0.5000,0.2286,sarah natan alessandro átila e john,sarah natang alessandro achoa and john
+local,common_voice_pt_28306600.mp3,6.41,2.96,0.462,0.7500,0.1667,carlos roberto bertoni sanches,carlos roberto bertão de sanchez
+local,common_voice_pt_28306592.mp3,2.63,2.92,1.110,0.0000,0.0000,escolha do 0,escolha do 0
+local,common_voice_pt_25198664.mp3,4.00,2.98,0.747,0.0000,0.0000,internet banda larga,internet banda larga
+local,common_voice_pt_25198663.mp3,4.72,2.96,0.627,0.2500,0.0357,adalgisa apolinario da silva,adalgisa apolinário da silva
+local,common_voice_pt_25198645.mp3,3.17,3.16,0.996,0.0000,0.0000,abra a janela,abra a janela
+local,common_voice_pt_25198646.mp3,4.36,2.93,0.672,0.5000,0.0870,celino calixto de souza,selino calisto de souza
+local,common_voice_pt_25198693.mp3,4.50,2.93,0.651,0.0000,0.0000,o edital foi lançado no último mês,o edital foi lançado no último mês
+local,common_voice_pt_25198692.mp3,3.28,2.84,0.867,0.0000,0.0000,o que ele diz,o que ele diz
+local,common_voice_pt_25198647.mp3,5.44,3.10,0.570,0.1111,0.0196,coloque 1 adesivo de tatuagem de primavera no braço,coloque 1 andesivo de tatuagem de primavera no braço
+local,common_voice_pt_25198648.mp3,3.82,3.39,0.888,0.2500,0.0741,também explodiu em lágrimas,também explodiu in lágrimas
+local,common_voice_pt_25198660.mp3,5.26,3.03,0.577,0.0000,0.0000,sabedoria é conhecimento usado para o bem,sabedoria é conhecimento usado para o bem
+local,common_voice_pt_25198661.mp3,5.58,3.00,0.538,0.0000,0.0000,crianças na escola tirando 1 foto com seu professor,crianças na escola tirando 1 foto com seu professor
+local,common_voice_pt_25198662.mp3,4.00,3.11,0.778,0.0000,0.0000,esse trabalho ainda está aberto,esse trabalho ainda está aberto
+local,common_voice_pt_28944458.mp3,3.82,3.20,0.840,0.0000,0.0000,4 horas da manhã e nenhum sinal dele,4 horas da manhã e nenhum sinal dele
+local,common_voice_pt_28944346.mp3,2.92,3.52,1.208,1.0000,0.4000,salto do lontra,solta o lolontre
+local,common_voice_pt_28944428.mp3,4.79,3.42,0.714,0.1111,0.0227,use a wifi do aerorporto ou de qualquer café,use a wifi do aeroporto ou de qualquer café
+local,common_voice_pt_28944416.mp3,4.61,3.59,0.779,0.3333,0.1961,se marido e mulher falam com os pais a dança é ruim,se 1 de melhor falou com os pais a dança é ruim
+local,common_voice_pt_28944349.mp3,2.45,3.18,1.298,0.6667,0.2857,bento de abreu,dentro de abril
+local,common_voice_pt_28944347.mp3,3.64,3.16,0.870,0.5000,0.4167,oh o que você me entende,o que você me tem gio
+local,common_voice_pt_28944468.mp3,5.62,3.27,0.582,0.2500,0.0984,nenhum de nós tinha a geórgia se encaixando mas eu não pensei,nem onde nós tinha a georgia se encaixando mas eu não pensei
+local,common_voice_pt_28944343.mp3,3.42,3.18,0.931,0.0000,0.0000,e assim eles foram embora,e assim eles foram embora
+local,common_voice_pt_28944462.mp3,3.89,3.09,0.794,0.1000,0.0417,a floresta é o banco de poupança de 1 fazendeiro,a floresta é o banco de copança de 1 fazendeiro
+local,common_voice_pt_28944464.mp3,2.74,3.12,1.141,1.3333,0.4286,salto do jacuí,solta o duja cuí
+local,common_voice_pt_39865333.mp3,3.49,3.08,0.883,0.0000,0.0000,quero 1 misto quente,quero 1 misto quente
+local,common_voice_pt_39865330.mp3,7.20,3.15,0.437,0.8333,0.1500,mísseis balísticos hipersônicos da artilharia autopropulsada,missas balísticas e persónicos da artigaria autopropulsada
+local,common_voice_pt_39906810.mp3,4.68,2.96,0.632,0.0000,0.0000,tu e a nicole andam feitos 1 com o outro,tu e a nicole andam feitos 1 com o outro
+local,common_voice_pt_39906809.mp3,3.46,2.93,0.848,0.2000,0.0455,minha vida é 1 lambada,minha vida é 1 lombada
+local,common_voice_pt_39906776.mp3,4.00,4.06,1.016,1.6667,0.7273,odeio este restaurante,o day wish the historian
+local,common_voice_pt_39906676.mp3,3.71,3.48,0.939,0.2500,0.0400,anuncie nas redes sociais,anunciem nas redes sociais
+local,common_voice_pt_39906675.mp3,4.18,3.71,0.888,0.0000,0.0000,vou dar 1 laço nele,vou dar 1 laço nele
+local,common_voice_pt_39906672.mp3,4.14,3.10,0.750,0.1429,0.0667,ela me pagou tudo que me devia,ela me pagou tudo o que me devia
+local,common_voice_pt_39906642.mp3,5.87,3.16,0.539,0.0000,0.0000,condensadores em paralelo aumentam a capacitância total,condensadores em paralelo aumentam a capacitância total
+local,common_voice_pt_39906640.mp3,5.15,3.38,0.656,0.1250,0.0444,meus braços estão doendo preciso ir ao médico,e meus braços estão doendo preciso ir ao médico
+local,common_voice_pt_39865403.mp3,4.03,3.17,0.785,0.0000,0.0000,meu filho vai tomar banho amanhã,meu filho vai tomar banho amanhã
+local,common_voice_pt_39865401.mp3,5.76,3.05,0.530,0.1250,0.0500,utilizamos version control para gerenciar mudanças no código,utilizamos version control para diferenciar mudanças no código
+local,common_voice_pt_35909534.mp3,3.82,3.09,0.809,0.0000,0.0000,feliz aniversário para a garota de sorte de nós,feliz aniversário para a garota de sorte de nós
+local,common_voice_pt_35909543.mp3,2.16,3.07,1.421,0.0000,0.0000,conceição da feira,conceição da feira
+local,common_voice_pt_35909603.mp3,4.68,3.50,0.747,0.4444,0.0968,rever desde o início estas teorias ou rechaçálas completamente,rever desde o início essas teorias ou reche a salas completamente
+local,common_voice_pt_35909420.mp3,2.30,3.03,1.315,0.0000,0.0000,rolando morro abaixo,rolando morro abaixo
+local,common_voice_pt_35909530.mp3,3.56,3.03,0.851,0.0000,0.0000,tem chifres de pedra em ambos os lados,tem chifres de pedra em ambos os lados
+local,common_voice_pt_35909411.mp3,5.11,3.11,0.608,0.0000,0.0000,o melhoramento o apoio e o restabelecimento de sua economia,o melhoramento o apoio e o restabelecimento de sua economia
+local,common_voice_pt_35909389.mp3,6.37,3.11,0.488,0.0000,0.0000,a pessoa jurídica estrangeira que nele tiver agência filial ou sucursal,a pessoa jurídica estrangeira que nele tiver agência filial ou sucursal
+local,common_voice_pt_35909576.mp3,4.68,3.27,0.700,0.3333,0.0351,respeitadas disposições específicas constantes de tratado,respeitada à disposições específicas constantes de tratado
+local,common_voice_pt_27024227.mp3,2.74,2.93,1.073,0.0000,0.0000,ela está molhada,ela está molhada
+local,common_voice_pt_27024355.mp3,5.33,3.35,0.629,0.0000,0.0000,participar de reuniões do ministério da indústria turismo e comércio,participar de reuniões do ministério da indústria turismo e comércio
+local,common_voice_pt_27024223.mp3,7.49,4.33,0.578,0.0000,0.0000,a incorporação do inglês com a metodologia apropriada será precoce e progressiva,a incorporação do inglês com a metodologia apropriada será precoce e progressiva
+local,common_voice_pt_27024225.mp3,2.92,3.83,1.314,0.6667,0.2222,apressado come cru,apressado com micro
+local,common_voice_pt_27024229.mp3,4.32,3.95,0.914,0.0000,0.0000,para sua tristeza a indignação aconteceu,para sua tristeza a indignação aconteceu
+local,common_voice_pt_27024272.mp3,2.74,3.94,1.442,0.0000,0.0000,a pequena é 1 desmiolada,a pequena é 1 desmiolada
+local,common_voice_pt_27024273.mp3,3.24,4.07,1.255,0.0000,0.0000,eles são delicados dizem eles,eles são delicados dizem eles
+local,common_voice_pt_27024279.mp3,3.64,3.95,1.085,0.0000,0.0000,no inverno o melhor amigo é 1 bom casaco,no inverno o melhor amigo é 1 bom casaco
+local,common_voice_pt_27024354.mp3,3.42,3.98,1.165,0.1667,0.0513,fevereiro floresce a flor de amendoeira,peverero floresce a flor de amendoeira
+local,common_voice_pt_27024350.mp3,2.56,4.05,1.583,0.0000,0.0000,isso é o que ele diz,isso é o que ele diz
+local,common_voice_pt_31134372.mp3,3.02,4.17,1.377,0.6667,0.4706,gasolina e diesel,vazurina e jesus
+local,common_voice_pt_31134306.mp3,5.04,4.17,0.828,0.3333,0.2449,floração de flores mais cedo do que seres humanos,floração de flores e mecêlos do que cêlos humanos
+local,common_voice_pt_31134279.mp3,3.53,3.94,1.118,0.5000,0.2581,a ganância comeu o bolo inteiro,a ganância com o meu polinteiro
+local,common_voice_pt_31134278.mp3,4.86,4.16,0.855,0.1429,0.0556,para o ferreiro não vá vender baldes,para o ferreiro não vai vender baldes
+local,common_voice_pt_32941951.mp3,5.11,4.19,0.819,0.0000,0.0000,colocou em pauta novamente a questão do aborto,colocou em pauta novamente a questão do aborto
+local,common_voice_pt_32941940.mp3,3.35,3.70,1.105,0.0000,0.0000,usar a inteligência para o bem,usar a inteligência para o bem
+local,common_voice_pt_32941950.mp3,6.66,3.78,0.568,0.0000,0.0000,o país valenciano no entanto não desfruta precisamente dessas características virgens,o país valenciano no entanto não desfruta precisamente dessas características virgens
+local,common_voice_pt_32941941.mp3,5.22,3.94,0.755,0.2000,0.1071,o novo colaborador já se implicou em fofocas e confusões,o novo clonobrador já se implica em fofocas e confusões
+local,common_voice_pt_32941942.mp3,4.39,4.14,0.943,1.0000,0.2903,cumprindo obrigações na calunga,compringo obrigaciones en la calunga
+local,common_voice_pt_32941944.mp3,2.84,3.86,1.357,1.7500,0.6522,as meias estão rasgadas,has me as he still has a goddess
+local,common_voice_pt_32941949.mp3,3.46,3.86,1.117,0.2857,0.0811,como decorar seu lar para a primavera,como decorar celular para a primavera
+local,common_voice_pt_32941946.mp3,4.79,4.16,0.869,0.1250,0.0213,o problema está em eles desobedecerem às ordens,o problema está em eles desobedecerem as ordens
+local,common_voice_pt_32941952.mp3,4.61,3.93,0.853,0.0000,0.0000,foi atrás da população desbancarizada,foi atrás da população desbancarizada
+local,common_voice_pt_20464933.mp3,6.10,3.96,0.650,0.3750,0.1500,1 menina com 1 moicano azul está andando,1 menina com 1 hecano a sua está andando
+local,common_voice_pt_20464932.mp3,3.38,3.84,1.136,0.0000,0.0000,meu calendário está cheio,meu calendário está cheio
+local,common_voice_pt_20464934.mp3,5.78,4.36,0.753,0.0000,0.0000,tocar música de dispositivos a partir dos anos 40,tocar música de dispositivos a partir dos anos 40
+local,common_voice_pt_20464852.mp3,4.94,4.02,0.812,0.0000,0.0000,após o período de licença maternidade,após o período de licença maternidade
+local,common_voice_pt_20464853.mp3,5.14,3.79,0.738,0.0000,0.0000,qual é o preço do dólar no momento,qual é o preço do dólar no momento
+local,common_voice_pt_20464854.mp3,6.38,4.12,0.645,0.2222,0.0577,2 ciclistas em amarelo estão competindo em 1 corrida,2 ciclistas em amarela estão copentindo em 1 corrida
+local,common_voice_pt_20464857.mp3,5.78,4.19,0.724,0.0000,0.0000,1 homem de calça preta subindo em 1 parede de pedra,1 homem de calça preta subindo em 1 parede de pedra
+local,common_voice_pt_20464859.mp3,5.54,3.92,0.707,0.1250,0.0385,estudos clínicos da nova vacina ainda são excelentes,e estudos clínicos da nova vacina ainda são excelentes
+local,common_voice_pt_20464860.mp3,3.46,3.76,1.088,1.3333,1.0769,como vai você,кому вайлы с ним
+local,common_voice_pt_20464935.mp3,5.06,4.03,0.797,0.0000,0.0000,você quer dizer que o discurso que você está escrevendo,você quer dizer que o discurso que você está escrevendo
+local,common_voice_pt_20464936.mp3,5.06,4.02,0.794,0.0000,0.0000,todo mundo quieto e pronto para 1 emergência,todo mundo quieto e pronto para 1 emergência
+local,common_voice_pt_19401757.mp3,5.90,4.05,0.686,0.1667,0.0484,no dia seguinte o menino voltou ao poço esperando ver a menina,no dia seguinte o menino voltou ao poço esperando virar menina
+local,common_voice_pt_19401752.mp3,4.22,3.87,0.917,0.0000,0.0000,1 grupo de crianças está competindo em 1 revezamento,1 grupo de crianças está competindo em 1 revezamento
+local,common_voice_pt_19401756.mp3,2.74,4.23,1.547,0.5000,0.1154,verifique os sinais vitais,verifique os sinais de tais
+local,common_voice_pt_19401743.mp3,6.14,4.18,0.680,0.2500,0.1176,o uso ilegal de software é 1 crime,ou o uso legal de software é 1 crime
+local,common_voice_pt_19401745.mp3,3.34,4.14,1.242,1.2500,0.7895,você orou ao senhor,well see oro all single
+local,common_voice_pt_19401747.mp3,3.14,4.16,1.324,0.0000,0.0000,use 1 capacete de vídeo,use 1 capacete de vídeo
+local,common_voice_pt_19401748.mp3,3.98,4.04,1.015,0.0000,0.0000,você sabe que tipo de pacote foi,você sabe que tipo de pacote foi
+local,common_voice_pt_19401750.mp3,4.30,4.37,1.017,0.2222,0.0638,pedro abraçou seu ursinho o mais forte que pôde,pedro abarçou seu ursinho o mais forte que pode
+local,common_voice_pt_19401751.mp3,3.22,3.85,1.196,0.0000,0.0000,você acha que você fez,você acha que você fez
+local,common_voice_pt_19401755.mp3,3.82,3.97,1.041,0.1250,0.0500,aposto que é 1 mandado para minha prisão,aposto que é 1 mandado para a minha prisão
+local,common_voice_pt_19401753.mp3,2.98,3.82,1.284,0.0000,0.0000,aqui é meu filho,aqui é meu filho
+local,common_voice_pt_36376507.mp3,7.02,4.40,0.627,0.0000,0.0000,1 homem é como 1 cadeado para cada 1 a chave deve ser selecionada,1 homem é como 1 cadeado para cada 1 a chave deve ser selecionada
+local,common_voice_pt_36376501.mp3,4.25,3.93,0.924,0.0000,0.0000,a sociedade é 1 ferramenta de fraude,a sociedade é 1 ferramenta de fraude
+local,common_voice_pt_36376503.mp3,6.30,3.97,0.631,0.3333,0.0909,liquida a indústria nacional impede o progresso do país,líquida indústria nacional impede progresso do país
+local,common_voice_pt_36376494.mp3,6.30,4.22,0.670,0.0000,0.0000,o homem acredita firmemente porque ele adota 1 crença sem aprofundamento,o homem acredita firmemente porque ele adota 1 crença sem aprofundamento
+local,common_voice_pt_36376495.mp3,5.69,4.42,0.777,0.1111,0.0182,1 homem com cabelo comprido sendo parado por seguranças,1 homem com cabelo comprido sendo parado por segurança
+local,common_voice_pt_36376500.mp3,5.69,4.07,0.716,0.1111,0.0377,caso você não corrija a deficiência ela será excluída,caso você não corrige a deficiência ela será excluída
+local,common_voice_pt_36376502.mp3,6.12,4.17,0.682,0.0000,0.0000,1 pessoa está sentada em 1 borda de 1 rio em 1 cidade,1 pessoa está sentada em 1 borda de 1 rio em 1 cidade
+local,common_voice_pt_36376505.mp3,4.36,4.08,0.937,0.0000,0.0000,continue tirando fotos e brincando com a neve,continue tirando fotos e brincando com a neve
+local,common_voice_pt_36376504.mp3,6.12,4.29,0.701,0.0000,0.0000,eu queria rever o plano estratégico esta tarde mas ainda não consegui dizer,eu queria rever o plano estratégico esta tarde mas ainda não consegui dizer
+local,common_voice_pt_36376498.mp3,3.53,4.03,1.143,0.0000,0.0000,oi como assim,oi como assim
+local,common_voice_pt_36461399.mp3,5.69,4.06,0.713,0.2727,0.1053,é engraçado eles não entendem nada mas não param de falar,é engraçado eles vão entendendo em nada mas não param de falar
+local,common_voice_pt_36461382.mp3,5.58,3.92,0.702,0.0000,0.0000,tudo deve ser feito antes que você possa fazer isso,tudo deve ser feito antes que você possa fazer isso
+local,common_voice_pt_36461368.mp3,6.41,5.16,0.805,0.1000,0.0294,eu vi algumas espigas de trigo particularmente grandes e esplêndidas,eu vi algumas espigas de trigo particularmente grandes e splendidas
+local,common_voice_pt_36461381.mp3,3.53,4.26,1.208,0.0000,0.0000,eu prefiro futebol,eu prefiro futebol
+local,common_voice_pt_36461367.mp3,4.25,4.02,0.945,0.0000,0.0000,isso me coloca em 1 buraco peculiar,isso me coloca em 1 buraco peculiar
+local,common_voice_pt_36461366.mp3,5.40,4.07,0.753,0.2500,0.1250,o fucarão atingiu a costa noroeste ao entardecer,o furacão atingiu a costa noroeste ao interdizer
+local,common_voice_pt_36461365.mp3,4.86,3.84,0.790,0.0000,0.0000,precisamos de muita coragem para chegar ao fim,precisamos de muita coragem para chegar ao fim
+local,common_voice_pt_36461364.mp3,4.61,3.93,0.853,0.0000,0.0000,não se podem quebrar com nomeações,não se podem quebrar com nomeações
+local,common_voice_pt_36461401.mp3,2.92,3.84,1.316,0.0000,0.0000,13 de maio,13 de maio
+local,common_voice_pt_36466540.mp3,5.62,4.75,0.846,0.2000,0.0208,por que você está tão ansioso para chegar ao fim,porque você está tão ansioso para chegar ao fim
+local,common_voice_pt_36466562.mp3,4.90,4.49,0.917,0.0000,0.0000,em palavras trabalho suave e duro,em palavras trabalho suave e duro
+local,common_voice_pt_36466558.mp3,4.50,4.28,0.951,0.0000,0.0000,ela começa a dançar com 1 casamento,ela começa a dançar com 1 casamento
+local,common_voice_pt_36466542.mp3,6.59,4.04,0.613,0.0833,0.0312,entre todos os santos e a natividade entra no inverno da verdade,e entre todos os santos e a natividade entra no inverno da verdade
+local,common_voice_pt_36466541.mp3,3.46,4.38,1.268,0.0000,0.0000,ela está com muito frio,ela está com muito frio
+local,common_voice_pt_36466494.mp3,5.69,4.38,0.770,0.0000,0.0000,quem brinca com fogo acaba queimando,quem brinca com fogo acaba queimando
+local,common_voice_pt_36466559.mp3,5.40,4.32,0.799,0.1250,0.0200,ainda depois daquele primeiro 1000000 antes dos 30,ainda depois aquele primeiro 1000000 antes dos 30
+local,common_voice_pt_36466538.mp3,5.58,4.37,0.782,0.2000,0.0455,susan envolveu cada presente individualmente,suza envolveu cada presente individualmente
+local,common_voice_pt_36466496.mp3,6.84,4.63,0.678,0.0000,0.0000,postular em juízo é necessário ter interesse e legitimidade,postular em juízo é necessário ter interesse e legitimidade
+local,common_voice_pt_36466493.mp3,6.66,4.43,0.665,0.2000,0.0323,faltou com o decoro parlamentar,faltou com o decorio parlamentar
+local,common_voice_pt_32062394.mp3,6.52,4.49,0.688,0.3750,0.0545,problema de matemática com frações potências e radiação,problemas de matemática confrações potências e radiação
+local,common_voice_pt_32062681.mp3,6.44,4.32,0.670,0.0000,0.0000,olho para os olhos e dentes para os dentes,olho para os olhos e dentes para os dentes
+local,common_voice_pt_32062357.mp3,5.11,3.86,0.755,0.2000,0.0625,é o rádio da avó,é o rádio da vó
+local,common_voice_pt_32062359.mp3,9.07,4.10,0.451,0.0000,0.0000,como tal acolhe projetos artísticos com alto nível de especialização e excelência artística,como tal acolhe projetos artísticos com alto nível de especialização e excelência artística
+local,common_voice_pt_32062361.mp3,4.86,4.17,0.859,0.1667,0.0588,estava num charco a apanhar moscas,e estava num charco a apanhar moscas
+local,common_voice_pt_32062680.mp3,7.27,4.58,0.629,0.1818,0.0492,rita deuse pressa em dizêlo ao outro e sobre isso deliberaram,recadeuse pressa em dizêlo ao outro e sobre isso deliberaram
+local,common_voice_pt_32062417.mp3,6.70,4.02,0.601,0.0833,0.0172,está 1 pouco frio hoje então eu espero que você tenha gots,está 1 pouco frio hoje então eu espero que você tenha gotes
+local,common_voice_pt_32062401.mp3,5.22,3.91,0.750,0.0000,0.0000,você é meu salvador bernat,você é meu salvador bernat
+local,common_voice_pt_20023723.mp3,6.91,4.04,0.584,0.1000,0.0185,os projetos têm 1 temporalidade de médio e longo prazo,os projetos tem 1 temporalidade de médio e longo prazo
+local,common_voice_pt_20023470.mp3,6.17,4.25,0.689,0.5000,0.1569,1 senhora em 1 maiô azul está nadando debaixo dágua,1 senhora eumario azul está nadando debaixo da água
+local,common_voice_pt_20023471.mp3,5.90,4.14,0.701,0.5000,0.1136,eles estavam todos em pé quando ela escreveu,elis estava tudo sem pé quando ela escreveu
+local,common_voice_pt_20023472.mp3,4.99,4.12,0.825,0.5714,0.2222,alfayoum está no egito disse o árabe,alfayyum está no egito e seu arbe
+local,common_voice_pt_20023652.mp3,4.18,3.83,0.917,0.0000,0.0000,primeiro de melhor vestido,primeiro de melhor vestido
+local,common_voice_pt_20023654.mp3,6.55,4.20,0.642,0.0000,0.0000,para estudantes que não têm conhecimento de nenhuma língua românica,para estudantes que não têm conhecimento de nenhuma língua românica
+local,common_voice_pt_20023716.mp3,4.97,4.04,0.814,0.8571,0.1905,semear em novembro e trabalhar em dezembro,semelharem no vimbro e trabalharem de sembro
+local,common_voice_pt_20023704.mp3,7.22,4.25,0.589,0.0000,0.0000,isso não vai acontecer tata conheci você quando ainda estava feliz,isso não vai acontecer tata conheci você quando ainda estava feliz
+local,common_voice_pt_20023703.mp3,5.04,4.06,0.805,0.1250,0.0233,os homens estão se preparando para o rodeio,os homens estão se preparando para o roteio
+local,common_voice_pt_20023701.mp3,8.16,4.18,0.512,0.0714,0.0119,é necessário procurar o ponto de equilíbrio na situação atual de 1 mundo globalizado,é necessário procurar o ponto de equilíbrio na situação atua de 1 mundo globalizado
+local,common_voice_pt_20023656.mp3,6.67,3.87,0.579,0.2222,0.0652,você se importa se formos a algum lugar lotado,você se importa se formos algum lugar lutado
+local,common_voice_pt_20023653.mp3,4.97,3.83,0.771,0.1667,0.0357,1 andorinha só não faz verão,1 andorinha só não faz virão
+local,common_voice_pt_36477405.mp3,3.17,4.23,1.334,0.0000,0.0000,eu tenho 1 gato,eu tenho 1 gato
+local,common_voice_pt_36477404.mp3,5.80,4.90,0.846,0.0000,0.0000,1 erro gravíssimo ao desviar os operários de sua tarefa direta,1 erro gravíssimo ao desviar os operários de sua tarefa direta
+local,common_voice_pt_36477401.mp3,3.64,4.14,1.138,0.0000,0.0000,eles dizem que é falso,eles dizem que é falso
+local,common_voice_pt_36477416.mp3,3.28,4.49,1.369,0.6000,0.1379,e a ingratidão não reapareceu,e aí em gratidão não reapareceu
+local,common_voice_pt_36477415.mp3,4.86,4.28,0.882,0.1000,0.0702,como você pode entender antes havia muita lã para remover,como você pode entender antes havia muita lampa para remover
+local,common_voice_pt_36477402.mp3,3.82,4.24,1.112,0.0000,0.0000,eu deixei minha casa através desta ponte,eu deixei minha casa através desta ponte
+local,common_voice_pt_36477403.mp3,5.15,4.37,0.849,0.0000,0.0000,1 cão 1 pessoa fazendo 1 curso de agilidade,1 cão 1 pessoa fazendo 1 curso de agilidade
+local,common_voice_pt_28040773.mp3,4.25,4.45,1.048,0.2000,0.0278,nenhum caso foi devidamente vacinado,nenhum caso fui devidamente vacinado
+local,common_voice_pt_28041017.mp3,5.80,4.46,0.770,0.0714,0.0357,mas isso não contribui em nada para a mecânica do conhecimento locomotivo dos vagões,mas isso não contribui nada para a mecânica do conhecimento locomotivo dos vagões
+local,common_voice_pt_28041018.mp3,3.60,4.26,1.184,0.1667,0.0345,da pele as correias se soltam,da pele as corrias se soltam
+local,common_voice_pt_28041008.mp3,4.25,4.29,1.011,0.0000,0.0000,compartilhe esse vídeo com os meus amigos,compartilhe esse vídeo com os meus amigos
+local,common_voice_pt_28041007.mp3,3.28,4.04,1.233,0.0000,0.0000,meu pai se apaixonou por ele,meu pai se apaixonou por ele
+local,common_voice_pt_28041006.mp3,5.94,4.26,0.717,0.3000,0.1571,a computação traiçoeira é projetada para impor restrições aos usuários,a computação para issoira é projetada para empurrar restrições aos usuários
+local,common_voice_pt_28041004.mp3,5.98,3.85,0.644,0.0769,0.0299,a assistência é gratuita e aberta a todos para a capacidade da sala,a assistência é gratuita e aberta a todos para capacidade da sala
+local,common_voice_pt_23345048.mp3,3.41,3.82,1.120,0.0000,0.0000,melhorar a segurança do campus,melhorar a segurança do campus
+local,common_voice_pt_23345140.mp3,3.07,4.46,1.451,0.2500,0.0741,geralmente ninguém a escuta,geralmente ninguém escuta
+local,common_voice_pt_23345046.mp3,2.74,4.29,1.567,0.2000,0.0455,reduza a dor da vítima,reduz a dor da vítima
+local,common_voice_pt_23345128.mp3,4.20,4.14,0.985,0.2000,0.3750,quando ela tinha 60 anos,quando ela tinha setecenta anos
+local,common_voice_pt_23345047.mp3,3.07,4.17,1.358,0.0000,0.0000,eu não posso falar por 1 tempo,eu não posso falar por 1 tempo
+local,common_voice_pt_19792605.mp3,6.34,4.18,0.660,0.2143,0.1370,2 jovens os machos brancos estão do lado de fora perto de muitos arbustos,2 jovens os mais chas brancos estão do lado de fora perto de muitos herbôs
+local,common_voice_pt_19792612.mp3,3.46,4.11,1.190,0.4286,0.2667,1 homem está de pé por árvores,vamos estar de pé por árvores
+local,common_voice_pt_19792613.mp3,4.82,3.93,0.815,0.0000,0.0000,1 pessoa andando de caiaque em 1 pequena cachoeira,1 pessoa andando de caiaque em 1 pequena cachoeira
+local,common_voice_pt_19792617.mp3,3.02,3.87,1.279,0.0000,0.0000,o cientista escreveu seu papel,o cientista escreveu seu papel
+local,common_voice_pt_19792616.mp3,2.06,3.99,1.934,0.2500,0.3636,1 ato de fé,1 ato de ferro
+local,common_voice_pt_19792606.mp3,4.78,4.11,0.860,0.2000,0.0638,peixes do corte do homem em 1 mercado de peixes,peixes do corte do homem em mercados de peixes
+local,common_voice_pt_19740699.mp3,3.58,4.24,1.185,0.6667,0.3529,somos 1 casal de magos financeiros,somos 1 casal de magus o meu sede
+local,common_voice_pt_19792604.mp3,6.38,4.20,0.658,0.1429,0.0476,1 cão preto menor que luta com 1 cão marrom maior em 1 floresta,1 cão preto menor que luta com tão marrom maior em 1 floresta
+local,common_voice_pt_19792603.mp3,3.34,4.07,1.220,0.0000,0.0000,onde você conseguiu ele,onde você conseguiu ele
+local,common_voice_pt_19792614.mp3,2.78,4.28,1.536,0.3333,0.1379,este casaco é forrado de pele,e este casaco é forrado de pena
+local,common_voice_pt_19740787.mp3,3.94,6.03,1.533,1.2500,0.5957,as hastes dos óculos altos racharam e quebraram,also hast du es wie so so aus aschranen gebrannt
+local,common_voice_pt_19792607.mp3,3.62,4.66,1.287,0.0000,0.0000,malhar no ferro enquanto está quente,malhar no ferro enquanto está quente
+local,common_voice_pt_24870020.mp3,4.64,4.50,0.969,1.0000,0.6140,o que não pode ser não pode ser e além disso é impossível,si nos pasamos nos pasamos el endiso es imposible
+local,common_voice_pt_25277893.mp3,3.46,4.18,1.210,1.0000,0.2857,a festa irá ocorrer na sexta,al fiesta irá a ocurrir una sesta
+local,common_voice_pt_25277916.mp3,6.52,4.33,0.664,0.9231,0.3333,cerveja boa é cerveja boa seja puro malto ou produzida com cereais nãomaltados,cervéchevo es cervéchevo seja por un malto o producido con cereales normaltados
+local,common_voice_pt_25277894.mp3,3.71,4.25,1.145,0.7500,0.2195,a lagarta respondeu com 1 aceno de cabeça,alajar te respondeo con un aceno de cabeza
+local,common_voice_pt_24870016.mp3,3.46,4.09,1.183,0.0000,0.0000,eu não falo nada,eu não falo nada
+local,common_voice_pt_25277855.mp3,6.52,4.13,0.633,0.3333,0.0645,será entendido que qualquer licitante aceita o grau suficiente,será entendido que cualquier licitante aceite o frau suficiente
+local,common_voice_pt_25277874.mp3,3.96,4.42,1.116,0.7000,0.2174,mas a cada semana eu ficava mais e mais rápido,más cada semana euficaba más y más rápido
+local,common_voice_pt_25277856.mp3,4.25,4.03,0.948,0.1667,0.0256,entre mortos e feridos salvaramse todos,entre mortos e feridos salvaranse todos
+local,common_voice_pt_27127946.mp3,5.98,4.34,0.726,0.0833,0.0519,das câmaras de comércio sabemos que nossas vozes sozinhas não são suficientes,das câmaras de comércio sabemos que nossas bolsas sozinhas não são suficientes
+local,common_voice_pt_27127947.mp3,3.92,4.42,1.126,0.0000,0.0000,a necessidade é a mãe da invenção,a necessidade é a mãe da invenção
+local,common_voice_pt_27128044.mp3,4.28,4.17,0.973,0.0000,0.0000,todos podem colaborar na wikipedia,todos podem colaborar na wikipedia
+local,common_voice_pt_27127953.mp3,5.62,4.17,0.742,0.0000,0.0000,faça a oferta de forma clara e em diferentes formatos,faça a oferta de forma clara e em diferentes formatos
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        groq,common_voice_pt_36469883.mp3,6.84,4.17,0.610,0.0000,0.0000,muitas linguagens de programação são nomeadas em homenagem a pessoas reais,muitas linguagens de programação são nomeadas em homenagem a pessoas reais
+groq,common_voice_pt_36469873.mp3,6.41,4.13,0.645,0.0000,0.0000,meu químico me disse para tomar esses comprimidos antes de comer,meu químico me disse para tomar esses comprimidos antes de comer
+groq,common_voice_pt_36469877.mp3,4.36,4.44,1.020,0.0000,0.0000,mulher inclinouse falando no telefone,mulher inclinouse falando no telefone
+groq,common_voice_pt_36469875.mp3,4.50,4.07,0.905,0.0000,0.0000,todos eles gratuitos e gratuitos,todos eles gratuitos e gratuitos
+groq,common_voice_pt_36469878.mp3,3.60,3.90,1.084,0.0000,0.0000,este é 1 médico muito poderoso,este é 1 médico muito poderoso
+groq,common_voice_pt_36469874.mp3,4.00,3.92,0.982,0.0000,0.0000,recensão do primeiro volume de,recensão do primeiro volume de
+groq,common_voice_pt_36469872.mp3,4.86,7.11,1.464,0.2857,0.0732,parece que sempre está sempre escuro aqui,parece que sempre está sempre escúru aquí
+groq,common_voice_pt_36469895.mp3,5.33,4.09,0.767,0.0000,0.0000,depois do vento veja a torrente,depois do vento veja a torrente
+groq,common_voice_pt_36469892.mp3,6.77,4.14,0.612,0.0000,0.0000,1 garota chuta 1 bola com 3 garotas fazendo o mesmo em segundo plano,1 garota chuta 1 bola com 3 garotas fazendo o mesmo em segundo plano
+groq,common_voice_pt_27071816.mp3,8.75,4.09,0.468,0.0000,0.0000,forma por meio de 1 instância que será fornecida a eles nos escritórios municipais,forma por meio de 1 instância que será fornecida a eles nos escritórios municipais
+groq,common_voice_pt_27071643.mp3,6.62,4.19,0.633,0.5000,0.0645,você pensa em ajudar os semteto,você pensa em ajudar o sem teto
+groq,common_voice_pt_27071480.mp3,4.28,4.30,1.003,0.0000,0.0000,seja 1 composto químico,seja 1 composto químico
+groq,common_voice_pt_27071809.mp3,5.08,3.94,0.776,0.0000,0.0000,isso faz você se sentir muito,isso faz você se sentir muito
+groq,common_voice_pt_27071646.mp3,5.08,3.97,0.783,0.0000,0.0000,esses computadores não são seus,esses computadores não são seus
+groq,common_voice_pt_27071645.mp3,7.34,4.13,0.562,0.0000,0.0000,é por isso que eu queria que o almoço fosse caseiro,é por isso que eu queria que o almoço fosse caseiro
+groq,common_voice_pt_27071472.mp3,10.51,4.18,0.398,0.0000,0.0000,gerencie as configurações de segurança do usuário e supervisioneo,gerencie as configurações de segurança do usuário e supervisioneo
+groq,common_voice_pt_27071808.mp3,5.80,3.96,0.684,0.0000,0.0000,eu tenho que fazer isso,eu tenho que fazer isso
+groq,common_voice_pt_27071476.mp3,6.52,3.94,0.605,0.0000,0.0000,ele é o veterinário que cuidou do meu coelho,ele é o veterinário que cuidou do meu coelho
+groq,common_voice_pt_36466049.mp3,6.70,4.00,0.598,0.2727,0.0870,dê 5 de 6 estrelas para no country for old men,d5 de 6 estrelas para o no country for old men
+groq,common_voice_pt_36466051.mp3,6.44,4.08,0.633,0.0000,0.0000,dirigentes ideológicos do proletariado em sua luta efetiva,dirigentes ideológicos do proletariado em sua luta efetiva
+groq,common_voice_pt_36466055.mp3,5.15,4.03,0.782,0.0000,0.0000,eles sempre passam o verão juntos em maceió,eles sempre passam o verão juntos em maceió
+groq,common_voice_pt_36466062.mp3,5.36,4.28,0.798,0.0000,0.0000,daqui a pouco lhes direi quem era a terceira senhora,daqui a pouco lhes direi quem era a terceira senhora
+groq,common_voice_pt_36466064.mp3,3.82,3.94,1.031,0.0000,0.0000,são sebastião do caí,são sebastião do caí
+groq,common_voice_pt_36466065.mp3,4.64,3.98,0.856,0.0000,0.0000,por amor não há tempo demais,por amor não há tempo demais
+groq,common_voice_pt_36466063.mp3,4.00,7.23,1.809,0.0000,0.0000,a internet está funcionando,a internet está funcionando
+groq,common_voice_pt_36466038.mp3,4.28,4.04,0.942,0.0000,0.0000,é 1 marco no norte de taiwan,é 1 marco no norte de taiwan
+groq,common_voice_pt_23815862.mp3,3.70,3.96,1.071,0.0000,0.0000,nenhum quarto pode ser visto no país,nenhum quarto pode ser visto no país
+groq,common_voice_pt_20754513.mp3,5.78,4.44,0.767,0.0000,0.0000,1 criança está dormindo do lado de fora da área de dormir,1 criança está dormindo do lado de fora da área de dormir
+groq,common_voice_pt_20754516.mp3,4.22,4.17,0.988,0.5000,0.3111,vou telefonar para eles para obter a história,þú telefonar para eles para upptelar story
+groq,common_voice_pt_20754515.mp3,5.14,4.08,0.795,0.0000,0.0000,minha esposa me deu isso no meu último aniversário,minha esposa me deu isso no meu último aniversário
+groq,common_voice_pt_20754550.mp3,7.30,4.17,0.571,0.0000,0.0000,na noite eles espalharam seus equipamentos de dormir e mantiveram seus fogos escondidos,na noite eles espalharam seus equipamentos de dormir e mantiveram seus fogos escondidos
+groq,common_voice_pt_20754551.mp3,4.18,4.11,0.985,0.0000,0.0000,devemos ser capazes de romper os limites,devemos ser capazes de romper os limites
+groq,common_voice_pt_20754549.mp3,7.82,4.03,0.514,0.0000,0.0000,2 mulheres andando pela calçada 1 delas carregando 1 caixa grande cheia de coisas,2 mulheres andando pela calçada 1 delas carregando 1 caixa grande cheia de coisas
+groq,common_voice_pt_20754548.mp3,5.90,4.05,0.686,0.0000,0.0000,pessoa mais velha está ajudando 1 criança em patins de gelo,pessoa mais velha está ajudando 1 criança em patins de gelo
+groq,common_voice_pt_20754532.mp3,3.98,4.06,1.018,0.1667,0.0625,não existe tempo como o presente,não existe tempo como presente
+groq,common_voice_pt_20754531.mp3,4.10,4.07,0.991,0.0000,0.0000,1 mulher loira está cantando no palco,1 mulher loira está cantando no palco
+groq,common_voice_pt_20754526.mp3,5.02,4.17,0.831,0.0000,0.0000,eu estou fazendo tudo humanamente possível,eu estou fazendo tudo humanamente possível
+groq,common_voice_pt_35873878.mp3,6.88,4.17,0.607,0.0909,0.0139,o estudo concreto de todas as formas do antagonismo econômico existentes,o estudo concreto de todas as formas do antagonismo econômico existente
+groq,common_voice_pt_35873932.mp3,3.89,4.27,1.099,1.0000,0.2500,lavras da mangabeira,lavrða mangabeiru
+groq,common_voice_pt_35873980.mp3,5.51,4.27,0.775,0.0000,0.0000,enfrentando os olhos piscando,enfrentando os olhos piscando
+groq,common_voice_pt_35873877.mp3,4.90,4.16,0.849,0.0000,0.0000,honestamente eu espero que ele morra,honestamente eu espero que ele morra
+groq,common_voice_pt_35873931.mp3,2.70,4.04,1.495,0.6667,0.2941,guia para leitura,día para a leitura
+groq,common_voice_pt_40191776.mp3,4.86,4.28,0.880,0.0000,0.0000,o lítio é o meu estabilizador do humor preferido,o lítio é o meu estabilizador do humor preferido
+groq,common_voice_pt_40191760.mp3,14.33,5.24,0.366,0.2727,0.0658,agentsheets agora aldor alef algek alice allegro alphard altair alusus amber,agentscheats agora aldor aleph aljek alice allegro alphard altair alusus amber
+groq,common_voice_pt_40191772.mp3,4.97,3.97,0.800,0.0000,0.0000,alá está acima de qualquer agressor e opressor,alá está acima de qualquer agressor e opressor
+groq,common_voice_pt_40191773.mp3,12.28,4.14,0.337,0.0000,0.0000,veracidade lícito apto firmar a convicção provimento proposto investidura nomeação cargo ofício,veracidade lícito apto firmar a convicção provimento proposto investidura nomeação cargo ofício
+groq,common_voice_pt_40191765.mp3,4.61,3.98,0.865,0.0000,0.0000,o submergível ficou preso em 1 recife,o submergível ficou preso em 1 recife
+groq,common_voice_pt_40191775.mp3,5.08,4.00,0.789,0.0000,0.0000,a água derramava pelo chão sem ninguém se importar,a água derramava pelo chão sem ninguém se importar
+groq,common_voice_pt_40191779.mp3,5.22,4.06,0.778,0.1429,0.0408,oferecemos 1 modelo freemium para nossos usuários,oferecemos 1 modelo premium para nossos usuários
+groq,common_voice_pt_40191780.mp3,8.03,4.41,0.549,0.0714,0.0115,todas as crianças nascidas dentro ou fora do matrimônio gozam da mesma protecção social,todas as crianças nascidas dentro ou fora do matrimônio gozam da mesma proteção social
+groq,common_voice_pt_40191782.mp3,4.54,4.34,0.957,0.0000,0.0000,nós tomamos nossa vingança num piscar de olhos,nós tomamos nossa vingança num piscar de olhos
+groq,common_voice_pt_40191770.mp3,2.88,4.05,1.406,0.0000,0.0000,clique no botão,clique no botão
+groq,common_voice_pt_37061761.mp3,6.05,4.07,0.673,0.1429,0.0328,energética naval informal ilegal varejista atacadista turismo,energética naval informal ilegal varejista sacadista turismo
+groq,common_voice_pt_37061759.mp3,10.55,4.20,0.398,0.2222,0.0606,quadrilátero mágico quadrante delimitada quadrantes quadricelular quadríduo quadriênio quadrilátero,quadrilátero mais quadrante delimitada quadrantes quadricelular quadrido quadriênio quadrilátero
+groq,common_voice_pt_37061749.mp3,6.41,4.29,0.669,0.0833,0.0127,cada voluntário dedica tempo não atrapalhe o progresso por delírios de grandeza,cada voluntário dedica tempo não atrapalha o progresso por delírios de grandeza
+groq,common_voice_pt_37061750.mp3,3.60,3.96,1.101,0.0000,0.0000,agravo de instrumento,agravo de instrumento
+groq,common_voice_pt_37061754.mp3,5.80,4.42,0.762,1.2000,0.4545,deepin ubuntu kylin gnome wayland,jípen og butún kailin gynomi wyland
+groq,common_voice_pt_37061748.mp3,9.22,4.17,0.453,0.2500,0.0594,linear matriz espinor formalismo diferencial geodésica delta métrico curvatura torção inércia angular,linear matriz espinô formalismo diferencial geodésica deltamédio curvatura torção inércia angular
+groq,common_voice_pt_36460921.mp3,3.78,3.99,1.056,0.0000,0.0000,vá ao redor e compre 1 jaqueta,vá ao redor e compre 1 jaqueta
+groq,common_voice_pt_36467196.mp3,3.06,4.01,1.311,0.3333,0.0833,davi e alice,davi e anice
+groq,common_voice_pt_36467180.mp3,6.59,4.03,0.612,0.0000,0.0000,de repente jogado no grande balde de gelo,de repente jogado no grande balde de gelo
+groq,common_voice_pt_36467185.mp3,2.99,6.98,2.338,0.0000,0.0000,vai chover sobre mim,vai chover sobre mim
+groq,common_voice_pt_36467199.mp3,6.52,4.04,0.620,0.0000,0.0000,havia vozes levantadas 1 espécie de luta parecia estar acontecendo,havia vozes levantadas 1 espécie de luta parecia estar acontecendo
+groq,common_voice_pt_36467198.mp3,5.69,4.06,0.714,0.0000,0.0000,o homem com a camisa vermelha e cinza e óculos está apontando,o homem com a camisa vermelha e cinza e óculos está apontando
+groq,common_voice_pt_36460920.mp3,5.58,4.12,0.739,0.0000,0.0000,2 amigos 1 espada 1 canta o outro chora,2 amigos 1 espada 1 canta o outro chora
+groq,common_voice_pt_36460901.mp3,5.87,4.10,0.699,0.0000,0.0000,não sei o que penso nem o que sou,não sei o que penso nem o que sou
+groq,common_voice_pt_36460923.mp3,5.40,4.08,0.756,0.0000,0.0000,a perseguição às bruxas foi empreendida pela igreja católica,a perseguição às bruxas foi empreendida pela igreja católica
+groq,common_voice_pt_37230754.mp3,7.67,4.17,0.544,0.1667,0.0476,opera vivaldi brave yandex edge duckduckgo,opera vivaldi brave yandex edge deckdeckgo
+groq,common_voice_pt_37230816.mp3,7.96,7.37,0.926,0.1250,0.0278,cadeia de suprimentos rotação estoques diretivas consolidação automática,cadeia de suplementos rotação estoques diretivas consolidação automática
+groq,common_voice_pt_27021805.mp3,4.32,3.92,0.907,0.0000,0.0000,como estará o tempo amanhã,como estará o tempo amanhã
+groq,common_voice_pt_27021776.mp3,5.04,3.95,0.784,0.0000,0.0000,eugênia cardoso ariovaldo,eugênia cardoso ariovaldo
+groq,common_voice_pt_27021780.mp3,7.13,4.39,0.616,0.0000,0.0000,ela falou entretanto desarmando a raiva causada pelos paroquianos,ela falou entretanto desarmando a raiva causada pelos paroquianos
+groq,common_voice_pt_27021784.mp3,9.29,19.16,2.063,0.0000,0.0000,o primeiro verso do hino regional capta perfeitamente oferecer novas glórias à espanha,o primeiro verso do hino regional capta perfeitamente oferecer novas glórias à espanha
+groq,common_voice_pt_27021787.mp3,3.71,3.90,1.053,0.0000,0.0000,uniramse os 3,uniramse os 3
+groq,common_voice_pt_27021808.mp3,4.75,4.00,0.842,0.2500,0.1000,nós viemos de ivorra,nós viemos de ívora
+groq,common_voice_pt_27021811.mp3,7.06,4.69,0.665,0.0000,0.0000,agora a necessidade dessas regras é feita para se sentir vividamente,agora a necessidade dessas regras é feita para se sentir vividamente
+groq,common_voice_pt_27021814.mp3,5.15,17.99,3.494,0.0000,0.0000,com o coração na mão poucos negócios farão,com o coração na mão poucos negócios farão
+groq,common_voice_pt_27021742.mp3,8.28,7.21,0.870,0.0000,0.0000,mas esta é 1 visão errônea que a experiência corrige todos os dias,mas esta é 1 visão errônea que a experiência corrige todos os dias
+groq,common_voice_pt_27021813.mp3,6.66,7.21,1.083,0.0000,0.0000,mas o espaço rural que acaba de sair ainda proporciona bons momentos,mas o espaço rural que acaba de sair ainda proporciona bons momentos
+groq,common_voice_pt_27021782.mp3,4.43,6.99,1.578,0.0000,0.0000,eu fui para outra rodada,eu fui para outra rodada
+groq,common_voice_pt_35924213.mp3,4.54,7.15,1.576,0.0000,0.0000,se você não quer caldo xícara e meia,se você não quer caldo xícara e meia
+groq,common_voice_pt_35924214.mp3,3.17,4.34,1.370,0.0000,0.0000,agora me lembro disso,agora me lembro disso
+groq,common_voice_pt_35922295.mp3,7.38,4.10,0.555,0.0000,0.0000,entre eles alguns serão pouco definidos e responderão a interesses diversos,entre eles alguns serão pouco definidos e responderão a interesses diversos
+groq,common_voice_pt_35924215.mp3,5.08,4.10,0.809,0.0000,0.0000,se o medo fosse música como dançaríamos todos,se o medo fosse música como dançaríamos todos
+groq,common_voice_pt_35924216.mp3,3.82,3.95,1.034,0.0000,0.0000,peste bubônica e gripe aviária,peste bubônica e gripe aviária
+groq,common_voice_pt_35924217.mp3,4.14,3.93,0.948,0.0000,0.0000,ele não precisa de 1 pedaço ou de 1 estrela,ele não precisa de 1 pedaço ou de 1 estrela
+groq,common_voice_pt_35924218.mp3,2.92,4.00,1.371,0.3333,0.0588,taquaral de goiás,taquarau de goiás
+groq,common_voice_pt_35922289.mp3,9.94,4.60,0.463,0.0000,0.0000,a escola conta com procedimentos formais e sistemáticos,a escola conta com procedimentos formais e sistemáticos
+groq,common_voice_pt_35924210.mp3,5.76,4.16,0.722,0.1111,0.0328,a pequena propriedade rural desde que trabalhada pela família,a pequena propriedade rural desde que é trabalhada pela família
+groq,common_voice_pt_36462313.mp3,1.91,4.01,2.103,0.0000,0.0000,método subjetivo em sociologia,método subjetivo em sociologia
+groq,common_voice_pt_36462307.mp3,1.84,4.35,2.367,1.0000,0.5455,o lado sombrio da arte,þú laður sá bríða arti
+groq,common_voice_pt_36462301.mp3,3.17,4.05,1.279,0.0909,0.0286,nós temos os segredos impenetráveis que são sempre fáceis de encontrar,nós temos os secretos impenetráveis que são sempre fáceis de encontrar
+groq,common_voice_pt_36462314.mp3,1.26,3.90,3.098,0.0000,0.0000,são pedro do paraná,são pedro do paraná
+groq,common_voice_pt_36462315.mp3,2.70,3.90,1.445,1.0000,0.9756,ele dirigiuse em 1 navio chamado bibavica,продолжение следует
+groq,common_voice_pt_36462298.mp3,2.70,3.95,1.463,0.0000,0.0000,sem sombra de dúvida,sem sombra de dúvida
+groq,common_voice_pt_36462302.mp3,1.26,4.00,3.171,0.0000,0.0000,claro que é o lugar,claro que é o lugar
+groq,common_voice_pt_36462297.mp3,4.68,4.81,1.028,0.1667,0.0426,descobriu que algumas pessoas foram organizadas,deskubriu que algumas pessoas foram organizadas
+groq,common_voice_pt_36898983.mp3,5.51,4.07,0.738,0.8000,0.3000,impugnar imunidade regalias privilégios outorgados,impugnar inmuníðaði regalías privilegíus ótturgáðus
+groq,common_voice_pt_36899005.mp3,3.35,4.09,1.222,0.4000,0.0732,livros empresariais e assentos domésticos,libros empresariais e acentos domésticos
+groq,common_voice_pt_36899000.mp3,4.07,4.10,1.009,0.6667,0.1458,presumese verdadeira a alegação de insuficiência,presúmese verdadeira alegasado de insuficiencia
+groq,common_voice_pt_36898985.mp3,3.53,4.28,1.212,0.6667,0.0882,extemporâneo intempestivo oportuno,extemporáneo e intempestivo oportuno
+groq,common_voice_pt_27173663.mp3,2.52,4.00,1.586,0.0000,0.0000,eu dou minha palavra,eu dou minha palavra
+groq,common_voice_pt_27173598.mp3,7.06,4.20,0.595,0.0000,0.0000,em qualquer caso a comissão especializada avaliará e analisará as petições feitas pelos feirantes,em qualquer caso a comissão especializada avaliará e analisará as petições feitas pelos feirantes
+groq,common_voice_pt_27173602.mp3,6.05,4.17,0.690,0.0000,0.0000,as praças e os parques precisam de 1 plano urbanístico mais focado no paisagismo,as praças e os parques precisam de 1 plano urbanístico mais focado no paisagismo
+groq,common_voice_pt_27173601.mp3,6.48,4.10,0.633,0.0000,0.0000,é preciso fazer 1 processo de desintoxicação ao se ter contato com metais pesados,é preciso fazer 1 processo de desintoxicação ao se ter contato com metais pesados
+groq,common_voice_pt_27173649.mp3,2.74,3.98,1.455,0.0000,0.0000,isso não foi nada bom,isso não foi nada bom
+groq,common_voice_pt_27173652.mp3,3.42,4.01,1.173,0.0000,0.0000,desculpe mas eu não lhe conheço,desculpe mas eu não lhe conheço
+groq,common_voice_pt_27173662.mp3,5.94,4.11,0.691,0.0000,0.0000,minha bisavó foi piloto quando o brasil lutou contra o fascismo na itália,minha bisavó foi piloto quando o brasil lutou contra o fascismo na itália
+groq,common_voice_pt_37116107.mp3,4.14,4.42,1.066,0.5000,0.0227,subdiretório lista hierárquica diretórioraiz,subdiretório lista hierárquica diretório raiz
+groq,common_voice_pt_37116128.mp3,7.24,4.13,0.571,0.1429,0.0235,alfanuméricos alfanumérico máximas cordas comparabilidade reconhecidabilidade custoso,alfanuméricos alfanumérico máximas cordas comparabilidade reconhecidabilidade gostoso
+groq,common_voice_pt_37116178.mp3,5.22,4.17,0.799,0.1667,0.0476,voluntários agronegócios lobbies aeroponia sensoriamento remoto,voluntários agronegócios lobbies aeroponia censuramento remoto
+groq,common_voice_pt_37116167.mp3,3.64,4.03,1.107,0.7500,0.1613,saldaram idemir carlos ambrósio,saldarão edmir carlos ambrosio
+groq,common_voice_pt_37116105.mp3,9.00,4.28,0.476,0.2000,0.0455,diâmetro corpúsculos radiano alcalinoterroso radioativo quimicamente telegrafia telefone radiofonia hertzianas,diâmetro corpúsculos radiano alcalinoterroso radioactivo quimicamente telegrafia telefone radiofonia artesianas
+groq,common_voice_pt_37116124.mp3,9.18,4.24,0.462,0.1000,0.0099,capal cooperativa agroindustrial castrolanda cineflix cineplus cinesystem coamo melhoramentos frimesa,capal cooperativa agroindustrial castrolanda cineflix cineplus cinesystem coamo melhoramentos frimeza
+groq,common_voice_pt_37116129.mp3,7.60,4.20,0.553,0.4444,0.0741,lácteos escasseiam forragens dispendiosas conjugar facetas maquinaria duma equipa,látios escasseiam forragens despendiosas conjugar facetas maquinaria de 1 equipa
+groq,common_voice_pt_32885788.mp3,6.34,4.31,0.681,0.1250,0.0270,de santa caterina a nadal 1 mês igual,de santa catarina a nadal 1 mês igual
+groq,common_voice_pt_32885789.mp3,3.42,4.41,1.291,0.0000,0.0000,o planetário está aberto,o planetário está aberto
+groq,common_voice_pt_38249709.mp3,7.27,4.17,0.574,0.1538,0.0506,o holodomor foi 1 mistura de crise ecônomica erros humanos e desastres naturais,o lodomor foi 1 mistura de crise econômica erros humanos e desastres naturais
+groq,common_voice_pt_32885792.mp3,5.04,4.41,0.875,0.1250,0.0455,vá em frente com catalão e novas tecnologias,vá em frente com o catalão e novas tecnologias
+groq,common_voice_pt_32885791.mp3,4.79,4.21,0.878,0.0000,0.0000,radicalizando as bases eleitorais,radicalizando as bases eleitorais
+groq,common_voice_pt_32885785.mp3,5.69,4.12,0.724,0.0000,0.0000,eu vou tentar ser mais feliz hoje porque é sextafeira,eu vou tentar ser mais feliz hoje porque é sextafeira
+groq,common_voice_pt_38249710.mp3,9.86,4.19,0.425,0.0000,0.0000,aviário matagal pastagens ruminantes forrageiras monogástrico confinados hormônios de crescimento,aviário matagal pastagens ruminantes forrageiras monogástrico confinados hormônios de crescimento
+groq,common_voice_pt_32885786.mp3,3.24,3.97,1.226,0.0000,0.0000,tente chegar pontualmente,tente chegar pontualmente
+groq,common_voice_pt_38737743.mp3,4.43,4.40,0.993,0.0000,0.0000,eu não tinha nada nem poeira havia no meu bolso,eu não tinha nada nem poeira havia no meu bolso
+groq,common_voice_pt_38737771.mp3,5.98,4.38,0.733,0.0000,0.0000,quando fomos para angola nós visitamos as cidades de luanda e benguela,quando fomos para angola nós visitamos as cidades de luanda e benguela
+groq,common_voice_pt_38737745.mp3,4.32,4.01,0.927,0.0000,0.0000,hoje sei lá me deu 1 vontade de abortar,hoje sei lá me deu 1 vontade de abortar
+groq,common_voice_pt_38737654.mp3,9.04,4.28,0.474,0.1250,0.0147,dragona ornada seda dragonas fardamento fardas platinas charlateiras,dragona hornada seda dragonas fardamento fardas platinas charlateiras
+groq,common_voice_pt_38737746.mp3,6.23,4.16,0.669,0.0000,0.0000,pode avaliar o programa com 5 estrelas pode avaliar a corrida com 5 estrelas,pode avaliar o programa com 5 estrelas pode avaliar a corrida com 5 estrelas
+groq,common_voice_pt_38737752.mp3,5.33,3.97,0.745,0.0000,0.0000,ó presidente mao te amamos indefinidamente,ó presidente mao te amamos indefinidamente
+groq,common_voice_pt_38737755.mp3,3.24,4.03,1.242,0.0000,0.0000,você é bem ciumento,você é bem ciumento
+groq,common_voice_pt_38737766.mp3,4.61,4.13,0.896,0.1429,0.0488,viajei para a patagônia nas minhas férias,viajei para patagônia nas minhas férias
+groq,common_voice_pt_38737768.mp3,8.32,4.23,0.508,0.0000,0.0000,nova zelândia saara ocidental reino unido romênia laos guiana bielorrússia,nova zelândia saara ocidental reino unido romênia laos guiana bielorrússia
+groq,common_voice_pt_35905392.mp3,3.24,3.96,1.222,0.0000,0.0000,creio que sim,creio que sim
+groq,common_voice_pt_36464754.mp3,3.96,4.01,1.014,0.0000,0.0000,antônio odenilson oliveira franca,antônio odenilson oliveira franca
+groq,common_voice_pt_35905395.mp3,6.88,4.07,0.592,0.0000,0.0000,com a ingenuidade que lhes é própria estes senhores não querem compreender,com a ingenuidade que lhes é própria estes senhores não querem compreender
+groq,common_voice_pt_36464756.mp3,2.99,4.06,1.360,0.0000,0.0000,não há de quê,não há de quê
+groq,common_voice_pt_36464753.mp3,5.26,4.04,0.769,0.0000,0.0000,nem mulher sem vergonha nem planta na florida de março,nem mulher sem vergonha nem planta na florida de março
+groq,common_voice_pt_27794418.mp3,3.92,4.00,1.019,0.0000,0.0000,a tarefa dos governantes não é menos marcada,a tarefa dos governantes não é menos marcada
+groq,common_voice_pt_27794411.mp3,3.78,3.99,1.056,0.0000,0.0000,a força é trabalhar com os silos,a força é trabalhar com os silos
+groq,common_voice_pt_27794424.mp3,3.24,4.62,1.426,0.3333,0.0476,cecília lincoln sodré,cecilia lincoln sodré
+groq,common_voice_pt_27794414.mp3,3.89,4.32,1.110,0.0000,0.0000,o chefe liderou o show com 1 olhar atento,o chefe liderou o show com 1 olhar atento
+groq,common_voice_pt_27794412.mp3,3.17,4.05,1.278,0.3333,0.2500,o que há,o que é
+groq,common_voice_pt_27794420.mp3,6.08,4.18,0.687,0.1111,0.0217,vamos beber e beber para que cheguemos a morte,vamos beber e beber para que cheguemos à morte
+groq,common_voice_pt_27794413.mp3,4.28,4.38,1.024,0.0000,0.0000,quais filmes estarão em cartaz na semana que vem,quais filmes estarão em cartaz na semana que vem
+groq,common_voice_pt_27794417.mp3,3.82,4.06,1.065,0.3333,0.0909,não chore as pitangas dessa forma,não chore as pitânias desta forma
+groq,common_voice_pt_38383586.mp3,6.19,4.04,0.652,0.1429,0.0159,catatonia episódio maníaco bipolar ciclotimia distimia pósparto,catatonia episódio maníaco bipolar ciclotimia ditimia pósparto
+groq,common_voice_pt_38383600.mp3,8.06,4.55,0.564,0.1000,0.0115,holofotes hotel jaraguá igrejinha intrujão receptador penitenciária ôpa comparsa jantar,holofotes hotel jaraguá igrejinha intrujão receptador penitenciária opa comparsa jantar
+groq,common_voice_pt_38383604.mp3,8.71,4.52,0.519,0.1000,0.0083,inteligência artificial interdisciplinares bioética bioinformática biomédica bioestatística cognitiva sistemas complexos,inteligência artificial interdisciplinares bioética bioinformática biomédica biostatística cognitiva sistemas complexos
+groq,common_voice_pt_38383575.mp3,6.41,4.04,0.631,0.1429,0.0156,antioquia paquistão coiné politeísmo oligárquica basileu seleuco,antioquia paquistão coiné politeísmo oligárquica basileu sileuco
+groq,common_voice_pt_38383563.mp3,2.12,4.32,2.032,0.0000,0.0000,mais vale 1 p,mais vale 1 p
+groq,common_voice_pt_38383579.mp3,3.74,4.12,1.101,0.0000,0.0000,os planos de saúde possuíam cláusulas abusivas,os planos de saúde possuíam cláusulas abusivas
+groq,common_voice_pt_38383564.mp3,9.94,4.26,0.429,0.0833,0.0185,disfunção sexual erétil ejaculação precoce vaginismo dispareunia hipersexualidade anorgasmia aversão ao sexo,disfunção sexual erétil ejaculação precoce vaginismo dispareunia hipersexualidade anorragasmia aversão ao sexo
+groq,common_voice_pt_25058758.mp3,4.61,4.75,1.030,0.6667,0.0741,caroline andreatto negrelli,carolina andreato negrelli
+groq,common_voice_pt_25058761.mp3,4.36,4.16,0.954,0.0000,0.0000,carmelita maria de freitas martins,carmelita maria de freitas martins
+groq,common_voice_pt_25058763.mp3,3.20,3.96,1.236,0.3333,0.0400,antônio xavier pernambuco,antónio xavier pernambuco
+groq,common_voice_pt_25058759.mp3,5.04,4.04,0.801,0.0000,0.0000,o patrick tinha que concluir seu estágio na ambev,o patrick tinha que concluir seu estágio na ambev
+groq,common_voice_pt_25058765.mp3,3.28,4.08,1.244,0.0000,0.0000,tem 1 área de 11 metros quadrados,tem 1 área de 11 metros quadrados
+groq,common_voice_pt_25058760.mp3,4.03,4.01,0.995,0.0000,0.0000,carlos alberto afonso lima,carlos alberto afonso lima
+groq,common_voice_pt_25058762.mp3,4.32,4.02,0.930,0.1429,0.0238,a perícia apontou o responsável pelo crime,a parícia apontou o responsável pelo crime
+groq,common_voice_pt_25058756.mp3,2.77,4.03,1.454,0.0000,0.0000,isto é 1 história,isto é 1 história
+groq,common_voice_pt_25058755.mp3,3.46,4.04,1.169,0.0000,0.0000,aparecido fernando dos santos,aparecido fernando dos santos
+groq,common_voice_pt_26022854.mp3,7.24,4.34,0.600,0.0833,0.0127,incentivo à cadeia de reciclagem estímulos à mudança de hábito dos consumidores,incentivo à cadeia de reciclagem estímulos à mudança de hábito nos consumidores
+groq,common_voice_pt_26034142.mp3,6.77,4.15,0.613,0.0000,0.0000,os árbitros notificarão as partes da sentença por meio do secretário do tribunal,os árbitros notificarão as partes da sentença por meio do secretário do tribunal
+groq,common_voice_pt_26034143.mp3,3.06,3.99,1.302,0.0000,0.0000,eu só tenho 1 tio,eu só tenho 1 tio
+groq,common_voice_pt_26034145.mp3,6.08,4.17,0.685,0.0000,0.0000,experiência credenciada nas tarefas que são objeto do contrato,experiência credenciada nas tarefas que são objeto do contrato
+groq,common_voice_pt_26022855.mp3,5.80,4.29,0.739,0.0000,0.0000,isso seria provavelmente ingênuo e imprudente em partes iguais,isso seria provavelmente ingênuo e imprudente em partes iguais
+groq,common_voice_pt_26034148.mp3,5.00,4.36,0.870,0.0000,0.0000,o cinturão continental aperta muito pouco,o cinturão continental aperta muito pouco
+groq,common_voice_pt_26034335.mp3,5.54,4.12,0.744,0.0000,0.0000,para o candlestick o dia avança 1 hora inteira,para o candlestick o dia avança 1 hora inteira
+groq,common_voice_pt_26022852.mp3,4.18,4.30,1.030,0.0000,0.0000,amor e dinheiro não podem ser escondidos,amor e dinheiro não podem ser escondidos
+groq,common_voice_pt_26022853.mp3,5.83,4.10,0.703,0.0000,0.0000,é por isso que você precisa de 1 relacionamento direto com os usuários,é por isso que você precisa de 1 relacionamento direto com os usuários
+groq,common_voice_pt_39925495.mp3,6.95,4.17,0.600,0.0000,0.0000,carlinga foi responsável pelo torpedeamento e bombardeio dos minados no teatro de operações,carlinga foi responsável pelo torpedeamento e bombardeio dos minados no teatro de operações
+groq,common_voice_pt_39925459.mp3,8.39,4.18,0.499,0.3333,0.0143,grãocanato cristianização báltico escandinava escandinavo escandinávia,grão canato cristianização báltico escandinava escandinavo escandinávia
+groq,common_voice_pt_39925465.mp3,3.06,4.19,1.369,0.0000,0.0000,eu sei que o sabor está lá,eu sei que o sabor está lá
+groq,common_voice_pt_39925480.mp3,4.25,4.21,0.991,1.2500,0.7234,a reclamada e o reclamado reclamaram do recesso,að heikla maður heikla maður heikla marr undur heið þess
+groq,common_voice_pt_39925497.mp3,4.07,4.02,0.988,0.0000,0.0000,backend é a parte do servidor de 1 aplicativo,backend é a parte do servidor de 1 aplicativo
+groq,common_voice_pt_39925488.mp3,6.84,4.04,0.591,0.0000,0.0000,caetano veloso não consegue responder questão do enem sobre suas próprias músicas,caetano veloso não consegue responder questão do enem sobre suas próprias músicas
+local,common_voice_pt_21994903.mp3,6.82,5.22,0.765,0.0714,0.0127,nós partiremos amanhã antes do nascer do sol foi a única resposta do alquimista,nós partiremos amanhã antes de nascer do sol foi a única resposta do alquimista
+local,common_voice_pt_21994905.mp3,4.87,4.07,0.835,0.1250,0.0500,o leão e a leoa são animais assustadores,o leão e a leó são animais assustadores
+local,common_voice_pt_21917227.mp3,5.66,3.92,0.692,0.0000,0.0000,alguns foram embora enquanto eu estava lá e outras pessoas vieram,alguns foram embora enquanto eu estava lá e outras pessoas vieram
+local,common_voice_pt_21917226.mp3,3.70,3.99,1.079,0.0000,0.0000,não faça 1 cavalo livre,não faça 1 cavalo livre
+local,common_voice_pt_22009148.mp3,4.75,3.88,0.816,0.4444,0.2195,reserve 1 hotel para amanhã às 9 da noite,reserve un hotel para mañana a 9 de noite
+local,common_voice_pt_30613698.mp3,4.90,4.15,0.848,0.6250,0.1714,de olho no pomar e outro no vinhedo,de olho do o mar é outro no vinho
+local,common_voice_pt_30613704.mp3,2.81,3.89,1.384,0.0000,0.0000,todo mundo está em pé,todo mundo está em pé
+local,common_voice_pt_30613695.mp3,3.24,3.99,1.231,0.2500,0.1429,o que você fez,e o que você fez
+local,common_voice_pt_30613709.mp3,7.24,4.12,0.570,0.5000,0.1667,estes sistemas são essenciais para o desenvolvimento do catalão em novas tecnologias,esses sistemas são intencíveis para o desenvolvimento de cada 1 de novas tecnologias
+local,common_voice_pt_30613708.mp3,3.42,4.17,1.219,0.0000,0.0000,nossa senhora dos remédios,nossa senhora dos remédios
+local,common_voice_pt_30613696.mp3,5.15,3.94,0.765,0.1667,0.0541,pegue as amostras para sua observação,pegue as amostras para a sua observação
+local,common_voice_pt_29206687.mp3,2.92,3.97,1.363,0.0000,0.0000,barra do guarita,barra do guarita
+local,common_voice_pt_29206190.mp3,4.54,4.01,0.883,0.0000,0.0000,a parte complicada é integrálo ao sistema,a parte complicada é integrálo ao sistema
+local,common_voice_pt_29206688.mp3,5.40,4.03,0.747,0.2500,0.0820,ele tentou coletar estrume da rua e vendêlos mas ele não saiu,ele tentou coletar a estrome da rua e vendemos mas ele não saiu
+local,common_voice_pt_29206689.mp3,3.60,3.77,1.048,0.1429,0.0938,aquele que avisa não é 1 traidor,aquele que avisa não é 1 peidor
+local,common_voice_pt_29206191.mp3,5.44,3.75,0.689,0.2500,0.0923,para demiurgo o universo sensível tem a textura de 1 teia molhada,para demiúrgico o universo é sensível ter a textura de 1 teia molhada
+local,common_voice_pt_29206743.mp3,2.81,3.89,1.385,0.0000,0.0000,e é a torneira,e é a torneira
+local,common_voice_pt_29206745.mp3,4.79,3.99,0.834,0.4286,0.1739,defende a urna eletrônica e critica apoiadores,defende a unha deetrônica e criese apoiadores
+local,common_voice_pt_29206741.mp3,5.51,4.10,0.745,0.1818,0.1231,da mesma forma devemos acrescentar o tema da morte e ressurreição,da mesma forma devemos acrescentar o tema da morte da resolução
+local,common_voice_pt_36049718.mp3,4.97,3.87,0.779,0.0000,0.0000,você sabe que vai começar a filmar amanhã,você sabe que vai começar a filmar amanhã
+local,common_voice_pt_36049353.mp3,4.50,3.91,0.870,0.0000,0.0000,o olhar para o aluno é individualizado,o olhar para o aluno é individualizado
+local,common_voice_pt_36049652.mp3,3.78,3.79,1.001,0.0000,0.0000,santa cecília do pavão,santa cecília do pavão
+local,common_voice_pt_36049721.mp3,3.89,3.89,1.000,0.0000,0.0000,conceição do canindé,conceição do canindé
+local,common_voice_pt_36049228.mp3,4.25,3.79,0.893,0.0000,0.0000,você pode mudar de ideia,você pode mudar de ideia
+local,common_voice_pt_36049649.mp3,7.85,4.37,0.557,0.0714,0.0132,de repente 1 dos falcões fez 1 mergulho intermitente no céu atacando o outro,de repente 1 dos talcões fez 1 mergulho intermitente no céu atacando o outro
+local,common_voice_pt_36049232.mp3,5.33,3.90,0.732,0.0000,0.0000,população crime e pauperismo,população crime e pauperismo
+local,common_voice_pt_36049351.mp3,6.41,3.85,0.600,0.0833,0.0364,você está hoje ou aqui para eu vir comigo por 5 minutos,você está hoje ou aqui para eu ouvir comigo por 5 minutos
+local,common_voice_pt_36049722.mp3,4.86,4.01,0.824,0.0000,0.0000,foi como ver a noiva na décima segunda hora,foi como ver a noiva na décima segunda hora
+local,common_voice_pt_36049720.mp3,4.14,4.20,1.013,0.0000,0.0000,o senhor tem 1 grande susto,o senhor tem 1 grande susto
+local,common_voice_pt_36049719.mp3,8.14,3.94,0.485,0.0000,0.0000,exercícios que beneficiam cada grupo muscular e articulam aqueles que compõem a coluna,exercícios que beneficiam cada grupo muscular e articulam aqueles que compõem a coluna
+local,common_voice_pt_19276296.mp3,2.74,3.78,1.383,0.0000,0.0000,projetor de tela,projetor de tela
+local,common_voice_pt_19276293.mp3,3.62,3.86,1.065,0.0000,0.0000,ter 1 plano de longo prazo,ter 1 plano de longo prazo
+local,common_voice_pt_19276298.mp3,3.34,3.97,1.191,0.2000,0.1034,ela nasceu em phoenix arizona,ela nasceu em fenix arizona
+local,common_voice_pt_19276294.mp3,3.26,3.81,1.166,0.0000,0.0000,nós não temos relação de sangue,nós não temos relação de sangue
+local,common_voice_pt_19276292.mp3,7.58,3.82,0.504,1.2000,0.3667,alguém pode atender o telefone,alguém ou ele tem de ir ao telefone
+local,common_voice_pt_19276297.mp3,4.06,4.23,1.042,0.0000,0.0000,a alça da taça está quebrada,a alça da taça está quebrada
+local,common_voice_pt_19276300.mp3,4.06,4.24,1.047,0.1667,0.0323,o árabe aceitouos sem 1 palavra,o árabe aceitouos tem 1 palavra
+local,common_voice_pt_19276301.mp3,4.30,4.26,0.993,0.4286,0.2121,o festival de arte foi 1 desastre,o feixe valdiarte foi 1 desastre
+local,common_voice_pt_19276315.mp3,2.74,4.00,1.464,0.0000,0.0000,não é 1 pouco cheio,não é 1 pouco cheio
+local,common_voice_pt_19276316.mp3,2.62,4.01,1.533,0.0000,0.0000,não é o dinheiro,não é o dinheiro
+local,common_voice_pt_19276295.mp3,2.98,4.15,1.395,0.3333,0.0833,tudo estava sincronizado,tudo estava synchronizado
+local,common_voice_pt_27023330.mp3,3.82,3.92,1.026,0.0000,0.0000,bebeu do próprio veneno,bebeu do próprio veneno
+local,common_voice_pt_27023601.mp3,5.08,3.83,0.754,0.0000,0.0000,mas a largura de banda lenta pode causar problemas,mas a largura de banda lenta pode causar problemas
+local,common_voice_pt_27023336.mp3,5.51,3.90,0.709,0.0000,0.0000,esta é a minha sentença que se pronuncia firme e firmemente,esta é a minha sentença que se pronuncia firme e firmemente
+local,common_voice_pt_27023597.mp3,3.13,3.93,1.255,0.0000,0.0000,o vinho faz você dormir,o vinho faz você dormir
+local,common_voice_pt_27023595.mp3,5.15,3.72,0.723,0.0769,0.0357,qual é a distância da terra até a lua e desta até plutão,qual a distância da terra até a lua e desta até plutão
+local,common_voice_pt_27023546.mp3,4.28,3.84,0.897,0.0000,0.0000,o governo proibiu a exportação de crustáceos,o governo proibiu a exportação de crustáceos
+local,common_voice_pt_27023543.mp3,6.01,4.19,0.697,0.1000,0.0333,a inovação é a oportunidade para taiwan sobreviver no futuro,a inovação é a oportunidade para taiyuan sobreviver no futuro
+local,common_voice_pt_27023540.mp3,6.30,4.46,0.708,0.0909,0.0149,sua população é basicamente dedicada ao turismo ecológico e à pesca,sua população é basicamente dedicada ao turismo ecológico e a pesca
+local,common_voice_pt_27023332.mp3,4.72,4.09,0.868,0.0000,0.0000,atividades que envolvem o processo de aprendizagem,atividades que envolvem o processo de aprendizagem
+local,common_voice_pt_27023535.mp3,5.80,4.06,0.701,0.0000,0.0000,quem sabe se depois de tantos terrores a criança nasceria morta,quem sabe se depois de tantos terrores a criança nasceria morta
+local,common_voice_pt_27023334.mp3,4.90,4.18,0.854,0.0000,0.0000,isso influencia poderosamente o nível de salários,isso influencia poderosamente o nível de salários
+local,common_voice_pt_27685086.mp3,5.51,4.27,0.774,0.0000,0.0000,se isso não for possível as chamadas necessárias serão feitas,se isso não for possível as chamadas necessárias serão feitas
+local,common_voice_pt_27685090.mp3,3.71,4.14,1.116,0.0000,0.0000,a vacina chegará aos jovens europeus,a vacina chegará aos jovens europeus
+local,common_voice_pt_27685068.mp3,7.78,4.44,0.571,0.2500,0.0667,oceanos pacífico atlântico índico antártico e glacial ártico,oceanos pacífico atlântico índico antártico iglesial ártico
+local,common_voice_pt_27685101.mp3,2.74,5.04,1.841,0.0000,0.0000,você vai fazer isso,você vai fazer isso
+local,common_voice_pt_27685099.mp3,5.94,4.65,0.782,0.3333,0.0339,angola guiné bissau cabo verde e moçambique falam português,angola guinébissau cabo verde e mozambique falam português
+local,common_voice_pt_27685098.mp3,8.46,4.29,0.507,0.0000,0.0000,em relação aos resultados estes são produzidos principalmente por extrações de bombeamento para consumo,em relação aos resultados estes são produzidos principalmente por extrações de bombeamento para consumo
+local,common_voice_pt_27685069.mp3,3.96,3.83,0.967,0.0000,0.0000,toda forma de amor é válida,toda forma de amor é válida
+local,common_voice_pt_25183518.mp3,3.46,3.86,1.117,0.1667,0.0312,a cristiane não saiu do facebook,a cristiana não saiu do facebook
+local,common_voice_pt_25183528.mp3,3.67,3.74,1.019,0.7500,0.1667,artur antunis oliveira freitas,artura em túnis oliveira freitas
+local,common_voice_pt_25183535.mp3,2.88,3.63,1.259,0.2500,0.0455,celso lopes de freitas,celso lobes de freitas
+local,common_voice_pt_25183529.mp3,5.04,3.83,0.761,0.1667,0.0678,seja dono da sua boca para não ser escravo de suas palavras,seja o dono da sua boca para não ser escraus de suas palavras
+local,common_voice_pt_25183530.mp3,2.48,4.52,1.819,0.0000,0.0000,antônio josé de almeida,antônio josé de almeida
+local,common_voice_pt_25183533.mp3,2.81,4.43,1.578,0.0000,0.0000,tente você mesmo primeiro,tente você mesmo primeiro
+local,common_voice_pt_25183521.mp3,5.15,4.16,0.808,1.0000,0.2439,nicoli franciane lorrane thamires e kaíke,nicolio franciano e lorrânio tamires e caíque
+local,common_voice_pt_25183532.mp3,2.84,3.88,1.363,0.6667,0.1765,passou este passe,eu sou este passe
+local,common_voice_pt_28306613.mp3,3.35,4.24,1.265,0.0000,0.0000,ele precisava de 1 bebida,ele precisava de 1 bebida
+local,common_voice_pt_28306610.mp3,5.80,4.42,0.763,0.0000,0.0000,todos os órgãos estão expostos em nossa sala de exposições,todos os órgãos estão expostos em nossa sala de exposições
+local,common_voice_pt_28306611.mp3,4.79,4.20,0.877,0.0000,0.0000,gosto de estudar física ao invés de história,gosto de estudar física ao invés de história
+local,common_voice_pt_28306590.mp3,5.04,4.18,0.829,0.0000,0.0000,isso é verdade tanto nas cartas quanto na política,isso é verdade tanto nas cartas quanto na política
+local,common_voice_pt_28306604.mp3,3.53,4.42,1.253,0.6000,0.2400,acabou sendo 1 chá amargo,acabou sendo chá no arco
+local,common_voice_pt_28306603.mp3,5.51,4.41,0.801,0.1000,0.1277,reserveme 1 reserva no quênia para 1 festa de 6,reserveme 1 reserva no quênia para 1 festa de senhos
+local,common_voice_pt_28306602.mp3,4.90,4.35,0.889,0.5000,0.2286,sarah natan alessandro átila e john,sarah natang alessandro achoa and john
+local,common_voice_pt_28306600.mp3,6.41,4.22,0.659,0.7500,0.1667,carlos roberto bertoni sanches,carlos roberto bertão de sanchez
+local,common_voice_pt_28306592.mp3,2.63,3.95,1.503,0.0000,0.0000,escolha do 0,escolha do 0
+local,common_voice_pt_25198664.mp3,4.00,3.83,0.957,0.0000,0.0000,internet banda larga,internet banda larga
+local,common_voice_pt_25198663.mp3,4.72,3.98,0.843,0.2500,0.0357,adalgisa apolinario da silva,adalgisa apolinário da silva
+local,common_voice_pt_25198645.mp3,3.17,4.50,1.420,0.0000,0.0000,abra a janela,abra a janela
+local,common_voice_pt_25198646.mp3,4.36,4.13,0.948,0.5000,0.0870,celino calixto de souza,selino calisto de souza
+local,common_voice_pt_25198693.mp3,4.50,3.98,0.885,0.0000,0.0000,o edital foi lançado no último mês,o edital foi lançado no último mês
+local,common_voice_pt_25198692.mp3,3.28,3.83,1.168,0.0000,0.0000,o que ele diz,o que ele diz
+local,common_voice_pt_25198647.mp3,5.44,4.20,0.773,0.1111,0.0196,coloque 1 adesivo de tatuagem de primavera no braço,coloque 1 andesivo de tatuagem de primavera no braço
+local,common_voice_pt_25198648.mp3,3.82,3.87,1.014,0.2500,0.0741,também explodiu em lágrimas,também explodiu in lágrimas
+local,common_voice_pt_25198660.mp3,5.26,4.12,0.784,0.0000,0.0000,sabedoria é conhecimento usado para o bem,sabedoria é conhecimento usado para o bem
+local,common_voice_pt_25198661.mp3,5.58,3.97,0.712,0.0000,0.0000,crianças na escola tirando 1 foto com seu professor,crianças na escola tirando 1 foto com seu professor
+local,common_voice_pt_25198662.mp3,4.00,4.01,1.004,0.0000,0.0000,esse trabalho ainda está aberto,esse trabalho ainda está aberto
+local,common_voice_pt_28944458.mp3,3.82,4.02,1.053,0.0000,0.0000,4 horas da manhã e nenhum sinal dele,4 horas da manhã e nenhum sinal dele
+local,common_voice_pt_28944346.mp3,2.92,3.89,1.335,1.0000,0.4000,salto do lontra,solta o lolontre
+local,common_voice_pt_28944428.mp3,4.79,4.22,0.881,0.1111,0.0227,use a wifi do aerorporto ou de qualquer café,use a wifi do aeroporto ou de qualquer café
+local,common_voice_pt_28944416.mp3,4.61,4.15,0.900,0.3333,0.1961,se marido e mulher falam com os pais a dança é ruim,se 1 de melhor falou com os pais a dança é ruim
+local,common_voice_pt_28944349.mp3,2.45,3.71,1.517,0.6667,0.2857,bento de abreu,dentro de abril
+local,common_voice_pt_28944347.mp3,3.64,4.02,1.105,0.5000,0.4167,oh o que você me entende,o que você me tem gio
+local,common_voice_pt_28944468.mp3,5.62,3.93,0.699,0.2500,0.0984,nenhum de nós tinha a geórgia se encaixando mas eu não pensei,nem onde nós tinha a georgia se encaixando mas eu não pensei
+local,common_voice_pt_28944343.mp3,3.42,4.01,1.172,0.0000,0.0000,e assim eles foram embora,e assim eles foram embora
+local,common_voice_pt_28944462.mp3,3.89,3.84,0.988,0.1000,0.0417,a floresta é o banco de poupança de 1 fazendeiro,a floresta é o banco de copança de 1 fazendeiro
+local,common_voice_pt_28944464.mp3,2.74,3.99,1.460,1.3333,0.4286,salto do jacuí,solta o duja cuí
+local,common_voice_pt_39865333.mp3,3.49,4.30,1.230,0.0000,0.0000,quero 1 misto quente,quero 1 misto quente
+local,common_voice_pt_39865330.mp3,7.20,4.21,0.585,0.8333,0.1500,mísseis balísticos hipersônicos da artilharia autopropulsada,missas balísticas e persónicos da artigaria autopropulsada
+local,common_voice_pt_39906810.mp3,4.68,4.22,0.902,0.0000,0.0000,tu e a nicole andam feitos 1 com o outro,tu e a nicole andam feitos 1 com o outro
+local,common_voice_pt_39906809.mp3,3.46,4.22,1.220,0.2000,0.0455,minha vida é 1 lambada,minha vida é 1 lombada
+local,common_voice_pt_39906776.mp3,4.00,6.12,1.532,1.6667,0.7273,odeio este restaurante,o day wish the historian
+local,common_voice_pt_39906676.mp3,3.71,4.16,1.122,0.2500,0.0400,anuncie nas redes sociais,anunciem nas redes sociais
+local,common_voice_pt_39906675.mp3,4.18,4.36,1.045,0.0000,0.0000,vou dar 1 laço nele,vou dar 1 laço nele
+local,common_voice_pt_39906672.mp3,4.14,4.00,0.966,0.1429,0.0667,ela me pagou tudo que me devia,ela me pagou tudo o que me devia
+local,common_voice_pt_39906642.mp3,5.87,4.24,0.723,0.0000,0.0000,condensadores em paralelo aumentam a capacitância total,condensadores em paralelo aumentam a capacitância total
+local,common_voice_pt_39906640.mp3,5.15,3.84,0.746,0.1250,0.0444,meus braços estão doendo preciso ir ao médico,e meus braços estão doendo preciso ir ao médico
+local,common_voice_pt_39865403.mp3,4.03,3.74,0.928,0.0000,0.0000,meu filho vai tomar banho amanhã,meu filho vai tomar banho amanhã
+local,common_voice_pt_39865401.mp3,5.76,3.73,0.648,0.1250,0.0500,utilizamos version control para gerenciar mudanças no código,utilizamos version control para diferenciar mudanças no código
+local,common_voice_pt_35909534.mp3,3.82,4.31,1.129,0.0000,0.0000,feliz aniversário para a garota de sorte de nós,feliz aniversário para a garota de sorte de nós
+local,common_voice_pt_35909543.mp3,2.16,4.00,1.852,0.0000,0.0000,conceição da feira,conceição da feira
+local,common_voice_pt_35909603.mp3,4.68,4.14,0.885,0.4444,0.0968,rever desde o início estas teorias ou rechaçálas completamente,rever desde o início essas teorias ou reche a salas completamente
+local,common_voice_pt_35909420.mp3,2.30,4.25,1.845,0.0000,0.0000,rolando morro abaixo,rolando morro abaixo
+local,common_voice_pt_35909530.mp3,3.56,4.22,1.183,0.0000,0.0000,tem chifres de pedra em ambos os lados,tem chifres de pedra em ambos os lados
+local,common_voice_pt_35909411.mp3,5.11,4.10,0.802,0.0000,0.0000,o melhoramento o apoio e o restabelecimento de sua economia,o melhoramento o apoio e o restabelecimento de sua economia
+local,common_voice_pt_35909389.mp3,6.37,3.99,0.626,0.0000,0.0000,a pessoa jurídica estrangeira que nele tiver agência filial ou sucursal,a pessoa jurídica estrangeira que nele tiver agência filial ou sucursal
+local,common_voice_pt_35909576.mp3,4.68,3.88,0.829,0.3333,0.0351,respeitadas disposições específicas constantes de tratado,respeitada à disposições específicas constantes de tratado
+local,common_voice_pt_27024227.mp3,2.74,3.73,1.365,0.0000,0.0000,ela está molhada,ela está molhada
+local,common_voice_pt_27024355.mp3,5.33,4.27,0.801,0.0000,0.0000,participar de reuniões do ministério da indústria turismo e comércio,participar de reuniões do ministério da indústria turismo e comércio
+local,common_voice_pt_27024223.mp3,7.49,4.24,0.566,0.0000,0.0000,a incorporação do inglês com a metodologia apropriada será precoce e progressiva,a incorporação do inglês com a metodologia apropriada será precoce e progressiva
+local,common_voice_pt_27024225.mp3,2.92,4.03,1.382,0.6667,0.2222,apressado come cru,apressado com micro
+local,common_voice_pt_27024229.mp3,4.32,4.15,0.960,0.0000,0.0000,para sua tristeza a indignação aconteceu,para sua tristeza a indignação aconteceu
+local,common_voice_pt_27024272.mp3,2.74,4.18,1.528,0.0000,0.0000,a pequena é 1 desmiolada,a pequena é 1 desmiolada
+local,common_voice_pt_27024273.mp3,3.24,4.06,1.254,0.0000,0.0000,eles são delicados dizem eles,eles são delicados dizem eles
+local,common_voice_pt_27024279.mp3,3.64,3.59,0.989,0.0000,0.0000,no inverno o melhor amigo é 1 bom casaco,no inverno o melhor amigo é 1 bom casaco
+local,common_voice_pt_27024354.mp3,3.42,4.74,1.386,0.1667,0.0513,fevereiro floresce a flor de amendoeira,peverero floresce a flor de amendoeira
+local,common_voice_pt_27024350.mp3,2.56,4.13,1.615,0.0000,0.0000,isso é o que ele diz,isso é o que ele diz
+local,common_voice_pt_31134372.mp3,3.02,3.96,1.309,0.6667,0.4706,gasolina e diesel,vazurina e jesus
+local,common_voice_pt_31134306.mp3,5.04,4.25,0.843,0.3333,0.2449,floração de flores mais cedo do que seres humanos,floração de flores e mecêlos do que cêlos humanos
+local,common_voice_pt_31134279.mp3,3.53,4.44,1.259,0.5000,0.2581,a ganância comeu o bolo inteiro,a ganância com o meu polinteiro
+local,common_voice_pt_31134278.mp3,4.86,4.15,0.853,0.1429,0.0556,para o ferreiro não vá vender baldes,para o ferreiro não vai vender baldes
+local,common_voice_pt_32941951.mp3,5.11,4.18,0.818,0.0000,0.0000,colocou em pauta novamente a questão do aborto,colocou em pauta novamente a questão do aborto
+local,common_voice_pt_32941940.mp3,3.35,4.13,1.234,0.0000,0.0000,usar a inteligência para o bem,usar a inteligência para o bem
+local,common_voice_pt_32941950.mp3,6.66,4.16,0.624,0.0000,0.0000,o país valenciano no entanto não desfruta precisamente dessas características virgens,o país valenciano no entanto não desfruta precisamente dessas características virgens
+local,common_voice_pt_32941941.mp3,5.22,4.07,0.780,0.2000,0.1071,o novo colaborador já se implicou em fofocas e confusões,o novo clonobrador já se implica em fofocas e confusões
+local,common_voice_pt_32941942.mp3,4.39,4.30,0.980,1.0000,0.2903,cumprindo obrigações na calunga,compringo obrigaciones en la calunga
+local,common_voice_pt_32941944.mp3,2.84,4.02,1.413,1.7500,0.6522,as meias estão rasgadas,has me as he still has a goddess
+local,common_voice_pt_32941949.mp3,3.46,3.94,1.140,0.2857,0.0811,como decorar seu lar para a primavera,como decorar celular para a primavera
+local,common_voice_pt_32941946.mp3,4.79,4.26,0.890,0.1250,0.0213,o problema está em eles desobedecerem às ordens,o problema está em eles desobedecerem as ordens
+local,common_voice_pt_32941952.mp3,4.61,4.32,0.938,0.0000,0.0000,foi atrás da população desbancarizada,foi atrás da população desbancarizada
+local,common_voice_pt_20464933.mp3,6.10,4.22,0.693,0.3750,0.1500,1 menina com 1 moicano azul está andando,1 menina com 1 hecano a sua está andando
+local,common_voice_pt_20464932.mp3,3.38,4.06,1.199,0.0000,0.0000,meu calendário está cheio,meu calendário está cheio
+local,common_voice_pt_20464934.mp3,5.78,4.35,0.752,0.0000,0.0000,tocar música de dispositivos a partir dos anos 40,tocar música de dispositivos a partir dos anos 40
+local,common_voice_pt_20464852.mp3,4.94,4.47,0.905,0.0000,0.0000,após o período de licença maternidade,após o período de licença maternidade
+local,common_voice_pt_20464853.mp3,5.14,4.58,0.892,0.0000,0.0000,qual é o preço do dólar no momento,qual é o preço do dólar no momento
+local,common_voice_pt_20464854.mp3,6.38,4.47,0.700,0.2222,0.0577,2 ciclistas em amarelo estão competindo em 1 corrida,2 ciclistas em amarela estão copentindo em 1 corrida
+local,common_voice_pt_20464857.mp3,5.78,4.34,0.751,0.0000,0.0000,1 homem de calça preta subindo em 1 parede de pedra,1 homem de calça preta subindo em 1 parede de pedra
+local,common_voice_pt_20464859.mp3,5.54,4.57,0.825,0.1250,0.0385,estudos clínicos da nova vacina ainda são excelentes,e estudos clínicos da nova vacina ainda são excelentes
+local,common_voice_pt_20464860.mp3,3.46,4.55,1.318,1.3333,1.0769,como vai você,кому вайлы с ним
+local,common_voice_pt_20464935.mp3,5.06,4.19,0.827,0.0000,0.0000,você quer dizer que o discurso que você está escrevendo,você quer dizer que o discurso que você está escrevendo
+local,common_voice_pt_20464936.mp3,5.06,4.21,0.832,0.0000,0.0000,todo mundo quieto e pronto para 1 emergência,todo mundo quieto e pronto para 1 emergência
+local,common_voice_pt_19401757.mp3,5.90,4.30,0.728,0.1667,0.0484,no dia seguinte o menino voltou ao poço esperando ver a menina,no dia seguinte o menino voltou ao poço esperando virar menina
+local,common_voice_pt_19401752.mp3,4.22,4.14,0.981,0.0000,0.0000,1 grupo de crianças está competindo em 1 revezamento,1 grupo de crianças está competindo em 1 revezamento
+local,common_voice_pt_19401756.mp3,2.74,3.97,1.453,0.5000,0.1154,verifique os sinais vitais,verifique os sinais de tais
+local,common_voice_pt_19401743.mp3,6.14,4.33,0.705,0.2500,0.1176,o uso ilegal de software é 1 crime,ou o uso legal de software é 1 crime
+local,common_voice_pt_19401745.mp3,3.34,4.11,1.232,1.2500,0.7895,você orou ao senhor,well see oro all single
+local,common_voice_pt_19401747.mp3,3.14,4.12,1.312,0.0000,0.0000,use 1 capacete de vídeo,use 1 capacete de vídeo
+local,common_voice_pt_19401748.mp3,3.98,4.24,1.064,0.0000,0.0000,você sabe que tipo de pacote foi,você sabe que tipo de pacote foi
+local,common_voice_pt_19401750.mp3,4.30,4.13,0.962,0.2222,0.0638,pedro abraçou seu ursinho o mais forte que pôde,pedro abarçou seu ursinho o mais forte que pode
+local,common_voice_pt_19401751.mp3,3.22,4.10,1.275,0.0000,0.0000,você acha que você fez,você acha que você fez
+local,common_voice_pt_19401755.mp3,3.82,4.11,1.077,0.1250,0.0500,aposto que é 1 mandado para minha prisão,aposto que é 1 mandado para a minha prisão
+local,common_voice_pt_19401753.mp3,2.98,3.85,1.293,0.0000,0.0000,aqui é meu filho,aqui é meu filho
+local,common_voice_pt_36376507.mp3,7.02,4.37,0.622,0.0000,0.0000,1 homem é como 1 cadeado para cada 1 a chave deve ser selecionada,1 homem é como 1 cadeado para cada 1 a chave deve ser selecionada
+local,common_voice_pt_36376501.mp3,4.25,4.27,1.005,0.0000,0.0000,a sociedade é 1 ferramenta de fraude,a sociedade é 1 ferramenta de fraude
+local,common_voice_pt_36376503.mp3,6.30,3.98,0.631,0.3333,0.0909,liquida a indústria nacional impede o progresso do país,líquida indústria nacional impede progresso do país
+local,common_voice_pt_36376494.mp3,6.30,4.11,0.652,0.0000,0.0000,o homem acredita firmemente porque ele adota 1 crença sem aprofundamento,o homem acredita firmemente porque ele adota 1 crença sem aprofundamento
+local,common_voice_pt_36376495.mp3,5.69,4.15,0.730,0.1111,0.0182,1 homem com cabelo comprido sendo parado por seguranças,1 homem com cabelo comprido sendo parado por segurança
+local,common_voice_pt_36376500.mp3,5.69,4.01,0.705,0.1111,0.0377,caso você não corrija a deficiência ela será excluída,caso você não corrige a deficiência ela será excluída
+local,common_voice_pt_36376502.mp3,6.12,3.83,0.627,0.0000,0.0000,1 pessoa está sentada em 1 borda de 1 rio em 1 cidade,1 pessoa está sentada em 1 borda de 1 rio em 1 cidade
+local,common_voice_pt_36376505.mp3,4.36,3.84,0.882,0.0000,0.0000,continue tirando fotos e brincando com a neve,continue tirando fotos e brincando com a neve
+local,common_voice_pt_36376504.mp3,6.12,4.25,0.694,0.0000,0.0000,eu queria rever o plano estratégico esta tarde mas ainda não consegui dizer,eu queria rever o plano estratégico esta tarde mas ainda não consegui dizer
+local,common_voice_pt_36376498.mp3,3.53,3.87,1.096,0.0000,0.0000,oi como assim,oi como assim
+local,common_voice_pt_36461399.mp3,5.69,3.84,0.676,0.2727,0.1053,é engraçado eles não entendem nada mas não param de falar,é engraçado eles vão entendendo em nada mas não param de falar
+local,common_voice_pt_36461382.mp3,5.58,3.86,0.691,0.0000,0.0000,tudo deve ser feito antes que você possa fazer isso,tudo deve ser feito antes que você possa fazer isso
+local,common_voice_pt_36461368.mp3,6.41,4.29,0.669,0.1000,0.0294,eu vi algumas espigas de trigo particularmente grandes e esplêndidas,eu vi algumas espigas de trigo particularmente grandes e splendidas
+local,common_voice_pt_36461381.mp3,3.53,4.05,1.149,0.0000,0.0000,eu prefiro futebol,eu prefiro futebol
+local,common_voice_pt_36461367.mp3,4.25,4.07,0.957,0.0000,0.0000,isso me coloca em 1 buraco peculiar,isso me coloca em 1 buraco peculiar
+local,common_voice_pt_36461366.mp3,5.40,4.24,0.785,0.2500,0.1250,o fucarão atingiu a costa noroeste ao entardecer,o furacão atingiu a costa noroeste ao interdizer
+local,common_voice_pt_36461365.mp3,4.86,4.26,0.876,0.0000,0.0000,precisamos de muita coragem para chegar ao fim,precisamos de muita coragem para chegar ao fim
+local,common_voice_pt_36461364.mp3,4.61,4.05,0.878,0.0000,0.0000,não se podem quebrar com nomeações,não se podem quebrar com nomeações
+local,common_voice_pt_36461401.mp3,2.92,4.13,1.417,0.0000,0.0000,13 de maio,13 de maio
+local,common_voice_pt_36466540.mp3,5.62,4.00,0.713,0.2000,0.0208,por que você está tão ansioso para chegar ao fim,porque você está tão ansioso para chegar ao fim
+local,common_voice_pt_36466562.mp3,4.90,4.01,0.820,0.0000,0.0000,em palavras trabalho suave e duro,em palavras trabalho suave e duro
