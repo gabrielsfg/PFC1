@@ -34,11 +34,16 @@ data/
 **/output/
 **/processed/
 
-# Documentation (material de desenvolvimento e documentos do cliente — não versionar).
-# Exceções: docs legítimas do repositório, referenciadas pelo CLAUDE.md.
-
+# Documentation (monografia LaTeX, PDFs de citações, exemplos — não versionar).
+# Exceção: conventions.md, doc legítima do repositório referenciada pelo CLAUDE.md.
+Documentation/*
+!Documentation/conventions.md
 
 # Análises usadas na escrita do TCC (material pessoal — não versionar).
+analise-tcc/
+
+# Configuração local do editor/agente
+.claude/
 
 
 # Audio files
