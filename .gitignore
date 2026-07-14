@@ -12,6 +12,9 @@ ENV/
 .eggs/
 dist/
 build/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
 
 # Environment files
 .env
@@ -41,6 +44,13 @@ Documentation/*
 
 # Análises usadas na escrita do TCC (material pessoal — não versionar).
 analise-tcc/
+
+# Avaliação: só os *.template.json são versionados. Os arquivos reais gerados
+# a partir deles contêm dados específicos (papéis gold-standard, preços, uso).
+evaluation/gold_roles.json
+evaluation/aliases.json
+evaluation/prices.json
+evaluation/usage.csv
 
 # Configuração local do editor/agente
 .claude/
