@@ -62,6 +62,10 @@ Corpus/
 
 # Atalhos do Windows
 *.lnk
+# Documentation (monografia LaTeX, PDFs de citações, exemplos — não versionar).
+# Exceção: conventions.md, doc legítima do repositório referenciada pelo CLAUDE.md.
+Documentation/*
+!Documentation/conventions.md
 
 # Análises usadas na escrita do TCC (material pessoal — não versionar).
 analise-tcc/
