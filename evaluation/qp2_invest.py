@@ -34,19 +34,49 @@ load_dotenv(AGENT2 / ".env", override=True)
 from anthropic import Anthropic  # noqa: E402
 
 JUDGE_SYSTEM = (
-    "Você é um avaliador rigoroso de qualidade de histórias de usuário. "
-    "Avalie objetivamente segundo os critérios INVEST e responda apenas com JSON."
+    "Você é um avaliador experiente de qualidade de histórias de usuário em "
+    "engenharia de requisitos. As histórias que você avalia são CENTRADAS NO "
+    "ATOR DO SISTEMA (o usuário final do software), e não itens de backlog de "
+    "uma sprint específica. Avalie de forma justa e calibrada, evitando rigor "
+    "excessivo: o critério é se a história é uma boa unidade de requisito, não "
+    "se já é uma tarefa de implementação detalhada. Responda apenas com JSON."
 )
 
 JUDGE_PROMPT = """Avalie a história de usuário a seguir segundo os seis critérios INVEST.
+A história está no formato "Como [ator do sistema], quero [objetivo] para [benefício]"
+e representa uma necessidade do USUÁRIO FINAL do software. Julgue cada critério com
+bom senso, considerando o que é razoável para um requisito centrado no usuário (não
+exija o nível de detalhe de uma tarefa de sprint).
+
 Para cada critério, responda true (atende) ou false (não atende):
 
-- independente: não depende de outra história para ter valor;
-- negociavel: descreve a intenção, não um contrato fechado de implementação;
-- valiosa: entrega valor a um usuário/ator do sistema;
-- estimavel: é possível estimar o esforço;
-- pequena: cabe em uma única iteração (não é ampla demais);
-- testavel: admite critérios de aceitação verificáveis.
+- independente: tem valor por si só, sem DEPENDER de outra história específica para
+  fazer sentido. Compartilhar um tema (ex.: "acessibilidade") com outras histórias
+  NÃO a torna dependente. Marque false apenas se a história só faz sentido após outra.
+
+- negociavel: descreve a INTENÇÃO/necessidade, deixando espaço para discutir COMO
+  implementar. Marque false apenas se ela impõe uma solução técnica fechada e rígida.
+
+- valiosa: entrega valor claro a um ator do sistema (o usuário final). A maioria das
+  histórias bem escritas atende este critério.
+
+- estimavel: é possível, em princípio, estimar o esforço — porque o objetivo é
+  compreensível e delimitado. NÃO exige que o esforço seja pequeno, apenas que não
+  seja vago/indefinido demais para qualquer estimativa. Marque false só se o objetivo
+  for tão genérico ("quero que o sistema seja bom") que nem uma estimativa grosseira
+  é possível.
+
+- pequena: trata de UM objetivo coeso, não de um aglomerado de várias funcionalidades
+  distintas. Uma história focada num único objetivo (mesmo que abrangente) é pequena.
+  Marque false apenas se ela claramente junta MÚLTIPLOS objetivos independentes que
+  deveriam ser histórias separadas (ex.: "quero ajustar brilho, contraste, nitidez e
+  ainda gravar programas").
+
+- testavel: admite critério de aceitação VERIFICÁVEL — e esse critério PODE ser
+  qualitativo, comparativo ou baseado em observação/avaliação de usuários, não precisa
+  ser numérico. Exemplo: "quero usar o controle confortavelmente, seja destro ou
+  canhoto" É testável (avalia-se o conforto com usuários destros e canhotos). Marque
+  false apenas se for impossível conceber qualquer forma de verificar se foi atendida.
 
 HISTÓRIA:
 "{story}"

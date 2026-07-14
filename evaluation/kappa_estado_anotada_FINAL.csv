@@ -1,0 +1,25 @@
+﻿id;historia;independente;negociavel;valiosa;estimavel;pequena;testavel;conforme_6de6
+0;Como Gestor de Orçamento, eu quero consultar o saldo orçamentário disponível por ação, grupo de despesa e fonte de recurso antes de criar uma hipótese para validar se tenho recursos suficientes para a operação;1;1;1;1;1;1;1
+1;Como Gestor de Orçamento, eu quero que o sistema valide automaticamente se minha hipótese de programação orçamentária (IPOF) cabe dentro do saldo disponível por ação, grupo e fonte ao enviar, homologar e autorizar para evitar extrapolações de limite;1;1;1;1;1;1;1
+2;Como Gestor de Orçamento, eu quero incluir uma hipótese informando exercício, unidade, ação, grupo de despesa, fonte de recurso e tipo de orçamento para registrar a programação orçamentária;1;1;1;1;1;1;1
+3;Como Gestor de Orçamento, eu quero editar uma hipótese já criada alterando seus valores e dimensões para ajustar a programação conforme necessário;1;1;1;1;1;1;1
+4;Como Gestor de Orçamento, eu quero enviar uma hipótese para o próximo estágio do fluxo (homologação) para que ela seja revisada e validada;0;1;1;1;1;1;0
+5;Como Gestor de Orçamento, eu quero que o sistema valide hipóteses sem programa de trabalho informado usando apenas fonte de recurso e grupo de despesa em períodos de transição do exercício para permitir operações quando a ação não está disponível;1;1;1;1;1;1;1
+6;Como Gestor de Orçamento, eu quero visualizar quais hipóteses estão consumindo um determinado saldo orçamentário para identificar quais operações precisam ser ajustadas quando estou próximo do limite;1;1;1;1;1;1;1
+7;Como Gestor de Orçamento, eu quero trabalhar com múltiplos exercícios fiscais (2026, 2027, 2028, 2029) simultaneamente para gerenciar hipóteses em diferentes períodos;1;1;1;1;1;1;1
+8;Como Gestor de Contratações, eu quero agrupar múltiplas hipóteses em uma contratação para gerenciar e editar um conjunto de hipóteses relacionadas como uma unidade;1;1;1;1;1;1;1
+9;Como Gestor de Contratações, eu quero editar múltiplas hipóteses simultaneamente dentro de uma contratação para alterar valores e dimensões em lote;1;1;1;1;1;1;1
+10;Como Gestor de Contratações, eu quero que o sistema valide se o saldo orçamentário é suficiente para o conjunto de hipóteses na contratação antes de permitir alterações para evitar extrapolações;1;1;1;1;1;1;1
+11;Como Gestor de Contratações, eu quero consultar o saldo orçamentário disponível para a contratação por ação, grupo e fonte para validar se há recursos suficientes para o agrupamento;1;1;1;1;1;1;1
+12;Como Gestor de Programação Orçamentária, eu quero manter saldos orçamentários alocados por ação, grupo de despesa e fonte de recurso para estabelecer os limites que os órgãos devem respeitar;1;1;1;1;1;1;1
+13;Como Gestor de Programação Orçamentária, eu quero gerar automaticamente saldos a partir das dotações orçamentárias do exercício corrente para criar a base de limites de forma eficiente;1;1;1;1;1;1;1
+14;Como Gestor de Programação Orçamentária, eu quero editar saldos manualmente para aplicar percentuais de correção ou contingenciamento quando necessário;1;1;1;1;1;1;1
+15;Como Gestor de Programação Orçamentária, eu quero visualizar quais hipóteses estão consumindo cada saldo para monitorar a execução e identificar desbalanceamentos;1;1;1;1;1;1;1
+16;Como Consultor de Saldo Orçamentário, eu quero consultar saldos orçamentários por exercício, unidade, ação, grupo de despesa e fonte de recurso para obter visibilidade sobre a situação de recursos;1;1;1;1;1;1;1
+17;Como Consultor de Saldo Orçamentário, eu quero visualizar o saldo alocado, o saldo utilizado e o saldo disponível para cada combinação de dimensões para tomar decisões informadas;1;1;1;1;1;1;1
+18;Como Consultor de Saldo Orçamentário, eu quero expandir um saldo para ver quais hipóteses específicas estão consumindo esse saldo para rastrear o consumo até o nível de detalhe;1;1;1;1;1;1;1
+19;Como Consultor de Saldo Orçamentário, eu quero que o saldo utilizado seja calculado automaticamente como o somatório das hipóteses que consomem cada saldo para garantir precisão;1;0;1;1;1;1;0
+20;Como Administrador de Sistema, eu quero configurar regras de validação de saldo orçamentário para controlar o comportamento de validação em todas as operações;1;1;1;1;1;1;1
+21;Como Administrador de Sistema, eu quero definir se o sistema deve criar saldo mesmo quando não existe dotação equivalente para flexibilizar a criação de saldos conforme necessário;1;1;1;1;1;1;1
+22;Como Administrador de Sistema, eu quero que alterações em uma regra de validação de saldo sejam refletidas automaticamente em todos os pontos onde a regra é utilizada para garantir consistência;1;1;1;1;1;1;1
+23;Como Administrador de Sistema, eu quero monitorar e validar que as regras de validação de saldo sejam aplicadas consistentemente em todos os pontos do fluxo (envio, homologação, autorização, alteração, contratações) para garantir integridade;1;1;1;1;1;1;1

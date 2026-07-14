@@ -1,0 +1,10 @@
+meeting,tp,fp,fn,precision,recall,f1,predicted_roles,gold_roles
+meeting_0,5,0,0,1.0000,1.0000,1.0000,comprador;usuario com acessibilidade;usuario final;usuario infantil;usuario tecnologico,comprador;usuario com acessibilidade;usuario final;usuario infantil;usuario tecnologico
+meeting_113,3,0,0,1.0000,1.0000,1.0000,usuario conservador;usuario final;usuario tecnologico,usuario conservador;usuario final;usuario tecnologico
+meeting_117,4,0,0,1.0000,1.0000,1.0000,comprador;fabricante de tv;usuario final;usuario tecnologico,comprador;fabricante de tv;usuario final;usuario tecnologico
+meeting_127,4,0,0,1.0000,1.0000,1.0000,usuario com acessibilidade;usuario conservador;usuario final;usuario tecnologico,usuario com acessibilidade;usuario conservador;usuario final;usuario tecnologico
+meeting_2,1,0,1,1.0000,0.5000,0.6667,usuario final,comprador;usuario final
+meeting_30,3,0,1,1.0000,0.7500,0.8571,usuario conservador;usuario final;usuario tecnologico,usuario com acessibilidade;usuario conservador;usuario final;usuario tecnologico
+meeting_58,4,0,0,1.0000,1.0000,1.0000,usuario com acessibilidade;usuario final;usuario infantil;usuario tecnologico,usuario com acessibilidade;usuario final;usuario infantil;usuario tecnologico
+
+MICRO,24,0,2,1.0000,0.9231,0.9600,,

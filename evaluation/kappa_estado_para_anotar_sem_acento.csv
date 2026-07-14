@@ -1,0 +1,25 @@
+﻿id;historia;independente;negociavel;valiosa;estimavel;pequena;testavel;conforme_6de6
+0;Como Gestor de Orcamento, eu quero consultar o saldo orcamentario disponivel por acao, grupo de despesa e fonte de recurso antes de criar uma hipotese para validar se tenho recursos suficientes para a operacao;;;;;;;
+1;Como Gestor de Orcamento, eu quero que o sistema valide automaticamente se minha hipotese de programacao orcamentaria (IPOF) cabe dentro do saldo disponivel por acao, grupo e fonte ao enviar, homologar e autorizar para evitar extrapolacoes de limite;;;;;;;
+2;Como Gestor de Orcamento, eu quero incluir uma hipotese informando exercicio, unidade, acao, grupo de despesa, fonte de recurso e tipo de orcamento para registrar a programacao orcamentaria;;;;;;;
+3;Como Gestor de Orcamento, eu quero editar uma hipotese ja criada alterando seus valores e dimensoes para ajustar a programacao conforme necessario;;;;;;;
+4;Como Gestor de Orcamento, eu quero enviar uma hipotese para o proximo estagio do fluxo (homologacao) para que ela seja revisada e validada;;;;;;;
+5;Como Gestor de Orcamento, eu quero que o sistema valide hipoteses sem programa de trabalho informado usando apenas fonte de recurso e grupo de despesa em periodos de transicao do exercicio para permitir operacoes quando a acao nao esta disponivel;;;;;;;
+6;Como Gestor de Orcamento, eu quero visualizar quais hipoteses estao consumindo um determinado saldo orcamentario para identificar quais operacoes precisam ser ajustadas quando estou proximo do limite;;;;;;;
+7;Como Gestor de Orcamento, eu quero trabalhar com multiplos exercicios fiscais (2026, 2027, 2028, 2029) simultaneamente para gerenciar hipoteses em diferentes periodos;;;;;;;
+8;Como Gestor de Contratacoes, eu quero agrupar multiplas hipoteses em uma contratacao para gerenciar e editar um conjunto de hipoteses relacionadas como uma unidade;;;;;;;
+9;Como Gestor de Contratacoes, eu quero editar multiplas hipoteses simultaneamente dentro de uma contratacao para alterar valores e dimensoes em lote;;;;;;;
+10;Como Gestor de Contratacoes, eu quero que o sistema valide se o saldo orcamentario e suficiente para o conjunto de hipoteses na contratacao antes de permitir alteracoes para evitar extrapolacoes;;;;;;;
+11;Como Gestor de Contratacoes, eu quero consultar o saldo orcamentario disponivel para a contratacao por acao, grupo e fonte para validar se ha recursos suficientes para o agrupamento;;;;;;;
+12;Como Gestor de Programacao Orcamentaria, eu quero manter saldos orcamentarios alocados por acao, grupo de despesa e fonte de recurso para estabelecer os limites que os orgaos devem respeitar;;;;;;;
+13;Como Gestor de Programacao Orcamentaria, eu quero gerar automaticamente saldos a partir das dotacoes orcamentarias do exercicio corrente para criar a base de limites de forma eficiente;;;;;;;
+14;Como Gestor de Programacao Orcamentaria, eu quero editar saldos manualmente para aplicar percentuais de correcao ou contingenciamento quando necessario;;;;;;;
+15;Como Gestor de Programacao Orcamentaria, eu quero visualizar quais hipoteses estao consumindo cada saldo para monitorar a execucao e identificar desbalanceamentos;;;;;;;
+16;Como Consultor de Saldo Orcamentario, eu quero consultar saldos orcamentarios por exercicio, unidade, acao, grupo de despesa e fonte de recurso para obter visibilidade sobre a situacao de recursos;;;;;;;
+17;Como Consultor de Saldo Orcamentario, eu quero visualizar o saldo alocado, o saldo utilizado e o saldo disponivel para cada combinacao de dimensoes para tomar decisoes informadas;;;;;;;
+18;Como Consultor de Saldo Orcamentario, eu quero expandir um saldo para ver quais hipoteses especificas estao consumindo esse saldo para rastrear o consumo ate o nivel de detalhe;;;;;;;
+19;Como Consultor de Saldo Orcamentario, eu quero que o saldo utilizado seja calculado automaticamente como o somatorio das hipoteses que consomem cada saldo para garantir precisao;;;;;;;
+20;Como Administrador de Sistema, eu quero configurar regras de validacao de saldo orcamentario para controlar o comportamento de validacao em todas as operacoes;;;;;;;
+21;Como Administrador de Sistema, eu quero definir se o sistema deve criar saldo mesmo quando nao existe dotacao equivalente para flexibilizar a criacao de saldos conforme necessario;;;;;;;
+22;Como Administrador de Sistema, eu quero que alteracoes em uma regra de validacao de saldo sejam refletidas automaticamente em todos os pontos onde a regra e utilizada para garantir consistencia;;;;;;;
+23;Como Administrador de Sistema, eu quero monitorar e validar que as regras de validacao de saldo sejam aplicadas consistentemente em todos os pontos do fluxo (envio, homologacao, autorizacao, alteracao, contratacoes) para garantir integridade;;;;;;;

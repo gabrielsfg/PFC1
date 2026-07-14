@@ -44,9 +44,11 @@ class PersonaAnalysis(BaseModel):
 class Story(BaseModel):
     id: str
     historia: str
-    prioridade: str
-    contexto: str
-    trecho_base: str
+    # Optional traceability metadata: the LLM occasionally omits these for a story;
+    # they must not break document generation.
+    prioridade: str = ""
+    contexto: str = ""
+    trecho_base: str = ""
 
 
 class PersonaStories(BaseModel):
