@@ -1,315 +1,230 @@
-# Projeto Final de Curso — IA Generativa e Engenharia de Software
+# From Meeting Audio to Requirements: A Generative-AI Multi-Agent Pipeline
 
-**Autor:** Gabriel Ferreira Silva  
-**Instituição:** UFG — Universidade Federal de Goiás  
-**Fase atual:** PFC2 (em andamento)
+> Undergraduate final project (TCC / *Projeto Final de Curso*) — Institute of Informatics, **Federal University of Goiás (UFG)**, 2026.
 
-Pipeline multi-agente que automatiza a elicitação de requisitos de software: parte de gravações de reuniões e produz documentos estruturados de requisitos (SRS IEEE 830, diagramas de domínio e histórias de usuário).
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Python 3.11](https://img.shields.io/badge/Python-3.11-3776AB.svg?logo=python&logoColor=white)](https://www.python.org/)
+[![Claude](https://img.shields.io/badge/LLM-Claude-D97757.svg)](https://www.anthropic.com/)
+[![Status](https://img.shields.io/badge/status-complete-brightgreen.svg)]()
 
-📄 **Monografia (PDF):** [Inteligência Artificial Generativa e Engenharia de Software: Um estudo de caso](https://COLE_AQUI_O_LINK_DO_PDF)
-
----
-
-## Resultados PFC1 (validado no AMI Meeting Corpus — 7 reuniões)
-
-- 100% de precisão na identificação de personas (28/28)
-- 83% de conformidade INVEST nas histórias de usuário
-- Nota 9/10 no framework qualitativo de avaliação
-
----
-
-## Arquitetura
-
-Quatro agentes especializados em pipeline sequencial, comunicando-se via sistema de arquivos:
+A pipeline of four specialized LLM agents that automates the full software **requirements-elicitation** workflow: it takes a raw recording of a stakeholder meeting and produces a structured requirements document — transcription, personas and user stories, an IEEE 830 SRS (or a company-format requirements document), and a domain diagram — with almost no manual effort.
 
 ```
-Gravação de áudio
-    ↓
-[Agente 1] agente-transcricao/   — Whisper STT → .txt
-    ↓
-[Agente 2] agente-identificacao/ — Personas + User Stories → .json
-    ↓
-[Agente 3] agente-srs/           — SRS IEEE 830 + Casos de Uso → .md + .pdf
-    ↓
-[Agente 4] agente-diagramas/     — Diagrama de Domínio + Documento Final → .md + .pdf
+ audio / video                                            requirements
+   of a meeting  ─────────►  [ 4 specialized agents ]  ─────────►  document
+                                                                  (.md + .pdf)
 ```
 
-Cada agente monitora o diretório de saída do anterior via watchdog e dispara automaticamente quando um novo arquivo aparece.
+---
+
+## 📄 Read the written work
+
+- 🇬🇧 **Conference paper (English):** *From Meeting Audio to Requirements: A Generative-AI Multi-Agent Pipeline* — to appear at the **1st Workshop on Software Engineering for Agentic Systems (SE4AS)**, co-located with **CBSoft 2026** (IME-USP, São Paulo). **[⬇ Download PDF](paper/SE4AS-2026-paper-en.pdf)**
+- 🇧🇷 **Monograph (Portuguese):** *Inteligência Artificial Generativa e Engenharia de Software: Um estudo de caso* — full undergraduate thesis. **[⬇ Download PDF](paper/monografia-pt-br.pdf)**
 
 ---
 
-## Pré-requisitos
+## About the project
 
-- **Python 3.11** (recomendado — 3.14 não tem wheels pré-compiladas para pydantic-core)
-- **Chave de API Anthropic** (agentes 3 e 4)
-- **Chave de API OpenAI** (agente 2)
-- **Pandoc + xelatex** (opcional — para geração de PDF)
-  - Pandoc: https://pandoc.org/installing.html
-  - xelatex via MiKTeX: https://miktex.org/download
+Requirements elicitation is one of the most human-intensive and error-prone stages of software development: analysts sit through hours of meetings and manually translate loosely-structured conversation into personas, user stories, and formal requirements. This project investigates whether **Generative AI, organized as a multi-agent system**, can automate that translation end to end.
+
+Instead of a single monolithic prompt, the work uses **four specialized agents** connected by a file-based contract, each with a model chosen to match its task (cheap models for narrow tasks, stronger models for open-ended synthesis). This design makes the system's behaviour observable — including how an error made by an early agent **propagates** through the rest of the pipeline, which the study treats as a first-class result rather than an anecdote.
+
+The pipeline was validated on the **AMI Meeting Corpus**, on the **Mozilla Common Voice (PT)** corpus, and — most importantly — on a **real 1h38m stakeholder meeting** from a Brazilian public-sector technology agency, against an official requirements document written by a human analyst as gold standard.
 
 ---
 
-## Instalação
+## Architecture
 
-### 1. Instalar dependências de cada agente
+Four agents run sequentially, communicating through a shared file system. The unified executor (`pipeline.py`) chains them; each agent can also run standalone.
 
-Execute da raiz do projeto (`PFC1/`):
+```
+ audio / video file
+   │
+   ▼
+ [Agent 1] agente-transcricao/    Speech-to-text (Groq whisper-large-v3-turbo,
+   │                              local faster-whisper fallback)        → .txt
+   ▼
+ [Agent 2] agente-identificacao/  Personas + user stories (INVEST)
+   │                              claude-haiku-4-5                       → .json
+   ▼
+ [Agent 3] agente-srs/            Requirements document
+   │                              claude-sonnet-4-6                      → .md + .pdf
+   ▼
+ [Agent 4] agente-diagramas/      Domain diagram + final unified doc
+                                  claude-sonnet-4-6                      → .md + .pdf
+```
+
+### Two output formats (one per run)
+
+| Format | Description | Agents run |
+|---|---|---|
+| **`ieee`** (default) | IEEE 830 SRS + PlantUML use-case & domain diagrams | Agents 1–4 |
+| **`empresa`** | SGG-GO partner "Documento de Requisitos" (Funcionalidade, RF, RN, CSU, RNF); no diagrams | Agents 1–3 |
+
+---
+
+## Results
+
+Final quantitative evaluation (see [`evaluation/`](evaluation/) for the reproducible harness and the monograph, Chapter 5, for full discussion).
+
+| Research question | Metric | Result |
+|---|---|---|
+| **RQ1** — Transcription quality | WER / CER (Common Voice PT, 200 clips) | **Groq: 6.3% / 2.3%** · local fallback: 13.5% / 4.9% |
+| **RQ2** — Persona identification | Precision / Recall / F1 (AMI, 7 meetings) | **P 1.00 · R 0.92 · F1 0.96** |
+| **RQ2** — User-story quality (INVEST) | Strict LLM-judge conformance (6/6 criteria) | AMI **52.5%** · real domain **66.7%** (judge×human agreement κ = 0.13 / 0.31) |
+| **RQ3** — Requirement coverage | Recall vs. human gold-standard document | **72.7%** overall (business rules & use cases **100%**) |
+| **RQ4** — Cost & latency | Full 1h38m real meeting, end to end | **~US$0.72 · ~11 min** |
+
+**Key findings**
+
+- A full real meeting is processed for **under one dollar in about eleven minutes**, versus the hours a human analyst spends.
+- Per-agent model selection pays off: Agent 3 (open-ended synthesis, Sonnet) accounts for ~82% of cost while the narrow tasks stay on the cheap Haiku model.
+- The uncovered requirements are **pure-UI actions** ("hide screen X") that require *visual* input the audio-only pipeline cannot perceive — a modality limitation, not an extraction failure.
+- **Error propagation is real and measurable:** Agent 1 mis-transcribed the domain term *IPOF* as *HIPOF*, and the error flowed unchanged through every downstream agent into the final document — a concrete argument for validation between agents.
+
+> Numbers are reported honestly: the strict automatic INVEST judge is deliberately demanding, and the earlier PFC1 figures (based on a looser manual rubric) are superseded by this evaluation.
+
+---
+
+## Tech stack
+
+- **Python 3.11**
+- **LLMs:** Anthropic Claude (`claude-haiku-4-5`, `claude-sonnet-4-6`)
+- **Speech-to-text:** Groq `whisper-large-v3-turbo`, with local [faster-whisper](https://github.com/SYSTRAN/faster-whisper) fallback
+- **Audio/video:** ffmpeg (16 kHz mono FLAC normalization, silence-based splitting)
+- **Data models & templating:** Pydantic, Jinja2
+- **Diagrams:** PlantUML via [kroki.io](https://kroki.io/)
+- **PDF:** WeasyPrint / Pandoc + xelatex
+- **Orchestration:** Watchdog (file-based monitoring), Tkinter (GUI)
+
+---
+
+## Prerequisites
+
+- **Python 3.11** (recommended — some dependencies lack pre-built wheels on 3.14)
+- **ffmpeg** on your `PATH` — <https://ffmpeg.org/download.html>
+- An **Anthropic API key** (Agents 2, 3, 4)
+- A **Groq API key** (Agent 1; the pipeline falls back to a local model if absent)
+- *Optional, for PDF export:* Pandoc + xelatex (MiKTeX) or the GTK3 runtime for WeasyPrint
+
+---
+
+## Installation
+
+```bash
+git clone https://github.com/gabrielsfg/PFC1.git
+cd PFC1
+```
+
+Install each agent's dependencies (from the repo root, on Windows PowerShell):
 
 ```powershell
-foreach ($agent in @("agente-transcricao", "agente-identificacao", "agente-srs", "agente-diagramas")) {
-    Write-Host "`n=== $agent ===" -ForegroundColor Cyan
+foreach ($agent in @("agente-transcricao","agente-identificacao","agente-srs","agente-diagramas")) {
     py -3.11 -m pip install -r "$agent\requirements.txt"
 }
 ```
 
-### 2. Configurar variáveis de ambiente
-
-Execute da raiz do projeto para gerar todos os `.env` de uma vez (pede a chave uma única vez):
+Configure each agent by copying its `.env.example` to `.env` and filling in the keys:
 
 ```powershell
-$anthropic = Read-Host "ANTHROPIC_API_KEY"
-$openai    = Read-Host "OPENAI_API_KEY"
-
-@"
-HUGGINGFACE_TOKEN=your_token_here
-"@ | Set-Content agente-transcricao\.env -Encoding utf8
-
-@"
-OPENAI_API_KEY=$openai
-OPENAI_MODEL=gpt-4o-mini
-INPUT_DIR=../agente-transcricao/data/output
-OUTPUT_DIR=./data/output
-PROCESSED_DIR=./data/processed
-CHECK_INTERVAL=5
-MAX_RETRIES=3
-"@ | Set-Content agente-identificacao\.env -Encoding utf8
-
-@"
-ANTHROPIC_API_KEY=$anthropic
-ANTHROPIC_MODEL=claude-sonnet-4-6
-INPUT_DIR=../agente-identificacao/data/output
-OUTPUT_DIR=./data/output
-PROCESSED_DIR=./data/processed
-CHECK_INTERVAL=5
-MAX_RETRIES=3
-"@ | Set-Content agente-srs\.env -Encoding utf8
-
-@"
-ANTHROPIC_API_KEY=$anthropic
-ANTHROPIC_MODEL=claude-sonnet-4-6
-INPUT_DIR=../agente-srs/data/output
-OUTPUT_DIR=./data/output
-PROCESSED_DIR=./data/processed
-CHECK_INTERVAL=5
-MAX_RETRIES=3
-"@ | Set-Content agente-diagramas\.env -Encoding utf8
-
-Write-Host "Arquivos .env criados com sucesso."
+foreach ($agent in @("agente-transcricao","agente-identificacao","agente-srs","agente-diagramas")) {
+    Copy-Item "$agent\.env.example" "$agent\.env"
+}
+# then edit each .env:  GROQ_API_KEY (agent 1) and ANTHROPIC_API_KEY (agents 2–4)
 ```
 
 ---
 
-## Como executar
+## Usage
 
-### Agente 1 — Transcrição
+### Full pipeline (recommended)
 
-```powershell
+```bash
+# GUI: record or pick an audio/video file, choose the output format, run everything
+python pipeline.py --full
+
+# From an audio/video file
+python pipeline.py --from-audio path/to/meeting.mp4 --format empresa
+
+# From an existing transcript (skips Agent 1)
+python pipeline.py --from-transcript path/to/transcript.txt --format ieee
+
+# From an existing Agent 2 JSON (skips Agents 1 and 2)
+python pipeline.py --from-json path/to/analysis.json --format empresa --project-name "MyProject"
+```
+
+### Individual agents
+
+```bash
+# Agent 1 — Transcription
 cd agente-transcricao
+python src/main.py transcribe-file path/to/audio.mp4
 
-# Gravar pelo microfone e transcrever
-py -3.11 src\main.py record
-
-# Transcrever um arquivo de áudio existente
-py -3.11 src\main.py transcribe-file caminho\do\audio.wav
-```
-
-**Saída:** `.txt` e `.json` em `agente-transcricao/data/output/`
-
----
-
-### Agente 2 — Identificação de Personas
-
-```powershell
+# Agent 2 — Persona & user-story identification
 cd agente-identificacao
+python main.py --file path/to/transcription.txt
 
-# Processar um arquivo de transcrição
-py -3.11 main.py --file "../agente-transcricao/data/output/transcricao.txt"
-
-# Processar um diretório completo
-py -3.11 main.py --dir "../agente-transcricao/data/output"
-
-# Monitorar diretório automaticamente (modo contínuo)
-py -3.11 main.py --monitor
-```
-
-**Saída:** `.json` em `agente-identificacao/data/output/` com personas e histórias de usuário.
-
----
-
-### Agente 3 — SRS IEEE 830 + Casos de Uso
-
-```powershell
+# Agent 3 — Requirements document
 cd agente-srs
+python main.py --file path/to/analysis.json --format empresa --project-name "MyProject"
 
-# Processar um arquivo JSON do Agente 2
-py -3.11 main.py --file "../agente-identificacao/data/output/meeting_X.json"
-
-# Processar um diretório completo
-py -3.11 main.py --dir "../agente-identificacao/data/output"
-
-# Monitorar diretório automaticamente
-py -3.11 main.py --monitor
-```
-
-**Saída:** `.md` e `.pdf` em `agente-srs/data/output/` com o documento SRS completo.
-
----
-
-### Agente 4 — Diagrama de Domínio + Documento Final
-
-```powershell
+# Agent 4 — Domain diagram + final document (ieee format only)
 cd agente-diagramas
-
-# Processar um arquivo JSON do Agente 2 (auto-descobre o SRS do Agente 3)
-py -3.11 main.py --file "../agente-identificacao/data/output/meeting_X.json"
-
-# Processar com SRS específico
-py -3.11 main.py --file "../agente-identificacao/data/output/meeting_X.json" --srs-md "../agente-srs/data/output/meeting_X_srs.md"
-
-# Monitorar diretório automaticamente
-py -3.11 main.py --monitor
+python main.py --file path/to/analysis.json
 ```
 
-**Saída:** `.md` e `.pdf` em `agente-diagramas/data/output/` com o documento final unificado e diagrama de domínio PlantUML (renderizado via kroki.io).
+### Reproducing the evaluation
+
+The [`evaluation/`](evaluation/) directory holds the metrics harness (WER/CER, Precision/Recall/F1, INVEST LLM-judge, Cohen's κ, coverage, cost). Fill in the `*.template.json` files, provide the corpora and API keys, and run the `qp*.py` scripts — see [`evaluation/README.md`](evaluation/README.md).
 
 ---
 
-### Executar Agentes 3 e 4 em sequência
-
-```powershell
-$file = "../agente-identificacao/data/output/meeting_X.json"
-cd agente-srs; py -3.11 main.py --file $file; cd ../agente-diagramas; py -3.11 main.py --file $file
-```
-
----
-
-### Converter Markdown para PDF sem chamar o LLM
-
-Útil para regenerar o PDF a partir de um `.md` já existente sem gastar tokens:
-
-```powershell
-pandoc "agente-srs\data\output\meeting_X_srs.md" `
-  -o "agente-srs\data\output\meeting_X_srs.pdf" `
-  --pdf-engine=xelatex `
-  -V geometry:margin=2.5cm `
-  -V lang=pt-BR
-```
-
----
-
-## Estrutura de diretórios
+## Project structure
 
 ```
 PFC1/
-├── agente-transcricao/
-│   ├── src/
-│   │   ├── main.py           # CLI (record, transcribe-file)
-│   │   ├── audio/record.py   # Captura de microfone
-│   │   └── stt/transcribe.py # Wrapper faster-whisper
-│   ├── data/output/          # Saída: .txt e .json
-│   ├── requirements.txt
-│   └── .env
-│
-├── agente-identificacao/
-│   ├── main.py               # CLI (--file, --dir, --monitor)
-│   ├── src/
-│   │   ├── persona_identifier.py  # Orquestrador principal
-│   │   ├── openai_client.py       # Wrapper OpenAI com retry
-│   │   └── file_monitor.py        # Watchdog
-│   ├── config/prompts.py          # Todos os prompts LLM
-│   ├── data/output/               # Saída: .json
-│   ├── requirements.txt
-│   └── .env
-│
-├── agente-srs/
-│   ├── main.py               # CLI (--file, --dir, --monitor)
-│   ├── src/
-│   │   ├── srs_processor.py       # Orquestrador
-│   │   ├── srs_generator.py       # Geração via LLM
-│   │   ├── anthropic_client.py    # Wrapper Anthropic com retry
-│   │   ├── kroki_client.py        # Renderização PlantUML via kroki.io
-│   │   ├── document_renderer.py   # Markdown → PDF
-│   │   ├── file_monitor.py        # Watchdog
-│   │   └── models.py              # Modelos Pydantic
-│   ├── config/prompts.py          # Todos os prompts LLM
-│   ├── templates/                 # Templates Jinja2
-│   ├── data/output/               # Saída: .md e .pdf
-│   ├── requirements.txt
-│   └── .env
-│
-├── agente-diagramas/
-│   ├── main.py               # CLI (--file, --dir, --monitor, --srs-md)
-│   ├── src/
-│   │   ├── diagrams_processor.py       # Orquestrador
-│   │   ├── domain_diagram_generator.py # Extração de entidades + PlantUML via LLM
-│   │   ├── document_assembler.py       # Montagem do documento final
-│   │   ├── anthropic_client.py         # Wrapper Anthropic com retry
-│   │   ├── kroki_client.py             # Renderização PlantUML via kroki.io
-│   │   ├── document_renderer.py        # Markdown → PDF
-│   │   ├── file_monitor.py             # Watchdog
-│   │   └── models.py                   # Modelos Pydantic
-│   ├── config/prompts.py               # Todos os prompts LLM
-│   ├── templates/                      # Templates Jinja2
-│   ├── data/output/                    # Saída: .md, .pdf e imagens PNG
-│   ├── requirements.txt
-│   └── .env
-│
-├── Documentation/            # Convenções e documentação do projeto
-├── CLAUDE.md                 # Instruções para Claude Code
-└── README.md
+├── agente-transcricao/    # Agent 1 — speech-to-text (Groq + local fallback)
+├── agente-identificacao/  # Agent 2 — personas + user stories (Claude Haiku)
+├── agente-srs/            # Agent 3 — SRS / company requirements doc (Claude Sonnet)
+├── agente-diagramas/      # Agent 4 — domain diagram + final document (Claude Sonnet)
+├── evaluation/            # Reproducible metrics harness (RQ1–RQ4)
+├── analise-tcc/           # Real-case comparison against the human gold standard
+├── data/                  # Shared input/output (gitignored)
+├── pipeline.py            # Unified executor (GUI + CLI entry points)
+├── CLAUDE.md              # Repository guide
+└── LICENSE
 ```
 
----
-
-## Variáveis de ambiente
-
-### agente-identificacao/.env
-
-| Variável | Descrição | Padrão |
-|---|---|---|
-| `OPENAI_API_KEY` | Chave da API OpenAI | — |
-| `OPENAI_MODEL` | Modelo OpenAI | `gpt-4o-mini` |
-| `INPUT_DIR` | Diretório de entrada | `../agente-transcricao/data/output` |
-| `OUTPUT_DIR` | Diretório de saída | `./data/output` |
-| `PROCESSED_DIR` | Controle de arquivos processados | `./data/processed` |
-| `CHECK_INTERVAL` | Intervalo do monitor (segundos) | `5` |
-| `MAX_RETRIES` | Tentativas de retry na API | `3` |
-
-### agente-srs/.env e agente-diagramas/.env
-
-| Variável | Descrição | Padrão |
-|---|---|---|
-| `ANTHROPIC_API_KEY` | Chave da API Anthropic | — |
-| `ANTHROPIC_MODEL` | Modelo Claude | `claude-sonnet-4-6` |
-| `INPUT_DIR` | Diretório de entrada | varia por agente |
-| `OUTPUT_DIR` | Diretório de saída | `./data/output` |
-| `PROCESSED_DIR` | Controle de arquivos processados | `./data/processed` |
-| `CHECK_INTERVAL` | Intervalo do monitor (segundos) | `5` |
-| `MAX_RETRIES` | Tentativas de retry na API | `3` |
+Every agent follows the same layered structure: `main.py` (CLI) → `<agent>_processor.py` (orchestrator) → `<agent>_generator.py` (LLM + logic) → `document_renderer.py`, with prompts in `config/prompts.py` and Pydantic models in `src/models.py`.
 
 ---
 
-## Geração de PDF
+## Author & advisor
 
-Os agentes 3 e 4 tentam gerar PDF nesta ordem de prioridade:
-
-1. **Pandoc + xelatex** (recomendado) — instale Pandoc e MiKTeX
-2. **WeasyPrint + GTK3** (fallback) — instale o GTK3 Runtime para Windows
-
-Se nenhum estiver disponível, o `.md` é gerado normalmente e o PDF pode ser convertido manualmente com o comando Pandoc acima.
+- **Author:** Gabriel Ferreira Silva — [LinkedIn](https://www.linkedin.com/in/gabriel-ferreira-silva-3932b2210) · [GitHub](https://github.com/gabrielsfg)
+- **Advisor:** Prof. Jacson Rodrigues Barbosa — Institute of Informatics, UFG
 
 ---
 
-## Dataset AMI
+## License
 
-Os scripts `import_ami_dataset.py` e `investigate_ami.py` são utilitários exploratórios para acesso ao AMI Meeting Corpus via HuggingFace. Não fazem parte do pipeline principal. Para usá-los configure `HUGGINGFACE_TOKEN` no `.env` do `agente-transcricao` e `agente-identificacao`.
+Released under the [MIT License](LICENSE).
+
+---
+
+## Citation
+
+If you reference this work, please cite the conference paper:
+
+```bibtex
+@inproceedings{silva2026meeting,
+  author    = {Silva, Gabriel Ferreira and Barbosa, Jacson Rodrigues},
+  title     = {From Meeting Audio to Requirements: A Generative-AI
+               Multi-Agent Pipeline},
+  booktitle = {Proceedings of the 1st Workshop on Software Engineering for
+               Agentic Systems (SE4AS), co-located with CBSoft 2026},
+  year      = {2026},
+  address   = {S\~{a}o Paulo, Brazil}
+}
+```
