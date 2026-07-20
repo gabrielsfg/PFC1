@@ -1,138 +1,108 @@
-# 🤖 Agente de Identificação de Personas
+# Agent 2 — Persona & User-Story Identification
 
-Agente inteligente que processa transcrições de áudio, identifica personas (participantes) e gera histórias de usuário usando LLM (OpenAI GPT).
+Second agent of the [requirements-elicitation pipeline](../README.md). It reads a meeting **transcription** (`.txt`), identifies the **personas** (system actors) discussed, and generates **user stories** following the INVEST criteria — all via Anthropic Claude.
 
-## 📋 Funcionalidades
+- **Input:** `.txt` transcription (from Agent 1)
+- **Output:** `.json` with personas + user stories (consumed by Agent 3)
+- **Model:** `claude-haiku-4-5` (a cheap, fast model is enough for this narrow extraction task)
 
-- ✅ Identificação automática de personas em transcrições
-- ✅ Extração de características e contexto de cada persona
-- ✅ Geração de histórias de usuário (user stories)
-- ✅ Monitoramento automático de novos arquivos
-- ✅ Processamento em lote
-- ✅ Controle de arquivos já processados
+## Features
 
-## 🏗️ Estrutura do Projeto
+- Automatic persona identification from a transcript
+- Extraction of each persona's characteristics and context
+- User-story generation in the Portuguese format *"Como [persona], eu quero [objetivo] para [benefício]"*, checked against **INVEST**
+- Automatic monitoring of new files (watchdog)
+- Batch processing of a whole directory
+- Tracking of already-processed files (no reprocessing)
+
+## Project structure
 
 ```
 agente-identificacao/
+├── main.py                     # CLI entry point (--file, --dir, --monitor, --output-dir)
 ├── src/
-│   ├── __init__.py
-│   ├── persona_identifier.py    # Lógica principal de identificação
-│   ├── openai_client.py         # Cliente OpenAI com retry
-│   └── file_monitor.py          # Monitor de arquivos
+│   ├── persona_identifier.py   # Orchestrator: 2 Claude calls (personas → user stories) + JSON parsing
+│   ├── anthropic_client.py     # Anthropic Claude wrapper with tenacity retry/backoff
+│   ├── file_monitor.py         # Watchdog-based watcher
+│   └── openai_client.py        # legacy (v1 used OpenAI) — kept for reference, NOT used
 ├── config/
-│   └── prompts.py               # Prompts otimizados para LLM
+│   └── prompts.py              # All LLM prompts (system message, personas, INVEST user stories)
 ├── data/
-│   ├── output/                  # Resultados JSON gerados
-│   └── processed/               # Controle de arquivos processados
-├── main.py                      # CLI principal
+│   ├── output/                 # Generated JSON results
+│   └── processed/              # processed_files.txt — tracks handled inputs
 ├── requirements.txt
 ├── .env.example
 └── README.md
 ```
 
-## 🚀 Instalação
-
-### 1. Instalar Dependências
+## Installation
 
 ```bash
-cd C:\Users\gabri\Tcc\agente-identificacao
+cd agente-identificacao
 pip install -r requirements.txt
+
+# Configure the environment
+cp .env.example .env            # then edit .env and set ANTHROPIC_API_KEY
 ```
 
-### 2. Configurar Ambiente
+Minimal `.env`:
 
-```bash
-# Copie o arquivo de exemplo
-copy .env.example .env
-
-# Edite o .env e adicione sua chave da OpenAI
-notepad .env
-```
-
-Configuração mínima do `.env`:
 ```env
-OPENAI_API_KEY=sk-your-key-here
-OPENAI_MODEL=gpt-4o-mini
+ANTHROPIC_API_KEY=sk-ant-your-key-here
+ANTHROPIC_MODEL=claude-haiku-4-5-20251001
 INPUT_DIR=../agente-transcricao/data/output
 OUTPUT_DIR=./data/output
 ```
 
-## 💻 Uso
-
-### Modo Monitor (Recomendado)
-
-Monitora automaticamente o diretório do agente-transcricao e processa novos arquivos:
+## Usage
 
 ```bash
-python main.py --monitor
-```
+# Single file
+python main.py --file ../agente-transcricao/data/output/transcription.txt
 
-Saída esperada:
-```
-🚀 AGENTE DE IDENTIFICAÇÃO DE PERSONAS
-📁 Monitorando: ..\agente-transcricao\data\output
-📊 Modelo: gpt-4o-mini
-⏱️  Intervalo de verificação: 5s
-👀 Monitoramento ativo. Pressione Ctrl+C para parar.
-```
-
-### Processar Arquivo Único
-
-```bash
-python main.py --file ../agente-transcricao/data/output/transcricao.txt
-```
-
-### Processar Diretório Completo
-
-```bash
+# Whole directory
 python main.py --dir ../agente-transcricao/data/output
-```
 
-### Opções Avançadas
+# Continuous monitor mode (auto-processes new .txt files)
+python main.py --monitor
 
-```bash
-# Monitor com intervalo customizado
+# Monitor with a custom polling interval / directories
 python main.py --monitor --check-interval 10
-
-# Diretórios customizados
 python main.py --monitor --input-dir ./custom/input --output-dir ./custom/output
 ```
 
-## 📊 Formato de Saída
-
-O agente gera arquivos JSON com a seguinte estrutura:
+## Output format
 
 ```json
 {
   "metadata": {
-    "arquivo_origem": "transcricao_20241208.txt",
-    "data_processamento": "2024-12-08T20:30:00",
-    "modelo_usado": "gpt-4o-mini"
+    "arquivo_origem": "transcription_20260610.txt",
+    "data_processamento": "2026-06-10T20:30:00",
+    "modelo_usado": "claude-haiku-4-5-20251001"
   },
   "analise_personas": {
     "personas": [
       {
         "id": "persona_1",
-        "nome": "João Silva",
-        "papel": "Cliente",
-        "caracteristicas": ["Interessado em produto X", "Trabalha na área Y"],
-        "contexto": "Cliente buscando solução para problema Z",
+        "nome": "Usuário Final",
+        "papel": "Ator do sistema",
+        "caracteristicas": ["Opera o sistema no dia a dia"],
+        "contexto": "Responsável por acompanhar o saldo orçamentário",
         "trechos_relevantes": ["Eu preciso de...", "Meu problema é..."]
       }
     ],
-    "resumo_conversa": "Conversa de vendas...",
-    "tipo_interacao": "atendimento ao cliente"
+    "resumo_conversa": "...",
+    "tipo_interacao": "levantamento de requisitos"
   },
   "historias_usuario": {
     "user_stories": [
       {
         "persona_id": "persona_1",
-        "persona_nome": "João Silva",
+        "persona_nome": "Usuário Final",
         "historias": [
           {
             "id": "story_1",
-            "historia": "Como cliente, eu quero X para Y",
+            "historia": "Como usuário final, eu quero X para Y",
             "prioridade": "alta",
             "contexto": "...",
             "trecho_base": "..."
@@ -144,75 +114,31 @@ O agente gera arquivos JSON com a seguinte estrutura:
 }
 ```
 
-## 🔄 Fluxo de Integração
+## Configuration
 
-```
-Agente Transcrição → data/output/transcricao.txt
-                          ↓
-        Agente Identificação (monitora)
-                          ↓
-        Identifica Personas + LLM
-                          ↓
-        Gera User Stories + LLM
-                          ↓
-    data/output/transcricao_personas_TIMESTAMP.json
-```
+| Variable | Description | Default |
+|---|---|---|
+| `ANTHROPIC_API_KEY` | Anthropic API key | *required* |
+| `ANTHROPIC_MODEL` | Claude model | `claude-haiku-4-5-20251001` |
+| `INPUT_DIR` | Input directory | `../agente-transcricao/data/output` |
+| `OUTPUT_DIR` | Output directory | `./data/output` |
+| `PROCESSED_DIR` | Processed-files tracking | `./data/processed` |
+| `CHECK_INTERVAL` | Monitor polling interval (s) | `5` |
+| `MAX_RETRIES` | API retry attempts | `3` |
 
-## ⚙️ Configurações
+## Implementation notes
 
-### Variáveis de Ambiente (.env)
+- **Personas are system actors, not meeting attendees.** The prompts explicitly separate `participantes_reuniao` (who spoke) from `atores_sistema` (who will use the software). Using attendees as actors was a v1 failure mode, fixed via prompt engineering.
+- **INVEST — main failure mode:** the "Small" criterion (stories too broad); "Estimable" and "Testable" are also frequent gaps, especially for aspirational/aesthetic requirements. See the evaluation ([`../evaluation/`](../evaluation/)) for the quantitative INVEST results.
+- `_parse_json_response()` in `persona_identifier.py` strips markdown code fences (```json … ```) before parsing, because the LLM often wraps its JSON output.
+- `processed_files.txt` in `PROCESSED_DIR` prevents reprocessing; delete it to reprocess a file.
 
-| Variável | Descrição | Padrão |
-|----------|-----------|--------|
-| `OPENAI_API_KEY` | Chave da API OpenAI | *Obrigatório* |
-| `OPENAI_MODEL` | Modelo a usar | `gpt-4o-mini` |
-| `INPUT_DIR` | Diretório de entrada | `../agente-transcricao/data/output` |
-| `OUTPUT_DIR` | Diretório de saída | `./data/output` |
-| `PROCESSED_DIR` | Controle de processados | `./data/processed` |
-| `CHECK_INTERVAL` | Intervalo de verificação (s) | `5` |
-| `MAX_RETRIES` | Tentativas em caso de erro | `3` |
+## Troubleshooting
 
-### Modelos Recomendados
+- **"ANTHROPIC_API_KEY not found":** make sure `.env` exists and the key is set.
+- **No files processed:** check that the input directory actually contains `.txt` files.
+- **Invalid JSON from the model:** handled automatically — the client retries (default 3 attempts).
 
-- **gpt-4o-mini**: Rápido e econômico (recomendado)
-- **gpt-4o**: Mais preciso, mais caro
-- **gpt-4-turbo**: Alternativa balanceada
+## Author
 
-## 🐛 Troubleshooting
-
-### Erro: "OPENAI_API_KEY não encontrada"
-
-```bash
-# Verifique se o .env existe e está configurado
-notepad .env
-```
-
-### Nenhum arquivo processado
-
-```bash
-# Verifique se há arquivos .txt no diretório de entrada
-dir ..\agente-transcricao\data\output\*.txt
-```
-
-### Erro de JSON
-
-O modelo pode ocasionalmente retornar JSON inválido. O sistema tem retry automático (3 tentativas).
-
-## 📝 Desenvolvimento
-
-### Modificar Prompts
-
-Edite `config/prompts.py` para ajustar como o LLM identifica personas e cria user stories.
-
-### Adicionar Novos Campos
-
-Modifique os prompts em `config/prompts.py` e ajuste a estrutura esperada em `persona_identifier.py`.
-
-## 👤 Autor
-
-Gabriel Ferreira Silva - Projeto Final de Curso
-
----
-
-**Status**: ✅ Em desenvolvimento
-**Versão**: 1.0.0
+Gabriel Ferreira Silva — TCC/PFC, Institute of Informatics, UFG (2026). See the [root README](../README.md) for the full project, results, and written work.
