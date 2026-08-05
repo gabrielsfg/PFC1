@@ -1,23 +1,32 @@
-{% if document.title -%}
-# {{ document.title }}
-{% else -%}
-# {{ document.project_code }} – {{ document.client }} – {{ document.product }} – {{ document.phase }}
-{% endif %}
-## Documento de Requisitos
+{# Valori document format.
+   Cover page + revision history + Sumário + requirements sections.
+   The cover and colours are produced by the CSS in document_renderer.py
+   (_VALORI_CSS); this template only supplies the structure and the
+   `valori-*` class hooks the CSS styles. #}
+{# Cover: Valori logo, gold rules bracketing the title block, version and notes. #}
+<div class="valori-cover">
+  <img class="valori-cover-shield" src="{{ logo_data_uri }}" alt="Valori" />
+  <div class="valori-cover-rule top"></div>
+  <div class="valori-cover-title">{{ document.cover_tagline or 'Documento de Requisitos' }}</div>
+  <div class="valori-cover-subtitle">{{ document.title or document.product }}</div>
+  <div class="valori-cover-rule bottom"></div>
+  <div class="valori-cover-version">Versão {{ document.version }}</div>
+  <div class="valori-cover-note">{{ document.cover_footer or 'Documento elaborado pela equipe de engenharia' }}</div>
+  <div class="valori-cover-confidential">Confidencial — Uso Interno</div>
+</div>
 
-**Versão:** {{ document.version }}
+{# The cover already ends its own page (page-break-after), so no break here. #}
+<div class="valori-body" markdown="1">
 
----
+## Histórico de Revisões
 
-## Controle de Versão do Documento
-
-| Data | Versão | Descrição | Autor(es) |
-|------|--------|-----------|-----------|
+| Versão | Data | Autor(es) | Descrição |
+|--------|------|-----------|-----------|
 {% for entry in document.version_history -%}
-| {{ entry.date }} | {{ entry.version }} | {{ entry.description }} | {{ entry.authors }} |
+| {{ entry.version }} | {{ entry.date }} | {{ entry.authors }} | {{ entry.description }} |
 {% endfor %}
 
----
+<div class="valori-page-break"></div>
 
 ## Sumário
 
@@ -33,30 +42,30 @@
 {% endfor %}{% endif %}{% if project_notes and (project_notes.resumo or project_notes.pontos) %}- [**Anexo — Gestão e Decisões do Projeto**](#{{ 'Anexo — Gestão e Decisões do Projeto' | slug }})
 {% endif %}
 
----
+<div class="valori-page-break"></div>
 
 ## Funcionalidade: {{ feature.name }}
 
 {{ feature.description }}
 
----
-
 ## 1. Requisitos Funcionais
-
-### 1.1 Funcionalidades
 
 Esta seção apresenta os requisitos funcionais da funcionalidade **{{ feature.name }}**, descrevendo as operações e os comportamentos esperados do sistema.
 
 {% for rf in functional_requirements -%}
-#### {{ rf.id }} – {{ rf.name }}
+### {{ rf.id }} – {{ rf.name }}
 
 {% if rf.screen -%}
 **Tela:** {{ rf.screen }}
 
 {% endif -%}
+<div class="valori-box valori-box-detalhe" markdown="1">
+
 **Detalhamento:**
 
 {{ rf.detail }}
+
+</div>
 
 {% if rf.comments -%}
 **Comentários:**
@@ -64,8 +73,6 @@ Esta seção apresenta os requisitos funcionais da funcionalidade **{{ feature.n
 {{ rf.comments }}
 
 {% endif -%}
----
-
 {% endfor -%}
 ## 2. Regras de Negócio
 
@@ -81,14 +88,12 @@ Esta seção define as regras de negócio aplicáveis à funcionalidade **{{ fea
 {% endfor %}
 
 {% endfor -%}
----
-
 ## 3. Casos de Uso
 
 Esta seção descreve os casos de uso que detalham as interações dos atores com o sistema para a funcionalidade **{{ feature.name }}**.
 
 {% for uc in use_cases -%}
-#### {{ uc.id }} – {{ uc.name }}
+### {{ uc.id }} – {{ uc.name }}
 
 | Campo | Descrição |
 |-------|-----------|
@@ -121,8 +126,6 @@ Esta seção descreve os casos de uso que detalham as interações dos atores co
 {{ loop.index }}. {{ step }}
 {% endfor %}
 {% endfor -%}
----
-
 {% endfor -%}
 {% if non_functional_requirements -%}
 ## 4. Requisitos Não-Funcionais
@@ -130,7 +133,7 @@ Esta seção descreve os casos de uso que detalham as interações dos atores co
 Esta seção apresenta os requisitos não-funcionais (atributos de qualidade) da funcionalidade **{{ feature.name }}**.
 
 {% for rnf in non_functional_requirements -%}
-#### {{ rnf.id }} – {{ rnf.name }}
+### {{ rnf.id }} – {{ rnf.name }}
 
 | Campo | Descrição |
 |-------|-----------|
@@ -138,15 +141,17 @@ Esta seção apresenta os requisitos não-funcionais (atributos de qualidade) da
 | **Descrição** | {{ rnf.description }} |
 | **Critério de Aceitação** | {{ rnf.acceptance_criteria }} |
 
----
-
 {% endfor -%}
 {% endif -%}
 {% if project_notes and (project_notes.resumo or project_notes.pontos) -%}
 ## Anexo — Gestão e Decisões do Projeto
 
-> Esta seção registra, de forma resumida, decisões e ações de gestão do projeto discutidas na reunião.
-> **Não são requisitos do software.**
+<div class="valori-box" markdown="1">
+
+Esta seção registra, de forma resumida, decisões e ações de gestão do projeto discutidas na reunião.
+**Não são requisitos do software.**
+
+</div>
 
 {% if project_notes.resumo -%}
 {{ project_notes.resumo }}
@@ -156,3 +161,4 @@ Esta seção apresenta os requisitos não-funcionais (atributos de qualidade) da
 - {{ ponto }}
 {% endfor %}
 {% endif -%}
+</div>

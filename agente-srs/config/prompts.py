@@ -103,7 +103,7 @@ Dados da reunião:
 - Resumo: {conversation_summary}
 - Tipo de interação: {interaction_type}
 - Personas identificadas: {personas_summary}
-
+{acronyms_block}
 Retorne um JSON:
 {{
   "name": "nome curto e objetivo da funcionalidade (ex.: 'Manutenção de Saldo Orçamentário')",
@@ -115,16 +115,33 @@ REQUISITOS FUNCIONAIS no formato de um "Documento de Requisitos" corporativo, em
 
 Histórias de usuário:
 {user_stories}
-
+{acronyms_block}
 Regras:
 - Descreva cada requisito de forma MACRO (a funcionalidade específica), não atômica.
 - CONSOLIDE: agrupe histórias que descrevem a MESMA capacidade do sistema em um único requisito denso,
   evitando fragmentar uma funcionalidade em vários RF. Prefira menos requisitos, porém mais completos.
   Não há número fixo — gere quantos forem necessários para cobrir o núcleo funcional, sem repetir.
+
+- REGRA CRÍTICA — UM ASSUNTO, UM REQUISITO. Em reuniões o mesmo tema é discutido em vários
+  momentos: fala-se de um assunto, passa-se a outro e depois VOLTA-SE ao primeiro. Isso NÃO
+  significa que existem dois requisitos. Antes de escrever a lista final:
+  1. Agrupe mentalmente todas as histórias que tratam do MESMO tema/capacidade, mesmo que
+     estejam distantes na lista e usem palavras diferentes.
+  2. Escreva UM ÚNICO requisito por tema, reunindo nele TODAS as informações mencionadas nos
+     diferentes momentos (o detalhamento fica mais completo, não repetido).
+  3. Releia a lista antes de responder: se dois requisitos poderiam ser descritos pela mesma
+     frase, ou se um é caso particular do outro, FUNDA-OS em um só.
+- É melhor um requisito completo e bem detalhado do que dois requisitos parecidos e rasos.
+  NUNCA gere dois blocos que digam essencialmente a mesma coisa com palavras diferentes.
+
 - Inclua APENAS requisitos de COMPORTAMENTO DO SOFTWARE (o que o sistema deve fazer). EXCLUA discussões de
   gestão de projeto e atividades da equipe: priorização de escopo, EAP, cronograma, negociação de prazos,
   alocação de pessoas, reuniões de validação, mapeamento de código, transferência de conhecimento. Se um item
   descreve uma atividade humana de processo (não um comportamento do sistema), NÃO o liste como requisito.
+- IGNORE COMPLETAMENTE trechos que não são sobre o projeto/problema: conversa fiada, saudações e
+  despedidas, problemas técnicos da chamada ("está me ouvindo?", "caiu a conexão", "compartilha a
+  tela"), interrupções (alguém entra/sai da sala, telefone, alguém chamando outra pessoa), pausas,
+  assuntos pessoais, piadas, comentários sobre almoço/café/clima/futebol. Nada disso gera requisito.
 - Cada requisito tem um nome em CAIXA ALTA curto e um detalhamento claro e resumido.
 - Numere RF1, RF2, RF3, ... (sem zeros à esquerda).
 - "comments" é opcional (observações, restrições, validações de acesso); use "" quando não houver.
@@ -148,12 +165,19 @@ derive as REGRAS DE NEGÓCIO em português (Brasil), agrupadas por contexto.
 Funcionalidade: {feature_name}
 Histórias de usuário:
 {user_stories}
-
+{acronyms_block}
 Regras:
 - Considere APENAS regras de negócio do SOFTWARE (validações, restrições, comportamentos condicionais).
   EXCLUA discussões de gestão de projeto/processo (cronograma, EAP, prazos, alocação, reuniões, mapeamento
   de código, transferência de conhecimento) — isso não é regra de negócio do sistema.
-- Agrupe as regras por contexto (ex.: "Regras de uso – <assunto>").
+- IGNORE trechos que não são sobre o projeto: conversa fiada, saudações/despedidas, problemas da
+  chamada, interrupções (alguém entra na sala, telefone), assuntos pessoais. Não geram regras.
+- SEM DUPLICIDADE: o mesmo assunto costuma ser discutido em momentos diferentes da reunião. Cada
+  regra deve aparecer UMA ÚNICA VEZ no documento inteiro — não repita a mesma regra em dois grupos
+  nem crie duas regras que dizem o mesmo com palavras diferentes. Antes de responder, releia a
+  lista completa e funda as regras equivalentes.
+- Agrupe as regras por contexto (ex.: "Regras de uso – <assunto>"). Use poucos grupos, bem definidos:
+  não crie dois grupos para o mesmo assunto.
 - Numere as regras como RN01, RN02, ... dentro de cada grupo (a numeração final contínua é ajustada depois).
 - Cada regra tem um nome curto e um detalhamento claro.
 - Se a reunião não deixar regras explícitas, infira regras plausíveis e conservadoras a partir do contexto.
@@ -178,11 +202,17 @@ Contexto: {persona_contexto}
 
 Histórias de usuário:
 {stories}
-
+{acronyms_block}{existing_use_cases}
 Regras:
 - O ATOR de cada caso de uso é a PERSONA DO SISTEMA (usuário do software), não um participante da reunião.
 - Crie casos de uso APENAS para interações com o SOFTWARE. EXCLUA atividades de gestão de projeto/processo
   (priorização de escopo, EAP, prazos, reuniões, mapeamento de código, transferência de conhecimento).
+- IGNORE trechos que não são sobre o projeto: conversa fiada, saudações/despedidas, problemas da
+  chamada, interrupções (alguém entra na sala, telefone), assuntos pessoais. Não geram casos de uso.
+- SEM DUPLICIDADE: o mesmo assunto é frequentemente retomado em vários momentos da reunião. Crie UM
+  ÚNICO caso de uso por interação distinta com o sistema, reunindo nele tudo o que foi dito sobre
+  aquela interação. Se duas histórias descrevem a mesma interação com palavras diferentes, gere
+  apenas um caso de uso. Antes de responder, releia a lista e funda os equivalentes.
 - Crie um caso de uso por interação distinta com o sistema (agrupe histórias muito próximas).
 - Cada caso de uso tem: objetivo, ator, pré-condições, pós-condições, fluxo principal numerado e,
   quando fizer sentido, fluxos alternativos (FA001, FA002, ...) e de exceção (FE001, FE002, ...).
@@ -217,9 +247,12 @@ usuário abaixo, derive os REQUISITOS NÃO-FUNCIONAIS em português (Brasil).
 Funcionalidade: {feature_name}
 Histórias de usuário:
 {user_stories}
-
+{acronyms_block}
 Regras:
 - Numere RNF1, RNF2, ... (sem zeros à esquerda).
+- SEM DUPLICIDADE: cada requisito não-funcional deve aparecer uma única vez; não gere dois
+  requisitos que expressem a mesma exigência com palavras diferentes.
+- IGNORE trechos que não são sobre o projeto (conversa fiada, interrupções, problemas da chamada).
 - Cada requisito tem nome, categoria (Desempenho / Segurança / Usabilidade / Disponibilidade / etc.),
   descrição e critério de aceitação (como será validado).
 - Se a reunião não deixar requisitos explícitos, infira requisitos plausíveis e conservadores.

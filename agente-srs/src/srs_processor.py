@@ -12,15 +12,18 @@ from src.document_renderer import DocumentRenderer
 
 class SRSProcessor:
     def __init__(self, output_dir: str = "./data/output", fmt: str = "ieee",
-                 project_name: str = ""):
+                 project_name: str = "", acronyms: str = ""):
         self.output_dir = Path(output_dir)
         self.output_dir.mkdir(parents=True, exist_ok=True)
         self.images_dir = self.output_dir / "images"
         self.images_dir.mkdir(parents=True, exist_ok=True)
         self.fmt = fmt
-        # Optional human title for the empresa document (used as H1 + output filename).
+        # Optional human title for the empresa/valori document (used as title + filename).
         self.project_name = (project_name or os.getenv("EMPRESA_PROJECT_NAME", "")).strip()
-        if fmt == "empresa":
+        # Acronyms the user declared in the GUI — extra context for the LLM prompts.
+        self.acronyms = (acronyms or "").strip()
+        # empresa and valori share the generator; only the rendering differs.
+        if fmt in ("empresa", "valori"):
             self.generator = FeatureRequirementsGenerator()
         else:
             self.generator = SRSGenerator(self.images_dir)
@@ -35,7 +38,7 @@ class SRSProcessor:
         if agent2_output is None:
             return None
 
-        if self.fmt == "empresa":
+        if self.fmt in ("empresa", "valori"):
             return self._process_empresa(json_path, agent2_output)
         return self._process_ieee(json_path, agent2_output)
 
@@ -64,12 +67,15 @@ class SRSProcessor:
         }
 
     def _process_empresa(self, json_path: Path, agent2_output: Agent2Output) -> dict:
-        doc_meta = default_empresa_meta()
+        is_valori = self.fmt == "valori"
+        doc_meta = default_valori_meta() if is_valori else default_empresa_meta()
         if self.project_name:
-            doc_meta.title = self.project_name  # used as the H1 document title
+            doc_meta.title = self.project_name  # used as the document title
         # RNF section is optional (the SGG model document has none). On by default.
         include_nfr = os.getenv("EMPRESA_INCLUDE_NFR", "true").strip().lower() not in ("0", "false", "no", "nao", "não")
-        document = self.generator.generate(agent2_output, doc_meta, include_nfr=include_nfr)
+        document = self.generator.generate(
+            agent2_output, doc_meta, include_nfr=include_nfr, acronyms=self.acronyms
+        )
 
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
         # Name the output after the project name when provided, else the JSON stem.
@@ -79,13 +85,20 @@ class SRSProcessor:
         pdf_path = self.output_dir / f"{stem}.pdf"
 
         print("Renderizando Markdown...")
-        self.renderer.render_feature_markdown(document, md_path)
+        if is_valori:
+            self.renderer.render_valori_markdown(document, md_path)
+        else:
+            self.renderer.render_feature_markdown(document, md_path)
         print(f"  -> {md_path}")
 
         # WeasyPrint so the Sumário gets page numbers (CSS target-counter).
-        pdf_path = self._render_pdf(md_path, pdf_path, engine="weasyprint")
+        pdf_path = self._render_pdf(
+            md_path, pdf_path, engine="weasyprint",
+            theme="valori" if is_valori else "default",
+        )
 
-        print("\nDocumento de Requisitos (formato empresa) gerado com sucesso!")
+        label = "Valori" if is_valori else "formato empresa"
+        print(f"\nDocumento de Requisitos ({label}) gerado com sucesso!")
         return {
             "source": str(json_path),
             "markdown": str(md_path),
@@ -96,10 +109,11 @@ class SRSProcessor:
             "non_functional_requirements": len(document.non_functional_requirements),
         }
 
-    def _render_pdf(self, md_path: Path, pdf_path: Path, engine: str = "auto") -> Path | None:
+    def _render_pdf(self, md_path: Path, pdf_path: Path, engine: str = "auto",
+                    theme: str = "default") -> Path | None:
         print("Renderizando PDF...")
         try:
-            self.renderer.render_pdf(md_path, pdf_path, engine=engine)
+            self.renderer.render_pdf(md_path, pdf_path, engine=engine, theme=theme)
             print(f"  -> {pdf_path}")
             return pdf_path
         except Exception as e:
@@ -168,4 +182,39 @@ def default_empresa_meta() -> EmpresaDocumentMeta:
                 authors="<autor>",
             )
         ],
+    )
+
+
+_MONTHS_PT = (
+    "janeiro", "fevereiro", "março", "abril", "maio", "junho",
+    "julho", "agosto", "setembro", "outubro", "novembro", "dezembro",
+)
+
+
+def default_valori_meta() -> EmpresaDocumentMeta:
+    """Document metadata for the Valori format.
+
+    Same placeholder rationale as default_empresa_meta(), plus the cover-page
+    fields. Unlike the empresa format, the dates default to today (the cover
+    shows a real date) instead of a placeholder.
+    """
+    today = datetime.now()
+    long_date = f"{today.day} de {_MONTHS_PT[today.month - 1]} de {today.year}"
+    return EmpresaDocumentMeta(
+        project_code="PR0XX",
+        client="Valori",
+        product="<PRODUTO>",
+        phase="<FASE>",
+        version="1.0.0",
+        version_history=[
+            VersionEntry(
+                date=today.strftime("%d/%m/%Y"),
+                version="1.0.0",
+                description="Criação do documento",
+                authors="Equipe de Engenharia",
+            )
+        ],
+        cover_tagline="Documento de Requisitos",
+        cover_date=long_date,
+        cover_footer="Documento elaborado pela equipe de engenharia",
     )

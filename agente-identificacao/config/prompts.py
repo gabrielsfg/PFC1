@@ -30,6 +30,15 @@ Separe também, de forma RESUMIDA, as DISCUSSÕES DE GESTÃO DE PROJETO (cronogr
 equipe, reuniões de validação, priorização de escopo, mapeamento de código, transferência de conhecimento)
 no campo "gestao_projeto" — essas discussões NÃO são requisitos do software, mas devem ser registradas à parte.
 
+DESCARTE trechos que NÃO tratam do projeto/problema. Uma reunião real contém muito conteúdo irrelevante
+que não deve influenciar a análise nem aparecer no documento final:
+- conversa fiada, saudações, despedidas, assuntos pessoais, piadas, comentários sobre clima/almoço/futebol;
+- problemas técnicos da chamada ("está me ouvindo?", "travou", "caiu", "compartilha a tela", "liga a câmera");
+- interrupções: alguém entra ou sai da sala/reunião, telefone tocando, alguém chamando outra pessoa,
+  conversas paralelas com terceiros que não participam da reunião;
+- pausas, esperas ("vamos aguardar o João entrar"), testes de áudio, avisos administrativos.
+Ignore completamente esses trechos: eles não geram personas, nem necessidades, nem requisitos.
+
 Retorne em formato JSON:
 
 {{
@@ -71,7 +80,18 @@ REGRAS IMPORTANTES:
 - Escreva do ponto de vista do ATOR DO SISTEMA (use o campo "personas", NÃO os "participantes_reuniao").
 - Inclua APENAS necessidades de COMPORTAMENTO DO SOFTWARE. NÃO crie histórias sobre gestão de projeto
   (cronograma, EAP, prazos, alocação de equipe, reuniões, mapeamento de código, transferência de conhecimento).
-- Consolide histórias redundantes; foque no que o sistema deve fazer para cada ator.
+- NÃO crie histórias a partir de conversa fiada, saudações, interrupções (alguém entrando na sala,
+  telefone), problemas técnicos da chamada ou assuntos pessoais — nada disso é necessidade do sistema.
+
+- CONSOLIDAÇÃO (regra crítica): em reuniões reais o mesmo assunto é retomado várias vezes — discute-se
+  um tema, passa-se a outro e depois VOLTA-SE ao primeiro. Isso NÃO significa que há duas necessidades.
+  Cada necessidade distinta deve gerar UMA ÚNICA história, reunindo tudo o que foi dito sobre ela nos
+  diferentes momentos da reunião.
+- Antes de responder, releia todas as histórias que você criou: se duas descrevem o mesmo objetivo com
+  palavras diferentes, ou se uma é caso particular da outra, FUNDA-AS em uma só. Isso vale também
+  ENTRE personas diferentes — se a mesma necessidade serve a duas personas, atribua-a à persona mais
+  adequada, sem repeti-la nas duas.
+- Prefira menos histórias, mais completas, a muitas histórias parecidas.
 
 Retorne em formato JSON:
 

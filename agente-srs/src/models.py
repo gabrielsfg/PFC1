@@ -150,6 +150,11 @@ class EmpresaDocumentMeta(BaseModel):
     # Optional human-friendly document title. When set, it is used as the H1 title
     # (instead of the "code – client – product – phase" line). Collected via the GUI.
     title: str = ""
+    # ── Valori format only: cover-page fields ────────────────────────────────
+    # Not derivable from the audio; filled by default_valori_meta() / the GUI.
+    cover_tagline: str = ""   # line under the title (teal on the cover)
+    cover_date: str = ""      # long-form date, e.g. "4 de agosto de 2026"
+    cover_footer: str = ""    # "Documento elaborado pela equipe de ..."
 
 
 class Feature(BaseModel):

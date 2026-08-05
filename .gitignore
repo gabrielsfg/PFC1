@@ -62,10 +62,6 @@ Corpus/
 
 # Atalhos do Windows
 *.lnk
-# Documentation (monografia LaTeX, PDFs de citações, exemplos — não versionar).
-# Exceção: conventions.md, doc legítima do repositório referenciada pelo CLAUDE.md.
-Documentation/*
-!Documentation/conventions.md
 
 # Análises usadas na escrita do TCC (material pessoal — não versionar).
 analise-tcc/
@@ -84,13 +80,20 @@ evaluation/usage.csv
 # Audio files
 *.wav
 *.mp3
-*.mp4
 *.ogg
 *.flac
 *.m4a
 *.aac
 *.opus
+
+# Video files (entradas do Agente 1 — arquivos muito grandes)
+*.mp4
 *.webm
+*.mov
+*.avi
+*.mkv
+*.wmv
+*.m4v
 
 # Logs
 *.log
@@ -98,6 +101,19 @@ evaluation/usage.csv
 # Temporary files
 *.tmp
 *~
+*.bak
+*.orig
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Node (caso alguma ferramenta auxiliar use npm)
+node_modules/
+
+# Diagramas gerados (PlantUML renderizado via kroki.io — recriados a cada run)
+*.puml.png
+*.puml.svg
+**/diagrams/
 
 # External files
 .claude/Documents

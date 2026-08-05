@@ -48,7 +48,60 @@ def _venv_python(agent_dir: str) -> str:
 
 
 def _fmt_label(fmt: str) -> str:
-    return "IEEE 830" if fmt == "ieee" else "Empresa (SGG)"
+    return {"ieee": "IEEE 830", "empresa": "Empresa (SGG)", "valori": "Valori"}.get(fmt, fmt)
+
+
+def _write_acronyms_file(acronyms: str) -> Path | None:
+    """Persists the acronym table next to the outputs so Agent 3 can read it.
+
+    Multi-line text is awkward to pass as a CLI argument, so it travels as a file.
+    Returns None when the user declared no acronyms.
+    """
+    text = (acronyms or "").strip()
+    if not text:
+        return None
+    out_dir = _ROOT / "data"
+    out_dir.mkdir(parents=True, exist_ok=True)
+    path = out_dir / "siglas.txt"
+    path.write_text(text, encoding="utf-8")
+    return path
+
+
+def _apply_acronyms(txt_path: Path, acronyms: str, log=print) -> Path:
+    """Rewrites mis-transcribed acronyms in the transcription file, in place.
+
+    Whisper garbles domain acronyms it has never heard (the "HIPOF" for "IPOF"
+    case). Fixing the .txt before Agent 2 stops the error from propagating
+    through the whole pipeline. Returns the path of the corrected file.
+    """
+    text = (acronyms or "").strip()
+    if not text:
+        return txt_path
+
+    sys.path.insert(0, str(_ROOT / "agente-transcricao"))
+    from src.stt.acronym_corrector import parse_acronyms, correct_transcription  # type: ignore
+
+    parsed = parse_acronyms(text)
+    if not parsed:
+        return txt_path
+
+    original = txt_path.read_text(encoding="utf-8")
+    corrected, report = correct_transcription(original, parsed)
+    if not report:
+        log(f"Siglas: nenhuma correção necessária ({len(parsed)} sigla(s) declarada(s)).")
+        return txt_path
+
+    # Keep the raw Whisper output for traceability (the TCC compares WER/CER).
+    backup = txt_path.with_name(f"{txt_path.stem}_original{txt_path.suffix}")
+    if not backup.exists():
+        backup.write_text(original, encoding="utf-8")
+    txt_path.write_text(corrected, encoding="utf-8")
+
+    total = sum(report.values())
+    log(f"Siglas: {total} correção(ões) aplicada(s) na transcrição.")
+    for change, count in sorted(report.items(), key=lambda kv: -kv[1]):
+        log(f"   • {change} ({count}x)")
+    return txt_path
 
 
 def _run_agent2(txt_path: Path) -> Path:
@@ -71,7 +124,8 @@ def _run_agent2(txt_path: Path) -> Path:
     return candidates[0]
 
 
-def _run_agent3(json_path: Path, fmt: str = "ieee", project_name: str = "") -> Path:
+def _run_agent3(json_path: Path, fmt: str = "ieee", project_name: str = "",
+                acronyms: str = "") -> Path:
     import subprocess
     import time as _time
     python = _venv_python("agente-srs")
@@ -80,6 +134,9 @@ def _run_agent3(json_path: Path, fmt: str = "ieee", project_name: str = "") -> P
     cmd = [python, "main.py", "--file", str(json_path.resolve()), "--format", fmt]
     if project_name:
         cmd += ["--project-name", project_name]
+    acronyms_file = _write_acronyms_file(acronyms)
+    if acronyms_file:
+        cmd += ["--acronyms-file", str(acronyms_file.resolve())]
     result = subprocess.run(cmd, cwd=str(_ROOT / "agente-srs"), capture_output=False)
     if result.returncode != 0:
         raise RuntimeError("Agent 3 falhou.")
@@ -116,14 +173,15 @@ def _run_agent4(json_path: Path, srs_md_path: Path) -> dict:
     }
 
 
-def _run_agents3_and_4(json_path: Path, fmt: str = "ieee", project_name: str = "") -> dict:
+def _run_agents3_and_4(json_path: Path, fmt: str = "ieee", project_name: str = "",
+                       acronyms: str = "") -> dict:
     print(f"\n{'='*60}")
     print(f"AGENT 3 — Documento ({_fmt_label(fmt)})")
     print(f"{'='*60}")
-    srs_md = _run_agent3(json_path, fmt, project_name=project_name)
+    srs_md = _run_agent3(json_path, fmt, project_name=project_name, acronyms=acronyms)
 
     if fmt != "ieee":
-        # The empresa format has no diagrams: Agent 3's output is the final document.
+        # empresa/valori have no diagrams: Agent 3's output is the final document.
         pdf = srs_md.with_suffix(".pdf")
         return {
             "markdown": str(srs_md),
@@ -141,21 +199,26 @@ def _run_agents3_and_4(json_path: Path, fmt: str = "ieee", project_name: str = "
 
 # ── Entry points per starting stage ──────────────────────────────────────────
 
-def _from_transcript(txt_path: Path, fmt: str = "ieee", project_name: str = "") -> None:
+def _from_transcript(txt_path: Path, fmt: str = "ieee", project_name: str = "",
+                     acronyms: str = "") -> None:
+    # Fix garbled acronyms before Agent 2, so the error does not propagate.
+    txt_path = _apply_acronyms(txt_path, acronyms)
     print(f"\n{'='*60}")
     print("AGENT 2 — Identificação de Personas")
     print(f"{'='*60}")
     json_path = _run_agent2(txt_path)
-    result = _run_agents3_and_4(json_path, fmt, project_name=project_name)
+    result = _run_agents3_and_4(json_path, fmt, project_name=project_name, acronyms=acronyms)
     _print_summary(result)
 
 
-def _from_json(json_path: Path, fmt: str = "ieee", project_name: str = "") -> None:
-    result = _run_agents3_and_4(json_path, fmt, project_name=project_name)
+def _from_json(json_path: Path, fmt: str = "ieee", project_name: str = "",
+               acronyms: str = "") -> None:
+    result = _run_agents3_and_4(json_path, fmt, project_name=project_name, acronyms=acronyms)
     _print_summary(result)
 
 
-def _from_audio(audio_path: Path, fmt: str = "ieee", project_name: str = "") -> None:
+def _from_audio(audio_path: Path, fmt: str = "ieee", project_name: str = "",
+                acronyms: str = "") -> None:
     sys.path.insert(0, str(_ROOT / "agente-transcricao"))
     from src.stt import transcription_service  # type: ignore
     from src.stt.groq_transcriber import GroqUnavailableError  # type: ignore
@@ -173,7 +236,7 @@ def _from_audio(audio_path: Path, fmt: str = "ieee", project_name: str = "") -> 
 
     txt_path, _ = transcription_service.save_transcription(audio_path, result)
     print(f"Transcrição salva em: {txt_path}")
-    _from_transcript(txt_path, fmt, project_name=project_name)
+    _from_transcript(txt_path, fmt, project_name=project_name, acronyms=acronyms)
 
 
 def _full_pipeline(initial_fmt: str = "ieee") -> None:
@@ -288,6 +351,9 @@ def _full_pipeline(initial_fmt: str = "ieee") -> None:
 
     def _process(input_path):
         fmt = format_var.get()
+        # Read the widgets once, here on entry: _process runs on a worker thread.
+        acronyms = get_acronyms()
+        project_name = project_name_var.get().strip()
         # Overall progress slices (start%, end%) per pipeline stage.
         if fmt == "ieee":
             total = 4
@@ -325,6 +391,12 @@ def _full_pipeline(initial_fmt: str = "ieee") -> None:
             txt_path, _ = transcription_service.save_transcription(input_path, result)
             log("✔ Transcrição concluída.")
 
+            # Fix garbled acronyms now, before Agent 2 — otherwise the error
+            # propagates into every downstream document.
+            if acronyms:
+                ui_status("Corrigindo siglas na transcrição…")
+                txt_path = _apply_acronyms(txt_path, acronyms, log=log)
+
             # ── Stage 2: persona identification (LLM subprocess → animated bar) ──
             ui_phase(f"Etapa 2/{total}: Identificando personas e histórias")
             log("▶ Identificando personas e user stories…")
@@ -342,7 +414,7 @@ def _full_pipeline(initial_fmt: str = "ieee") -> None:
             ui_status("Estruturando os requisitos…")
             set_bar(slices["agent3"][0])
             pulse(True)
-            srs_md = _run_agent3(json_path, fmt, project_name=project_name_var.get().strip())
+            srs_md = _run_agent3(json_path, fmt, project_name=project_name, acronyms=acronyms)
             pulse(False)
             set_bar(slices["agent3"][1])
             log("✔ Documento gerado.")
@@ -444,7 +516,7 @@ def _full_pipeline(initial_fmt: str = "ieee") -> None:
     # === GUI layout ===
     root = tk.Tk()
     root.title("Pipeline de Elicitação de Requisitos")
-    root.geometry("560x710")
+    root.geometry("560x870")
     root.resizable(False, False)
     root.configure(bg="#2b2b2b")
 
@@ -475,6 +547,9 @@ def _full_pipeline(initial_fmt: str = "ieee") -> None:
     tk.Radiobutton(fmt_frame, text="Documento de Requisitos — Empresa (SGG)", variable=format_var,
                    value="empresa", bg="#2b2b2b", fg="white", selectcolor="#444444",
                    activebackground="#2b2b2b", activeforeground="white").pack(anchor="w")
+    tk.Radiobutton(fmt_frame, text="Documento de Requisitos — Valori (com capa)", variable=format_var,
+                   value="valori", bg="#2b2b2b", fg="white", selectcolor="#444444",
+                   activebackground="#2b2b2b", activeforeground="white").pack(anchor="w")
 
     # Project/system name (optional) — used as the document title and output filename.
     name_frame = tk.Frame(root, bg="#2b2b2b")
@@ -485,6 +560,48 @@ def _full_pipeline(initial_fmt: str = "ieee") -> None:
     tk.Entry(name_frame, textvariable=project_name_var, width=52, font=("Helvetica", 10),
              bg="#3c3c3c", fg="white", insertbackground="white",
              relief="flat").pack(anchor="w", ipady=3)
+
+    # ── Acronym table ────────────────────────────────────────────────────────
+    # Whisper garbles domain acronyms it has never heard ("IPOF" -> "HIPOF").
+    # Declaring them here corrects the transcription before Agent 2 runs.
+    acr_frame = tk.Frame(root, bg="#2b2b2b")
+    acr_frame.pack(pady=(2, 6))
+    tk.Label(acr_frame, text="Siglas faladas na reunião (opcional):", font=("Helvetica", 9),
+             bg="#2b2b2b", fg="#cccccc").pack(anchor="w")
+    tk.Label(acr_frame, text="uma por linha — SIGLA = significado", font=("Helvetica", 8),
+             bg="#2b2b2b", fg="#888888").pack(anchor="w")
+    acr_inner = tk.Frame(acr_frame, bg="#2b2b2b")
+    acr_inner.pack(anchor="w")
+    acr_scroll = tk.Scrollbar(acr_inner)
+    acr_scroll.pack(side=tk.RIGHT, fill="y")
+    acronyms_text = tk.Text(acr_inner, height=4, width=52, font=("Consolas", 9),
+                            bg="#3c3c3c", fg="white", insertbackground="white",
+                            bd=0, relief="flat", wrap="none",
+                            yscrollcommand=acr_scroll.set)
+    acronyms_text.pack(side=tk.LEFT, ipady=2)
+    acr_scroll.config(command=acronyms_text.yview)
+    _ACR_HINT = "IPOF = Índice de Programação Orçamentária e Financeira"
+
+    def _acr_focus_in(_event=None):
+        if acronyms_text.get("1.0", "end-1c") == _ACR_HINT:
+            acronyms_text.delete("1.0", "end")
+            acronyms_text.config(fg="white")
+
+    def _acr_focus_out(_event=None):
+        if not acronyms_text.get("1.0", "end-1c").strip():
+            acronyms_text.insert("1.0", _ACR_HINT)
+            acronyms_text.config(fg="#777777")
+
+    # Placeholder text showing the expected format; cleared on focus.
+    acronyms_text.insert("1.0", _ACR_HINT)
+    acronyms_text.config(fg="#777777")
+    acronyms_text.bind("<FocusIn>", _acr_focus_in)
+    acronyms_text.bind("<FocusOut>", _acr_focus_out)
+
+    def get_acronyms() -> str:
+        """The acronym table's content, or "" when only the placeholder is present."""
+        value = acronyms_text.get("1.0", "end-1c").strip()
+        return "" if value == _ACR_HINT else value
 
     # Record section
     tk.Label(root, text="── Gravar reunião ──", font=("Helvetica", 9, "bold"),
@@ -586,11 +703,20 @@ Exemplos:
                        help="Começa a partir de uma transcrição .txt")
     group.add_argument("--from-json", type=Path, metavar="JSON",
                        help="Começa a partir do JSON de saída do Agent 2")
-    parser.add_argument("--format", choices=["ieee", "empresa"], default="ieee",
-                        help="Formato do documento (ieee | empresa). No modo --full há seletor na janela.")
+    parser.add_argument("--format", choices=["ieee", "empresa", "valori"], default="ieee",
+                        help="Formato do documento (ieee | empresa | valori). No modo --full há "
+                             "seletor na janela.")
     parser.add_argument("--project-name", default="",
-                        help="Formato empresa: título do documento e nome do arquivo de saída.")
+                        help="Formatos empresa/valori: título do documento e nome do arquivo de saída.")
+    parser.add_argument("--acronyms-file", type=Path, default=None, metavar="TXT",
+                        help="Arquivo com as siglas faladas na reunião ('SIGLA = significado', uma "
+                             "por linha). Corrige a transcrição e orienta o LLM. No modo --full há "
+                             "um quadro na janela.")
     args = parser.parse_args()
+
+    acronyms = ""
+    if args.acronyms_file and args.acronyms_file.exists():
+        acronyms = args.acronyms_file.read_text(encoding="utf-8")
 
     if args.full:
         _full_pipeline(initial_fmt=args.format)
@@ -599,11 +725,14 @@ Exemplos:
     # CLI modes: time the whole run and report it at the end.
     start = time.time()
     if args.from_audio:
-        _from_audio(args.from_audio, args.format, project_name=args.project_name)
+        _from_audio(args.from_audio, args.format, project_name=args.project_name,
+                    acronyms=acronyms)
     elif args.from_transcript:
-        _from_transcript(args.from_transcript, args.format, project_name=args.project_name)
+        _from_transcript(args.from_transcript, args.format, project_name=args.project_name,
+                         acronyms=acronyms)
     elif args.from_json:
-        _from_json(args.from_json, args.format, project_name=args.project_name)
+        _from_json(args.from_json, args.format, project_name=args.project_name,
+                   acronyms=acronyms)
     print(f"Tempo total de execução: {_format_duration(time.time() - start)}\n")
 
 
